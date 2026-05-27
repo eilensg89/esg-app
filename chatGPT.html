@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Domina ChatGPT — ESG Experience™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#0A0A0A;--cream:#F8F4EC;--cream2:#EFE6D8;--stone:#C8B49A;--body:#3D2010;
+  --brown:#A0622A;--brown2:#7B4F24;--gold:#D4A017;--gold2:#F5D78E;--gold3:#8B6914;
+  --goldgrad:linear-gradient(145deg,#8B6914 0%,#D4A017 34%,#F5D78E 49%,#FFFBF0 54%,#D4A017 67%,#8B6914 100%);
+  --leather:linear-gradient(160deg,#1A0A02 0%,#5C2E0E 20%,#A05A28 35%,#D4965A 48%,#A05A28 62%,#5C2E0E 80%,#1A0A02 100%);
+  --glass:rgba(248,244,236,.72);--glass2:rgba(248,244,236,.56);--line:rgba(123,79,36,.18);
+  --shadow:0 24px 70px rgba(61,32,16,.22), 0 8px 22px rgba(61,32,16,.14), inset 0 1px 0 rgba(255,255,255,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}body{min-height:100vh;font-family:'DM Sans',sans-serif;color:var(--body);background:var(--stone) url('assets/stone-bg.jpeg') center/cover fixed no-repeat;overflow-x:hidden;-webkit-font-smoothing:antialiased}body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 0%,rgba(255,251,240,.72),rgba(248,244,236,.22) 38%,rgba(160,98,42,.08) 100%);z-index:-2}body:after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(248,244,236,.22),rgba(200,180,154,.08));z-index:-1}.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--goldgrad);z-index:99}.top{position:sticky;top:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:rgba(248,244,236,.72);backdrop-filter:blur(22px);border-bottom:1px solid rgba(123,79,36,.14);box-shadow:0 8px 30px rgba(61,32,16,.08)}.brand{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#2a170b}.links{display:flex;gap:8px}.top a,.mini-btn{border:1px solid rgba(123,79,36,.24);background:rgba(248,244,236,.44);color:#3D2010;text-decoration:none;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:8px 11px;border-radius:999px;box-shadow:0 8px 18px rgba(61,32,16,.08);cursor:pointer}.hero{max-width:1020px;margin:0 auto;padding:56px 18px 30px;text-align:center;perspective:1200px}.eyebrow{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--brown2);font-weight:600;margin-bottom:14px}.rule{height:1px;width:min(340px,70vw);margin:0 auto 20px;background:linear-gradient(90deg,transparent,var(--brown2),var(--gold),transparent);position:relative}.rule:after{content:"";position:absolute;left:50%;top:-3px;transform:translateX(-50%);width:42px;height:7px;background:radial-gradient(ellipse,var(--gold2),transparent 70%);filter:blur(1px)}h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(44px,10vw,96px);line-height:.92;letter-spacing:-.035em;color:#271307;text-shadow:0 1px 0 rgba(255,255,255,.45)}h1 em{font-style:italic;background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:610px;margin:20px auto 0;font-size:15px;line-height:1.85;color:rgba(61,32,16,.78)}.emblem{margin:30px auto 0;width:126px;height:126px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(255,251,240,.72),rgba(200,180,154,.22));border:1px solid rgba(212,160,23,.48);box-shadow:0 18px 50px rgba(61,32,16,.18), inset 0 2px 8px rgba(255,255,255,.55);transform:rotateX(10deg)}.emblem:before,.emblem:after{content:"";position:absolute;top:50%;width:128px;height:1px;background:linear-gradient(90deg,transparent,var(--gold3),var(--gold2),transparent)}.emblem:before{right:88px}.emblem:after{left:88px}.emblem img{width:92px;height:92px;border-radius:50%;object-fit:cover;filter:contrast(1.08) saturate(1.15);box-shadow:0 8px 22px rgba(61,32,16,.18)}.nav3d{max-width:1050px;margin:18px auto 34px;padding:0 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;perspective:1200px}.navcard{border:none;cursor:pointer;text-align:left;padding:18px 16px;min-height:112px;border-radius:24px;background:linear-gradient(145deg,rgba(248,244,236,.76),rgba(239,230,216,.48));border:1px solid rgba(255,255,255,.42);box-shadow:var(--shadow);transform-style:preserve-3d;transition:.24s ease;color:var(--body);position:relative;overflow:hidden}.navcard:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.35),transparent 38%,rgba(212,160,23,.11));pointer-events:none}.navcard:hover,.navcard.on{transform:translateY(-8px) rotateX(7deg);box-shadow:0 30px 80px rgba(61,32,16,.28),0 12px 30px rgba(61,32,16,.16)}.navcard.on{border-color:rgba(212,160,23,.52)}.navcard span{display:block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brown2);margin-bottom:14px}.navcard strong{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:27px;line-height:1;color:#251206}.shell{max-width:980px;margin:0 auto 90px;padding:0 16px}.panel{display:none;animation:rise .28s ease}.panel.on{display:block}@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.section-title{margin:8px 0 22px;text-align:center}.section-title h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,7vw,54px);font-weight:300;line-height:1;color:#251206}.section-title em{font-style:italic;background:var(--goldgrad);-webkit-background-clip:text;background-clip:text;color:transparent}.section-title p{font-size:13px;line-height:1.75;max-width:620px;margin:12px auto 0;color:rgba(61,32,16,.72)}.card3d,.accordion{background:linear-gradient(145deg,rgba(248,244,236,.78),rgba(239,230,216,.56));border:1px solid rgba(255,255,255,.46);border-radius:26px;box-shadow:var(--shadow);margin:14px 0;overflow:hidden;backdrop-filter:blur(14px)}.card3d{padding:22px}.kicker{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--brown2);font-weight:600;margin-bottom:8px}.ctitle{font-family:'Cormorant Garamond',serif;font-size:28px;line-height:1.05;font-weight:300;color:#261307;margin-bottom:8px}.txt{font-size:13px;line-height:1.85;color:rgba(61,32,16,.76)}.alert{border-left:2px solid var(--gold);padding:12px 14px;margin:14px 0;background:rgba(212,160,23,.09);font-size:12px;line-height:1.75;color:rgba(61,32,16,.78)}.acc-head{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:14px;padding:18px 18px;cursor:pointer;text-align:left;color:var(--body)}.num{width:34px;height:34px;border-radius:50%;background:var(--goldgrad);display:flex;align-items:center;justify-content:center;color:#1a0a02;font-size:12px;font-weight:600;box-shadow:0 10px 22px rgba(139,105,20,.22);flex-shrink:0}.acc-head div{flex:1}.acc-head h3{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:300;color:#251206;line-height:1.05}.acc-head p{font-size:11px;line-height:1.55;color:rgba(61,32,16,.62);margin-top:4px}.chev{font-size:22px;color:var(--brown2);transition:.2s}.accordion.open .chev{transform:rotate(45deg)}.acc-body{display:none;padding:0 18px 20px 66px}.accordion.open .acc-body{display:block}.steps{display:grid;gap:10px}.step{padding:13px 14px;border-radius:18px;background:rgba(255,251,240,.4);border:1px solid rgba(123,79,36,.12)}.step b{display:block;font-size:12px;color:#251206;margin-bottom:4px}.step span{font-size:12px;line-height:1.65;color:rgba(61,32,16,.72)}.prompt{background:rgba(10,10,10,.86);color:var(--cream2);border:1px solid rgba(212,160,23,.28);border-radius:20px;margin-top:12px;overflow:hidden;box-shadow:0 20px 48px rgba(10,10,10,.18)}.prompt-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid rgba(212,160,23,.13)}.prompt-h span{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);opacity:.82}.copy{border:1px solid rgba(212,160,23,.34);background:rgba(212,160,23,.08);color:var(--gold2);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:7px 11px;border-radius:999px;cursor:pointer}.copy.ok{background:rgba(212,160,23,.24)}pre{white-space:pre-wrap;word-break:break-word;font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.7;padding:14px;max-height:240px;overflow:auto}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.vocab-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.term{padding:16px;border-radius:22px;background:linear-gradient(145deg,rgba(248,244,236,.72),rgba(239,230,216,.46));border:1px solid rgba(255,255,255,.4);box-shadow:0 16px 42px rgba(61,32,16,.13),inset 0 1px rgba(255,255,255,.38)}.term small{display:block;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--brown2);margin-bottom:7px}.term b{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:24px;color:#251206}.term p{font-size:12px;line-height:1.65;color:rgba(61,32,16,.72);margin:6px 0}.term code{display:block;font-family:'DM Sans',sans-serif;font-size:11px;line-height:1.55;color:#251206;background:rgba(212,160,23,.11);padding:8px;border-radius:12px}.footer{max-width:980px;margin:0 auto;padding:26px 18px 46px;text-align:center}.footer .line{height:1px;background:linear-gradient(90deg,transparent,var(--brown2),var(--gold),transparent);margin-bottom:18px}.footer p{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(61,32,16,.62)}@media(max-width:780px){.nav3d{grid-template-columns:repeat(2,1fr);gap:10px}.grid2,.vocab-grid{grid-template-columns:1fr}.acc-body{padding-left:18px}.top{align-items:flex-start}.links{flex-wrap:wrap;justify-content:flex-end}.navcard{min-height:104px}.navcard strong{font-size:24px}.emblem:before,.emblem:after{width:70px}.emblem:before{right:86px}.emblem:after{left:86px}}@media(max-width:420px){.brand{font-size:8px}.top a{font-size:8px;padding:7px 9px}.hero{padding-top:40px}.nav3d{grid-template-columns:1fr}.acc-head{padding:16px}.acc-head h3{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="top">
+  <div class="brand">ESG Experience™</div>
+  <nav class="links">
+    <a href="https://www.instagram.com/eilensg" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/17863032835" target="_blank" rel="noopener">WhatsApp</a>
+  </nav>
+</header>
+<section class="hero">
+  <div class="eyebrow">Manual interactivo</div><div class="rule"></div>
+  <h1>Domina <em>ChatGPT</em><br>sin abrumarte</h1>
+  <p>Una guía práctica para configurar ChatGPT, pedir mejores resultados y usar las funciones nuevas sin caer en tecnicismos.</p>
+  <div class="emblem"><img src="assets/butterfly.jpeg" alt="Mariposa dorada ESG"></div>
+</section>
+<nav class="nav3d">
+  <button class="navcard on" onclick="tab(0,this)"><span>01</span><strong>Configuración</strong></button>
+  <button class="navcard" onclick="tab(1,this)"><span>02</span><strong>Funciones nuevas</strong></button>
+  <button class="navcard" onclick="tab(2,this)"><span>03</span><strong>Vocabulario visual</strong></button>
+  <button class="navcard" onclick="tab(3,this)"><span>04</span><strong>Prompts listos</strong></button>
+</nav>
+<main class="shell">
+  <section class="panel on">
+    <div class="section-title"><h2>Configuración <em>inicial</em></h2><p>Esta parte sí debe estar. Es lo que hace que ChatGPT deje de responder como asistente genérico y empiece a trabajar con contexto.</p></div>
+    <div class="accordion open">
+      <button class="acc-head" onclick="toggleAcc(this)"><span class="num">1</span><div><h3>Personaliza ChatGPT</h3><p>Coloca tu nombre, negocio, audiencia y estilo de respuesta.</p></div><span class="chev">+</span></button>
+      <div class="acc-body">
+        <div class="steps">
+          <div class="step"><b>Dónde entrar</b><span>Foto de perfil → Configuración → Personalización → Personalizar ChatGPT.</span></div>
+          <div class="step"><b>Qué escribir</b><span>Tu nombre, qué haces, a quién ayudas, qué vendes y cómo quieres que te responda.</span></div>
+          <div class="step"><b>Regla</b><span>No escribas una biografía larga. Escribe contexto útil para que la IA trabaje mejor.</span></div>
+        </div>
+        <div class="prompt"><div class="prompt-h"><span>Prompt para campo “sobre mí”</span><button class="copy" onclick="copyBlock(this,'cfg1')">Copiar</button></div><pre id="cfg1">Soy [tu nombre]. Trabajo en [área o tipo de negocio].
+
+Ayudo a [cliente ideal] a conseguir [resultado principal].
+
+Mi marca vende [producto, servicio o contenido].
+
+Mi estilo de comunicación es [directo / cálido / profesional / educativo / estratégico].
+
+Uso ChatGPT para crear contenido, organizar ideas, desarrollar productos digitales, mejorar mis ventas y ahorrar tiempo en tareas de negocio.</pre></div>
+        <div class="prompt"><div class="prompt-h"><span>Prompt para campo “cómo responder”</span><button class="copy" onclick="copyBlock(this,'cfg2')">Copiar</button></div><pre id="cfg2">Respóndeme de forma clara, directa y útil.
+
+No uses relleno.
+No inventes datos.
+No me des la razón si algo está flojo.
+Explícame lo que debo mejorar y dame una versión mejor.
+
+Entrega todo en bloques fáciles de copiar y pegar.
+Cuando cree contenido, usa lenguaje natural, no tono robótico.
+Cuando la tarea sea compleja, organiza en pasos.</pre></div>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)"><span class="num">2</span><div><h3>Activa memoria</h3><p>Para que ChatGPT recuerde datos útiles entre conversaciones.</p></div><span class="chev">+</span></button>
+      <div class="acc-body"><div class="steps"><div class="step"><b>Dónde entrar</b><span>Configuración → Personalización → Memoria.</span></div><div class="step"><b>Cómo usarlo</b><span>Dile: “Recuerda que mi marca se dirige a…” o “Guarda esto para próximas respuestas…”.</span></div><div class="step"><b>Cómo corregir</b><span>Dile: “Olvida…” o “Actualiza esta información…”.</span></div></div><div class="alert">No guardes información innecesaria. La memoria debe ayudar, no llenar ruido.</div></div>
+    </div>
+    <div class="accordion">
+      <button class="acc-head" onclick="toggleAcc(this)"><span class="num">3</span><div><h3>Crea proyectos</h3><p>Un proyecto mantiene documentos, instrucciones y contexto juntos.</p></div><span class="chev">+</span></button>
+      <div class="acc-body"><div class="steps"><div class="step"><b>Un proyecto por área</b><span>Ejemplo: contenido, ventas, productos digitales, marca, clientes.</span></div><div class="step"><b>Sube documentos base</b><span>Guía de marca, ejemplos de contenido, productos, tono de voz y documentos importantes.</span></div><div class="step"><b>Inicia cada chat con contexto</b><span>Usa la instrucción de abajo para activar los documentos del proyecto.</span></div></div><div class="prompt"><div class="prompt-h"><span>Inicio recomendado</span><button class="copy" onclick="copyBlock(this,'startProject')">Copiar</button></div><pre id="startProject">Antes de responder, revisa los documentos, instrucciones y contexto de este proyecto. Luego responde según el objetivo específico de esta conversación.</pre></div></div>
+    </div>
+  </section>
+  <section class="panel">
+    <div class="section-title"><h2>Funciones <em>nuevas</em></h2><p>La idea no es explicar todo técnicamente. La idea es que la persona sepa cuándo usar cada opción.</p></div>
+    <div class="grid2">
+      <div class="card3d"><div class="kicker">Canvas</div><div class="ctitle">Para documentos largos</div><p class="txt">Úsalo cuando quieras escribir, editar o convertir una guía, PDF, landing, email largo o documento con estructura.</p><div class="prompt"><div class="prompt-h"><span>Comando</span><button class="copy" onclick="copyBlock(this,'fnCanvas')">Copiar</button></div><pre id="fnCanvas">Abre esto en Canvas y conviértelo en un documento organizado, editable y listo para convertir en PDF. Mantén títulos claros, secciones cortas y bloques fáciles de copiar.</pre></div></div>
+      <div class="card3d"><div class="kicker">Imágenes</div><div class="ctitle">Para visualizar ideas</div><p class="txt">Úsalo para fotos, mockups, personajes, productos, branding, portadas, carruseles visuales y universos de marca.</p><div class="prompt"><div class="prompt-h"><span>Comando</span><button class="copy" onclick="copyBlock(this,'fnImg')">Copiar</button></div><pre id="fnImg">Crea una fotografía hiperrealista editorial. Mantén continuidad visual, luz cinematográfica, textura natural, fondo limpio y una estética premium. No incluyas texto dentro de la imagen.</pre></div></div>
+      <div class="card3d"><div class="kicker">Búsqueda profunda</div><div class="ctitle">Para investigar</div><p class="txt">Úsala cuando necesitas información actualizada, análisis de mercado, tendencias, comparaciones o fuentes verificables.</p><div class="prompt"><div class="prompt-h"><span>Comando</span><button class="copy" onclick="copyBlock(this,'fnResearch')">Copiar</button></div><pre id="fnResearch">Haz una investigación profunda sobre [tema]. Compara fuentes actuales, resume hallazgos clave, detecta oportunidades y entrégame recomendaciones prácticas para [objetivo].</pre></div></div>
+      <div class="card3d"><div class="kicker">Agente</div><div class="ctitle">Para tareas con pasos</div><p class="txt">Úsalo cuando quieres que ChatGPT ejecute una tarea completa: buscar, organizar, comparar, crear archivos o armar un flujo.</p><div class="prompt"><div class="prompt-h"><span>Comando</span><button class="copy" onclick="copyBlock(this,'fnAgent')">Copiar</button></div><pre id="fnAgent">Actúa como agente de ejecución. Primero analiza el objetivo, luego divide la tarea en pasos, ejecuta lo que puedas directamente y entrégame el resultado final organizado.</pre></div></div>
+    </div>
+    <div class="accordion open"><button class="acc-head" onclick="toggleAcc(this)"><span class="num">+</span><div><h3>Páginas web listas para Vercel</h3><p>Cómo pedir una página HTML funcional con botones copiables.</p></div><span class="chev">+</span></button><div class="acc-body"><div class="prompt"><div class="prompt-h"><span>Prompt web</span><button class="copy" onclick="copyBlock(this,'webPrompt')">Copiar</button></div><pre id="webPrompt">Crea una página web interactiva en un solo archivo HTML con CSS y JavaScript interno.
+
+OBJETIVO: [explica la función de la página]
+ESTILO VISUAL: [describe el branding]
+SECCIONES: [lista las secciones]
+FUNCIONES: botones para copiar prompts, acordeones desplegables, diseño responsive mobile-first.
+
+Entrégame el código completo listo para pegar en index.html y subir a Vercel.</pre></div></div></div>
+    <div class="accordion"><button class="acc-head" onclick="toggleAcc(this)"><span class="num">+</span><div><h3>PDFs y documentos</h3><p>Cómo pedirlo sin hacerlo técnico.</p></div><span class="chev">+</span></button><div class="acc-body"><div class="prompt"><div class="prompt-h"><span>Prompt documento/PDF</span><button class="copy" onclick="copyBlock(this,'pdfPrompt')">Copiar</button></div><pre id="pdfPrompt">Convierte esta información en una guía clara y profesional. Organízala con portada, índice, secciones, ejemplos prácticos, prompts copiables y cierre. El objetivo es que luego pueda exportarse como PDF.</pre></div></div></div>
+  </section>
+  <section class="panel">
+    <div class="section-title"><h2>Vocabulario <em>visual</em></h2><p>Estas palabras ayudan a que ChatGPT entienda más rápido qué tipo de resultado visual quieres.</p></div>
+    <div class="vocab-grid" id="vocab"></div>
+  </section>
+  <section class="panel">
+    <div class="section-title"><h2>Prompts <em>listos</em></h2><p>Bloques rápidos para copiar y pegar. En una página interactiva, esto es lo que más valor percibido genera.</p></div>
+    <div class="accordion open"><button class="acc-head" onclick="toggleAcc(this)"><span class="num">1</span><div><h3>Crear un universo visual</h3><p>Para marcas, personajes, estilos y campañas.</p></div><span class="chev">+</span></button><div class="acc-body"><div class="prompt"><div class="prompt-h"><span>Universo visual</span><button class="copy" onclick="copyBlock(this,'pUniverse')">Copiar</button></div><pre id="pUniverse">Crea un universo visual completo para [marca/proyecto].
+
+Incluye:
+— estética principal
+— paleta de color
+— tipo de fotografía
+— iluminación
+— escenarios permitidos
+— vestuario
+— elemento ancla de marca
+— palabras visuales clave
+— negative prompt
+— 5 ideas de imágenes iniciales
+
+El resultado debe sentirse coherente, premium y reconocible.</pre></div></div></div>
+    <div class="accordion"><button class="acc-head" onclick="toggleAcc(this)"><span class="num">2</span><div><h3>Generar carrusel</h3><p>7 slides con copy listo.</p></div><span class="chev">+</span></button><div class="acc-body"><div class="prompt"><div class="prompt-h"><span>Carrusel</span><button class="copy" onclick="copyBlock(this,'pCarousel')">Copiar</button></div><pre id="pCarousel">Crea un carrusel de 7 slides sobre [tema] para [audiencia].
+
+Estructura:
+Slide 1: hook de 3 a 6 palabras
+Slide 2: identificación del problema
+Slide 3: revelación
+Slide 4: mecanismo simple
+Slide 5: prueba o ejemplo
+Slide 6: puente hacia la acción
+Slide 7: CTA claro
+
+Entrega cada slide en un bloque separado listo para copiar y pegar.</pre></div></div></div>
+    <div class="accordion"><button class="acc-head" onclick="toggleAcc(this)"><span class="num">3</span><div><h3>Batch render de imágenes</h3><p>Para pedir una serie coherente.</p></div><span class="chev">+</span></button><div class="acc-body"><div class="prompt"><div class="prompt-h"><span>Batch render</span><button class="copy" onclick="copyBlock(this,'pBatch')">Copiar</button></div><pre id="pBatch">Genera un batch render de [número] imágenes para [marca/personaje/producto].
+
+Mantén:
+— misma identidad visual
+— misma paleta
+— misma iluminación
+— mismo nivel de realismo
+— continuidad entre todas las imágenes
+
+Variaciones:
+1. close-up
+2. mid shot
+3. wide shot
+4. detalle del producto
+5. escena lifestyle
+
+No incluyas texto dentro de las imágenes.</pre></div></div></div>
+    <div class="accordion"><button class="acc-head" onclick="toggleAcc(this)"><span class="num">4</span><div><h3>Mejorar un prompt flojo</h3><p>Para convertir una idea simple en instrucción potente.</p></div><span class="chev">+</span></button><div class="acc-body"><div class="prompt"><div class="prompt-h"><span>Optimizar prompt</span><button class="copy" onclick="copyBlock(this,'pImprove')">Copiar</button></div><pre id="pImprove">Toma este prompt y conviértelo en una versión profesional, específica y lista para usar:
+
+[pega tu prompt aquí]
+
+Mejora:
+— claridad
+— dirección visual
+— estilo
+— composición
+— iluminación
+— negative prompt
+— formato final
+
+Entrega solo el prompt final en un bloque listo para copiar.</pre></div></div></div>
+  </section>
+</main>
+<footer class="footer"><div class="line"></div><p>Improvisar es opcional. Estructurar es poder. — ESG Experience™</p></footer>
+<script>
+const vocab=[
+['Fotografía','Mejor que pedir “imagen”. Indica apariencia de cámara real.','Crea una fotografía hiperrealista editorial de...'],
+['Hiperrealista','Busca textura de piel, materiales reales y luz creíble.','hyperrealistic professional photography, natural skin texture'],
+['Editorial','Activa estética premium tipo revista.','editorial portrait, luxury magazine aesthetic'],
+['Cinematic','Pide luz, profundidad y atmósfera de película.','cinematic lighting, soft shadows, depth of field'],
+['Close-up','Plano cercano: rostro, producto o detalle.','close-up portrait, face and shoulders'],
+['Mid shot','Plano medio: pecho o cintura hacia arriba.','mid shot, waist-up composition'],
+['Wide shot','Plano abierto: personaje y entorno.','wide shot, full environment visible'],
+['Depth of field','Fondo desenfocado con sensación profesional.','soft depth of field, background slightly blurred'],
+['Identity lock','Mantiene rostro, personaje o marca constante.','maintain identity lock across all renders'],
+['Visual continuity','Coherencia entre varias imágenes o slides.','ensure visual continuity between all images'],
+['Consistent character','Mismo personaje en distintas escenas.','same consistent character, same face, same features'],
+['Brand universe','Mundo visual completo con reglas.','create a cohesive visual universe for this brand'],
+['Anchor element','Objeto repetido que ayuda a reconocer la marca.','include the same gold butterfly necklace as brand anchor'],
+['Negative prompt','Lo que NO quieres que aparezca.','no cartoon, no blurry face, no extra fingers, no plastic skin'],
+['Batch render','Varias versiones en una misma tanda.','Generate a batch render of 8 variations'],
+['Prompt blocks','Bloques separados listos para copiar.','Deliver each prompt in a separate copy-ready block'],
+['No text in image','Evita letras mal escritas dentro de imágenes.','no text, no letters, no logos inside the image'],
+['Copy-ready','Entrega sin explicación extra alrededor.','deliver copy-ready output only'],
+['Mobile-first','Página pensada primero para celular.','mobile-first responsive design'],
+['Single-file HTML','Web en un solo archivo para Vercel.','create a single-file HTML/CSS/JS page']
+];
+const vg=document.getElementById('vocab');vocab.forEach(([t,d,e])=>{vg.insertAdjacentHTML('beforeend',`<article class="term"><small>Término</small><b>${t}</b><p>${d}</p><code>${e}</code></article>`)});
+function tab(i,btn){document.querySelectorAll('.panel').forEach((p,n)=>p.classList.toggle('on',n===i));document.querySelectorAll('.navcard').forEach(b=>b.classList.remove('on'));btn.classList.add('on');window.scrollTo({top:220,behavior:'smooth'});}function toggleAcc(btn){btn.closest('.accordion').classList.toggle('open')}function copyBlock(btn,id){const el=document.getElementById(id);navigator.clipboard.writeText(el.innerText.trim()).then(()=>{const old=btn.textContent;btn.classList.add('ok');btn.textContent='Copiado ✓';setTimeout(()=>{btn.textContent=old;btn.classList.remove('ok')},1600)})}window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;document.getElementById('progress').style.width=(h>0?scrollY/h*100:0)+'%'});
+</script>
+</body>
+</html>
