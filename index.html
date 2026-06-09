@@ -3,68 +3,283 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ESG Experience™</title>
-  <meta name="description" content="ESG Experience™ — Sistema de arquitectura de marca guiado por IA." />
+  <title>ESG Experience™ · Portal oficial</title>
+  <meta name="description" content="Portal oficial de ESG Experience™. Sistema de arquitectura de marca guiado por IA." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --stone:#C8B49A; --cream:#F8F4EC; --cream2:#EFE6D8; --body:#3D2010;
-      --brown:#7B4F24; --leather:#5C2E0E; --gold:#C9A646; --black:#0A0A0A;
-      --shadow: 0 28px 80px rgba(61,32,16,.18);
+      --stone:#C8B49A;
+      --cream:#F8F4EC;
+      --cream2:#EFE6D8;
+      --body:#3D2010;
+      --brown:#7B4F24;
+      --brown2:#A0622A;
+      --leather:#5C2E0E;
+      --gold:#C9A646;
+      --gold2:#F5D78E;
+      --black:#0A0A0A;
+      --shadow:0 28px 80px rgba(61,32,16,.18);
+      --soft:0 18px 48px rgba(61,32,16,.10);
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body{margin:0; font-family:'DM Sans',system-ui,sans-serif; color:var(--body); background:var(--stone); min-height:100vh; overflow-x:hidden}
-    body:before{content:""; position:fixed; inset:0; z-index:-2; background-image:url('assets/esg-stone-bg.webp'); background-size:cover; background-position:center; filter:saturate(.92); transform:scale(1.02)}
-    body:after{content:""; position:fixed; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(248,244,236,.18), rgba(248,244,236,.68) 42%, rgba(200,180,154,.45))}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      overflow-x:hidden;
+      font-family:'DM Sans',system-ui,sans-serif;
+      color:var(--body);
+      background:var(--stone);
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background-image:url('assets/esg-stone-bg.webp');
+      background-size:cover;
+      background-position:center;
+      transform:scale(1.015);
+      filter:saturate(.94) contrast(1.02);
+    }
+    body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(248,244,236,.50), transparent 30%),
+        radial-gradient(circle at 88% 12%, rgba(201,166,70,.14), transparent 28%),
+        linear-gradient(180deg, rgba(248,244,236,.18), rgba(248,244,236,.72) 48%, rgba(200,180,154,.50));
+    }
+    a{color:inherit}
     .wrap{width:min(1120px, calc(100% - 36px)); margin:auto}
-    header{position:sticky; top:18px; z-index:10; width:min(1120px, calc(100% - 30px)); margin:18px auto 0; background:rgba(248,244,236,.78); backdrop-filter: blur(18px); border:1px solid rgba(123,79,36,.18); border-radius:999px; box-shadow:var(--shadow); display:flex; align-items:center; justify-content:space-between; gap:18px; padding:12px 16px}
-    .logo{display:flex; align-items:center; gap:12px; min-width:0}.logo img{height:52px; width:auto; display:block}.brand{font-size:11px; letter-spacing:.24em; font-weight:700; color:var(--brown); text-transform:uppercase; white-space:nowrap}
-    .nav{display:flex; gap:10px; align-items:center}.btn{display:inline-flex; align-items:center; justify-content:center; text-decoration:none; border-radius:999px; padding:13px 20px; font-weight:800; letter-spacing:.02em; color:var(--cream); background:linear-gradient(160deg,#0A0A0A,#17130f); border:1px solid rgba(245,215,142,.35); box-shadow:0 16px 38px rgba(10,10,10,.22)}.btn.light{background:rgba(248,244,236,.55); color:var(--body); border:1px solid rgba(123,79,36,.24); box-shadow:none}
-    .hero{min-height:82svh; display:grid; place-items:center; padding:70px 0 40px}.hero-card{position:relative; background:rgba(248,244,236,.70); border:1px solid rgba(123,79,36,.18); border-radius:42px; box-shadow:var(--shadow); padding:clamp(34px,6vw,80px); overflow:hidden}.hero-card:before{content:""; position:absolute; inset:18px; border:1px solid rgba(123,79,36,.12); border-radius:34px; pointer-events:none}.eyebrow{font-size:12px; text-transform:uppercase; letter-spacing:.36em; font-weight:800; color:var(--brown); margin-bottom:20px}.line{display:inline-block; width:54px; height:1px; background:linear-gradient(90deg,var(--brown),var(--gold)); vertical-align:middle; margin-left:14px}.hero h1{font-family:'Cormorant Garamond',serif; font-weight:300; line-height:.94; letter-spacing:-.045em; font-size:clamp(54px,10vw,122px); margin:0 0 26px; color:var(--leather); text-wrap:balance}.gold{font-style:italic; background:linear-gradient(160deg,#1A0A02 0%,#8B6914 20%,#D4A017 35%,#F5D78E 50%,#D4A017 65%,#8B6914 80%,#1A0A02 100%); -webkit-background-clip:text; background-clip:text; color:transparent}.lead{font-size:clamp(18px,2.4vw,24px); line-height:1.65; max-width:760px; margin:0 0 32px; font-weight:500}.actions{display:flex; gap:14px; flex-wrap:wrap}.seal{position:absolute; right:clamp(22px,5vw,56px); bottom:clamp(20px,4vw,44px); width:76px; opacity:.88}
-    section{padding:54px 0}.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}.panel{background:rgba(248,244,236,.62); border:1px solid rgba(123,79,36,.16); border-radius:30px; padding:30px; box-shadow:0 18px 48px rgba(61,32,16,.10)}.panel.dark{background:linear-gradient(160deg,#0A0A0A,#1c1713); color:var(--cream); border-color:rgba(245,215,142,.25)}.panel h2,.panel h3{font-family:'Cormorant Garamond',serif; font-size:clamp(36px,5vw,70px); line-height:1; font-weight:300; margin:0 0 18px}.panel h3{font-size:34px}.panel p{font-size:17px; line-height:1.75; margin:0}.pill-list{display:grid; gap:12px; margin-top:22px}.pill{border:1px solid rgba(123,79,36,.16); border-radius:20px; padding:18px 20px; background:rgba(248,244,236,.45); display:flex; justify-content:space-between; gap:18px}.pill strong{letter-spacing:.12em}.footer{padding:42px 0 70px; text-align:center}.footer img{width:54px; opacity:.85}.footer p{margin:12px 0 0; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--brown); font-weight:800}
-    .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease}.reveal.show{opacity:1; transform:none}
-    @media(max-width:780px){body:before{background-image:url('assets/esg-stone-bg-mobile.webp'); background-size:cover; background-position:center top; transform:none; filter:none} header{top:10px; padding:10px 10px 10px 14px}.logo img{height:42px}.brand{display:none}.btn{padding:12px 16px; font-size:14px}.btn.light{display:none}.hero{min-height:auto; padding:34px 0 28px}.hero-card{border-radius:30px; padding:34px 24px 92px}.hero-card:before{inset:10px; border-radius:24px}.hero h1{font-size:clamp(48px,15vw,70px)}.lead{font-size:17px; line-height:1.65}.seal{width:58px; right:24px; bottom:26px}.grid{grid-template-columns:1fr}.panel{border-radius:26px; padding:26px 22px}section{padding:28px 0}.pill{display:block}.pill span{display:block; margin-top:5px}}
+    header{
+      position:sticky;
+      top:18px;
+      z-index:10;
+      width:min(1120px, calc(100% - 30px));
+      margin:18px auto 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:12px 16px;
+      border:1px solid rgba(123,79,36,.18);
+      border-radius:999px;
+      background:rgba(248,244,236,.78);
+      backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+    }
+    .logo{display:flex; align-items:center; gap:12px; min-width:0}
+    .logo img{height:52px; width:auto; display:block}
+    .brand{font-size:11px; letter-spacing:.24em; font-weight:700; color:var(--brown); text-transform:uppercase; white-space:nowrap}
+    .nav{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      text-decoration:none;
+      border-radius:999px;
+      padding:13px 20px;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.02em;
+      color:var(--cream);
+      background:linear-gradient(160deg,#0A0A0A,#17130f);
+      border:1px solid rgba(245,215,142,.35);
+      box-shadow:0 16px 38px rgba(10,10,10,.22);
+      transition:transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 18px 44px rgba(10,10,10,.28)}
+    .btn.light{background:rgba(248,244,236,.58); color:var(--body); border:1px solid rgba(123,79,36,.24); box-shadow:none}
+    .btn.gold{color:#1A0A02; background:linear-gradient(160deg,#8B6914 0%,#D4A017 35%,#F5D78E 50%,#D4A017 65%,#8B6914 100%)}
+
+    .hero{min-height:82svh; display:grid; place-items:center; padding:70px 0 42px}
+    .hero-card{
+      position:relative;
+      overflow:hidden;
+      width:100%;
+      padding:clamp(34px,6vw,80px);
+      border:1px solid rgba(123,79,36,.18);
+      border-radius:42px;
+      background:rgba(248,244,236,.72);
+      box-shadow:var(--shadow);
+    }
+    .hero-card:before{content:""; position:absolute; inset:18px; border:1px solid rgba(123,79,36,.12); border-radius:34px; pointer-events:none}
+    .hero-content{position:relative; z-index:1; max-width:900px}
+    .eyebrow{font-size:12px; text-transform:uppercase; letter-spacing:.34em; font-weight:800; color:var(--brown); margin-bottom:20px}
+    .line{display:inline-block; width:54px; height:1px; background:linear-gradient(90deg,var(--brown),var(--gold)); vertical-align:middle; margin-left:14px}
+    h1{
+      font-family:'Cormorant Garamond',serif;
+      font-weight:300;
+      line-height:.94;
+      letter-spacing:-.045em;
+      font-size:clamp(54px,10vw,122px);
+      margin:0 0 26px;
+      color:var(--leather);
+      text-wrap:balance;
+    }
+    .gold-word{
+      font-style:italic;
+      background:linear-gradient(160deg,#1A0A02 0%,#8B6914 20%,#D4A017 35%,#F5D78E 50%,#D4A017 65%,#8B6914 80%,#1A0A02 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .lead{font-size:clamp(18px,2.4vw,24px); line-height:1.65; max-width:780px; margin:0 0 32px; font-weight:500}
+    .actions{display:flex; gap:14px; flex-wrap:wrap}
+    .seal{position:absolute; right:clamp(22px,5vw,56px); bottom:clamp(20px,4vw,44px); width:76px; opacity:.88}
+
+    section{padding:54px 0}
+    .grid{display:grid; grid-template-columns:1.2fr .9fr .9fr; gap:18px}
+    .panel{
+      background:rgba(248,244,236,.64);
+      border:1px solid rgba(123,79,36,.16);
+      border-radius:30px;
+      padding:30px;
+      box-shadow:var(--soft);
+    }
+    .panel.dark{background:linear-gradient(160deg,#0A0A0A,#1c1713); color:var(--cream); border-color:rgba(245,215,142,.25)}
+    .panel h2,.panel h3{font-family:'Cormorant Garamond',serif; font-size:clamp(36px,5vw,70px); line-height:1; font-weight:300; margin:0 0 18px; letter-spacing:-.025em}
+    .panel h3{font-size:34px}
+    .panel p{font-size:17px; line-height:1.75; margin:0}
+    .panel small{display:block; margin-top:16px; line-height:1.6; opacity:.78}
+    .route-card{display:grid; gap:12px; margin-top:22px}
+    .route{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:center;
+      text-decoration:none;
+      border:1px solid rgba(123,79,36,.16);
+      border-radius:22px;
+      padding:19px 20px;
+      background:rgba(248,244,236,.48);
+      transition:transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .route:hover{transform:translateY(-2px); background:rgba(248,244,236,.76); border-color:rgba(201,166,70,.45)}
+    .route strong{letter-spacing:.12em; font-size:12px; text-transform:uppercase; color:var(--leather)}
+    .route span{font-size:15px; line-height:1.5; text-align:right; color:var(--body)}
+    .notice{
+      border-left:2px solid var(--gold);
+      padding:4px 0 4px 18px;
+      margin-top:22px;
+      font-size:15px;
+      line-height:1.7;
+      color:rgba(61,32,16,.86);
+    }
+    .footer{padding:42px 0 70px; text-align:center}
+    .footer img{width:54px; opacity:.85}
+    .footer p{margin:12px 0 0; font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--brown); font-weight:800}
+    .footer-links{display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:16px; font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase}
+    .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.show{opacity:1; transform:none}
+
+    @media(max-width:780px){
+      body:before{background-image:url('assets/esg-stone-bg-mobile.webp'); background-size:cover; background-position:center top; transform:none; filter:none}
+      header{top:10px; padding:10px 10px 10px 14px; align-items:center}
+      .logo img{height:42px}.brand{display:none}
+      .nav{gap:6px}.btn{padding:11px 13px; min-height:42px; font-size:12.5px}.btn.light{display:none}
+      .hero{min-height:auto; padding:34px 0 28px}.hero-card{border-radius:30px; padding:34px 24px 96px}.hero-card:before{inset:10px; border-radius:24px}
+      h1{font-size:clamp(48px,15vw,70px)}.lead{font-size:17px; line-height:1.65}.seal{width:58px; right:24px; bottom:26px}
+      .grid{grid-template-columns:1fr}.panel{border-radius:26px; padding:26px 22px}section{padding:28px 0}.route{display:block}.route span{display:block; margin-top:7px; text-align:left}.actions .btn{width:100%}
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo"><img src="assets/esg-logo.png" alt="ESG Experience"><div class="brand">ESG Experience</div></div>
-    <nav class="nav"><a class="btn light" href="https://esg-experience-landing.vercel.app/">Conocer ESG</a><a class="btn" href="https://wa.me/17863038025?text=Hola%20Eilen%2C%20quiero%20informaci%C3%B3n%20actualizada%20de%20ESG%20Experience.">Contactar</a></nav>
+    <div class="logo">
+      <img src="assets/esg-logo.png" alt="ESG Experience">
+      <div class="brand">ESG Experience</div>
+    </div>
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="btn light" href="https://esg-experience-landing.vercel.app/">Conocer ESG</a>
+      <a class="btn" href="https://www.instagram.com/eilensg/" target="_blank" rel="noopener">Instagram</a>
+    </nav>
   </header>
+
   <main>
     <section class="hero wrap">
       <div class="hero-card reveal">
-        <div class="eyebrow">Portal oficial <span class="line"></span></div>
-        <h1>ESG se está<br>reorganizando con <span class="gold">dirección</span>.</h1>
-        <p class="lead">Si llegaste aquí por un manual anterior, un enlace viejo, una guía de precios antigua o una página sobre el sistema de 7 pasos, esa versión ya no está activa.</p>
-        <div class="actions"><a class="btn" href="https://esg-experience-landing.vercel.app/">Ver ESG Experience</a><a class="btn light" href="https://expediente-marca-esg.vercel.app/">Expediente de Marca</a></div>
+        <div class="hero-content">
+          <div class="eyebrow">Portal oficial <span class="line"></span></div>
+          <h1>ESG se está<br>reorganizando con <span class="gold-word">dirección</span>.</h1>
+          <p class="lead">Si llegaste aquí por un manual anterior, una guía de precios antigua, una página de GPT/Claude o el sistema de 7 pasos, esa versión ya no está activa.</p>
+          <div class="actions">
+            <a class="btn" href="https://esg-experience-landing.vercel.app/">Conocer ESG Experience</a>
+            <a class="btn light" href="https://wa.me/17863038025?text=Hola%20Eilen%2C%20quiero%20informaci%C3%B3n%20actualizada%20de%20ESG%20Experience.">Hablar por WhatsApp</a>
+          </div>
+        </div>
         <img class="seal" src="assets/esg-butterfly.png" alt="Mariposa ESG">
       </div>
     </section>
+
     <section class="wrap">
       <div class="grid">
-        <div class="panel dark reveal"><div class="eyebrow">Estado actual <span class="line"></span></div><h2>Esta página ya no aloja materiales antiguos.</h2><p>El proyecto está siendo actualizado para reflejar la estructura real de ESG Experience™: arquitectura de marca, identidad visual, contenido, sistemas y rutas de entrada claras.</p></div>
-        <div class="panel reveal"><h3>Qué es ESG</h3><p>Un sistema de arquitectura de marca guiado por IA. No una biblioteca de PDFs. No una colección de prompts sueltos. Una estructura para construir una marca reconocible.</p></div>
-        <div class="panel reveal"><h3>Qué sigue</h3><p>El portal privado se abrirá cuando la nueva estructura esté lista. Mientras tanto, usa las rutas actualizadas para conocer el sistema o completar tu expediente.</p></div>
+        <div class="panel dark reveal">
+          <div class="eyebrow">Estado actual <span class="line"></span></div>
+          <h2>Esta página ya no aloja materiales antiguos.</h2>
+          <p>ESG Experience™ está siendo actualizado para reflejar su estructura real: arquitectura de marca, identidad visual, contenido, sistemas y rutas de entrada claras.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>Qué es ESG</h3>
+          <p>Un sistema de arquitectura de marca guiado por IA. No una biblioteca de PDFs. No una colección de prompts sueltos. Una estructura para construir una marca reconocible.</p>
+        </div>
+        <div class="panel reveal">
+          <h3>Qué sigue</h3>
+          <p>El portal privado se abrirá cuando la estructura esté lista. Mientras tanto, esta página funciona como entrada pública limpia y actualizada.</p>
+        </div>
       </div>
     </section>
+
     <section class="wrap">
       <div class="panel reveal">
         <div class="eyebrow">Rutas activas <span class="line"></span></div>
-        <div class="pill-list">
-          <a class="pill" href="https://esg-experience-landing.vercel.app/" style="text-decoration:none;color:inherit"><strong>ESG EXPERIENCE</strong><span>Conoce el sistema actualizado</span></a>
-          <a class="pill" href="https://expediente-marca-esg.vercel.app/" style="text-decoration:none;color:inherit"><strong>EXPEDIENTE</strong><span>Formulario para Brújula Privada</span></a>
-          <a class="pill" href="https://wa.me/17863038025?text=Hola%20Eilen%2C%20quiero%20saber%20cu%C3%A1l%20ruta%20de%20ESG%20me%20conviene." style="text-decoration:none;color:inherit"><strong>WHATSAPP</strong><span>Preguntar cuál ruta te conviene</span></a>
+        <div class="route-card">
+          <a class="route" href="https://esg-experience-landing.vercel.app/">
+            <strong>ESG EXPERIENCE</strong>
+            <span>Conoce el sistema actualizado y sus rutas de entrada.</span>
+          </a>
+          <a class="route" href="https://www.instagram.com/eilensg/" target="_blank" rel="noopener">
+            <strong>INSTAGRAM</strong>
+            <span>Ver contenido, actualizaciones y próximos anuncios de ESG.</span>
+          </a>
+          <a class="route" href="https://wa.me/17863038025?text=Hola%20Eilen%2C%20ya%20compr%C3%A9%20la%20Br%C3%BAjula%20Privada%20ESG%20y%20necesito%20el%20acceso%20al%20Expediente%20de%20Marca.">
+            <strong>YA COMPRÉ LA BRÚJULA</strong>
+            <span>Solicitar acceso privado al Expediente de Marca por WhatsApp.</span>
+          </a>
+          <a class="route" href="https://wa.me/17863038025?text=Hola%20Eilen%2C%20quiero%20saber%20cu%C3%A1l%20ruta%20de%20ESG%20me%20conviene.">
+            <strong>WHATSAPP</strong>
+            <span>Preguntar cuál ruta de ESG tiene más sentido para ti.</span>
+          </a>
+        </div>
+        <div class="notice">
+          El Expediente de Marca ESG no está publicado aquí porque es un recurso privado de la Brújula Privada. Si ya compraste, solicita tu acceso por WhatsApp con el correo o comprobante de compra.
         </div>
       </div>
     </section>
   </main>
-  <footer class="footer"><img src="assets/esg-butterfly.png" alt="ESG"><p>ESG Experience™ · Portal en actualización</p></footer>
+
+  <footer class="footer">
+    <img src="assets/esg-butterfly.png" alt="ESG">
+    <p>ESG Experience™ · Portal en actualización</p>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/eilensg/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/17863038025?text=Hola%20Eilen%2C%20quiero%20informaci%C3%B3n%20actualizada%20de%20ESG%20Experience.">WhatsApp</a>
+    </div>
+  </footer>
+
   <script>
-    const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})},{threshold:.14});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('show'); }
+      });
+    }, {threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
   </script>
 </body>
 </html>
