@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#4a210f">
+  <meta name="description" content="ESG Experience — De Logo a Personaje, ESG Made y Web ESG.">
+  <title>ESG Experience™</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <main class="app-shell" id="appShell">
+    <header class="topbar">
+      <button class="round-btn" id="backBtn" aria-label="Volver" hidden>‹</button>
+      <button class="brand-btn" data-go="home" aria-label="Inicio ESG Experience">
+        <img src="/assets/branding/esg-logo.png" alt="ESG Experience">
+      </button>
+      <button class="round-btn" id="menuBtn" aria-label="Abrir menú">•••</button>
+    </header>
+
+    <section class="screen active" id="screen-home" data-screen="home">
+      <div class="screen-scroll home-layout">
+        <section class="hero-card organic-card">
+          <div class="hero-image-wrap">
+            <img src="/assets/elenia/elenia-portrait.webp" alt="Elenia, asistente visual de ESG Experience">
+          </div>
+          <div class="hero-copy">
+            <span class="eyebrow">ESG EXPERIENCE™</span>
+            <h1>La IA puede generar todo menos tu marca</h1>
+            <p>Tu idea ya existe. Ahora vamos a darle identidad, presencia y dirección.</p>
+            <span class="elenia-note"><img src="/assets/branding/esg-butterfly.png" alt=""> Elenia: “Elige por dónde quieres comenzar.”</span>
+          </div>
+        </section>
+
+        <div class="service-grid" aria-label="Servicios principales">
+          <button class="service-tile" data-service="logo">
+            <span class="tile-icon">✦</span>
+            <strong>De Logo a Personaje™</strong>
+            <small>Oferta $250 · Valor $500</small>
+          </button>
+          <button class="service-tile" data-service="made">
+            <span class="tile-icon">◉</span>
+            <strong>ESG Made™</strong>
+            <small>Visuales con IA · desde $57</small>
+          </button>
+          <button class="service-tile" data-service="web">
+            <span class="tile-icon">◎</span>
+            <strong>Web ESG™</strong>
+            <small>Presencia digital · desde $250</small>
+          </button>
+        </div>
+
+        <button class="text-cta" id="directApplyBtn">Ya sé lo que necesito → comenzar solicitud</button>
+
+        <footer class="footer-actions">
+          <button class="icon-link whatsapp-link" aria-label="WhatsApp"><span>☏</span><b>WhatsApp</b></button>
+          <button class="icon-link instagram-link" aria-label="Instagram"><span>◎</span><b>Instagram</b></button>
+        </footer>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-service" data-screen="service">
+      <div class="slide-stage" id="serviceSlides"></div>
+      <nav class="slide-nav" aria-label="Navegación del servicio">
+        <button class="pill-btn secondary" id="servicePrev">← Anterior</button>
+        <div class="dots" id="serviceDots"></div>
+        <button class="pill-btn gold" id="serviceNext">Siguiente →</button>
+      </nav>
+    </section>
+
+    <section class="screen" id="screen-apply" data-screen="apply">
+      <div class="screen-scroll form-flow">
+        <div class="form-header organic-card compact-card">
+          <span class="eyebrow">SOLICITUD ESG</span>
+          <h2>Cuéntanos lo esencial</h2>
+          <p>No necesitas hablar como experta en marketing. Responde con información real.</p>
+          <div class="progress-line"><i id="applyProgress"></i></div>
+          <small id="applyProgressLabel">Paso 1</small>
+        </div>
+        <form id="applyForm" novalidate>
+          <div id="applySteps"></div>
+          <div class="form-nav">
+            <button type="button" class="pill-btn secondary" id="applyPrev">← Volver</button>
+            <button type="button" class="pill-btn gold" id="applyNext">Continuar →</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-agreement" data-screen="agreement">
+      <div class="screen-scroll agreement-flow">
+        <div class="agreement-title organic-card compact-card">
+          <span class="eyebrow">ACUERDO DE SERVICIO DIGITAL</span>
+          <h2>Todo claro antes de comenzar</h2>
+          <p>Revisa el servicio, forma de pago y condiciones. Después firma con tu dedo o mouse.</p>
+        </div>
+
+        <div class="agreement-document" id="agreementDocument"></div>
+
+        <div class="payment-panel organic-card">
+          <h3>Forma de pago</h3>
+          <label class="choice-line"><input type="radio" name="paymentPlan" value="full" checked><span><b>Pago completo por adelantado</b><small>Recomendado para recibir la entrega completa según el plazo acordado.</small></span></label>
+          <label class="choice-line"><input type="radio" name="paymentPlan" value="split"><span><b>Dos pagos</b><small>La producción y entrega se divide en dos fases. La segunda fase comienza después del segundo pago.</small></span></label>
+          <div class="payment-methods">
+            <label>Método preferido
+              <select id="paymentMethod">
+                <option value="Zelle">Zelle</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Tarjeta">Tarjeta — solicitar enlace por WhatsApp</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="signature-panel organic-card">
+          <h3>Firma y aceptación</h3>
+          <label>Nombre legal completo<input id="legalName" autocomplete="name" placeholder="Escribe tu nombre completo"></label>
+          <label>WhatsApp<input id="agreementPhone" inputmode="tel" placeholder="Incluye código de país"></label>
+          <label>Correo electrónico<input id="agreementEmail" type="email" autocomplete="email" placeholder="tu@email.com"></label>
+          <label class="accept-line"><input id="acceptTerms" type="checkbox"> <span>He leído y acepto el alcance, precio, condiciones de pago, tiempos, revisiones y política de cancelación de este acuerdo.</span></label>
+          <div class="signature-box">
+            <canvas id="signatureCanvas" width="900" height="260" aria-label="Área para firmar"></canvas>
+            <span>Firma aquí con tu dedo o mouse</span>
+          </div>
+          <button class="mini-btn" id="clearSignature" type="button">Borrar firma</button>
+          <button class="pill-btn gold wide" id="signAgreement" type="button">Firmar y aceptar</button>
+          <p class="form-error" id="agreementError" role="alert"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-done" data-screen="done">
+      <div class="screen-scroll done-layout">
+        <section class="hero-card organic-card done-hero">
+          <div class="hero-image-wrap small">
+            <img src="/assets/elenia/elenia-portrait.webp" alt="Elenia">
+          </div>
+          <div class="hero-copy">
+            <span class="eyebrow">ACUERDO COMPLETADO</span>
+            <h2>Ya tenemos claro qué vamos a crear</h2>
+            <p id="doneText">Tu solicitud y acuerdo quedaron preparados.</p>
+            <span class="elenia-note">Elenia: “Ahora empieza la transformación.”</span>
+          </div>
+        </section>
+        <div class="done-actions">
+          <button class="pill-btn gold wide" id="sendWhatsappAgreement">Enviar confirmación a ESG por WhatsApp</button>
+          <button class="pill-btn secondary wide" id="shareClientCopy">Compartir mi copia</button>
+          <button class="pill-btn secondary wide" id="printAgreement">Guardar / imprimir acuerdo</button>
+          <button class="text-cta" data-go="home">Volver al inicio</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="menu-sheet" id="menuSheet" aria-hidden="true">
+      <div class="menu-card organic-card">
+        <button class="menu-close" id="menuClose" aria-label="Cerrar">×</button>
+        <img class="menu-logo" src="/assets/branding/esg-logo.png" alt="ESG Experience">
+        <button data-go="home">Inicio</button>
+        <button id="menuApply">Comenzar solicitud</button>
+        <button class="whatsapp-link">WhatsApp</button>
+        <button class="instagram-link">Instagram</button>
+        <p>Los datos de contacto permanecen detrás de los botones.</p>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="/js/app.js" defer></script>
+</body>
+</html>
