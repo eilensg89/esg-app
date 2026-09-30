@@ -1,9 +1,0 @@
-[
-  {
-    "name": "Nombre del cliente",
-    "business": "Negocio",
-    "text": "Testimonio breve y autorizado.",
-    "image": "./assets/testimonials/cliente.webp",
-    "link": "https://instagram.com/usuario"
-  }
-]
