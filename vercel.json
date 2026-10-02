@@ -1,0 +1,77 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/servicios",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/logo-a-personaje",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/esg-made",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/esg-made/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/web-esg",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/web-esg/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/mia",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tienda",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/tienda/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/analisis",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/entrevista/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contrato",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contrato/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/contrato-editor",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/portal-productos",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/testimonios",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/sobre-eilen",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/trabajos",
+      "destination": "/index.html"
+    }
+  ]
+}

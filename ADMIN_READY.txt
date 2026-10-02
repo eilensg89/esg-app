@@ -1,0 +1,24 @@
+ESG EXPERIENCE™ — ESTRUCTURA PREPARADA PARA ADMINISTRADOR
+
+La app pública conserva layout/navegación en app.js + styles.css.
+El contenido ya está separado para que el futuro /admin edite datos sin rehacer la interfaz:
+
+site-config.js  -> links, email, Google Sheets, tiempos por defecto, términos base, home
+servicios.js    -> servicios, precios, entregables, límites
+productos.js    -> tienda y productos propios
+testimonios.js  -> testimonios verificables
+trabajos.js     -> casos, imágenes, galerías, resultados y links reales
+about.js        -> historia / Sobre EilenSG
+mia.js          -> contenido informativo de MÍA
+
+El administrador futuro debe escribir sobre una base de datos/API y devolver la misma estructura de datos.
+Así app.js no necesita reconstruirse.
+
+CONTRATOS
+/contrato-editor es una herramienta interna y no está enlazada desde la navegación pública.
+Permite editar precio, extras, fases, tiempo de primera entrega, tiempo final, notas específicas y términos.
+Genera una URL cerrada del contrato que el cliente recibe para revisar y firmar.
+
+GOOGLE SHEETS
+site-config.js ya contiene sheetsEndpoint vacío.
+Cuando se configure el Web App de Google Apps Script, análisis, briefs y contratos enviarán una copia de los datos al Sheet.

@@ -1,0 +1,13 @@
+GOOGLE SHEETS — PENDIENTE DE CONEXIÓN
+
+La app ya está preparada. No hay que modificar app.js.
+
+1. Crear un Google Sheet.
+2. Extensions > Apps Script.
+3. Copiar google-sheets-webhook.gs.
+4. Deploy > New deployment > Web app.
+5. Copiar la URL pública del Web App.
+6. Abrir site-config.js y pegarla aquí:
+   sheetsEndpoint: 'PEGAR_URL_AQUI'
+
+A partir de ahí se registrarán análisis, briefs y contratos en la hoja ESG_LEADS.
