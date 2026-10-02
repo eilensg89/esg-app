@@ -1,0 +1,25 @@
+{
+  "background": {
+    "main": "backgrounds/app-leather-cover.png",
+    "secondaryTexture": "textures/ivory-stone-texture.png"
+  },
+  "brand": {
+    "logoTransparent": "brand/logo-esg-gold-transparent.png",
+    "logoRound": "brand/logo-esg-round-stone-gold.png",
+    "butterfly": "brand/butterfly-gold-3d.png",
+    "eilenPortrait": "brand/eilen-avatar-portrait.png",
+    "eilenCharacterSheet": "brand/eilen-character-sheet.png"
+  },
+  "homeButtons": [
+    {"id":"explorar-servicios","file":"buttons/home/01-explorar-servicios.png","route":"/servicios"},
+    {"id":"canal-cta","file":"buttons/home/02-unirme-canal-gratis.png","external":"whatsapp-channel"},
+    {"id":"logo-personaje","file":"buttons/home/03-de-logo-a-personaje.png","route":"/logo-a-personaje"},
+    {"id":"esg-made","file":"buttons/home/04-esg-made.png","route":"/esg-made"},
+    {"id":"web-esg","file":"buttons/home/05-web-esg.png","route":"/web-esg"},
+    {"id":"mia","file":"buttons/home/06-mia-monetiza-con-ia.png","route":"/mia","label":"MIA — Monetiza con IA"},
+    {"id":"about","file":"buttons/home/07-conoce-eilensg.png","route":"/sobre-eilen"},
+    {"id":"testimonios","file":"buttons/home/08-testimonios.png","route":"/testimonios"},
+    {"id":"instagram","file":"buttons/home/09-instagram.png","external":"instagram"},
+    {"id":"canal-footer","file":"buttons/home/10-canal-gratis.png","external":"whatsapp-channel"}
+  ]
+}

@@ -1,0 +1,98 @@
+/* ESG Experience™ V4.3 — 3D connected visual skin.
+   Structure/navigation remain in app.js; this file only applies the visual layer. */
+:root{
+  --esg-leather:#5a2509;
+  --esg-leather-deep:#351306;
+  --esg-stone:#ead7b5;
+  --esg-stone-light:#f8e9cc;
+  --esg-bronze:#6b2d0d;
+  --esg-gold:#d8a33e;
+  --esg-gold-hi:#ffe09a;
+}
+html{background:var(--esg-leather-deep)}
+body{
+  background:#3a1607 url('/assets/ui-3d/backgrounds/app-leather-cover.png') center top/cover fixed no-repeat;
+  color:#f6ead4;
+}
+.app-frame{padding:clamp(8px,1.8vw,22px)}
+.app-shell{
+  background:
+    linear-gradient(rgba(78,31,8,.18),rgba(47,16,4,.22)),
+    url('/assets/ui-3d/backgrounds/app-leather-cover.png') center/cover no-repeat;
+  border:1px solid rgba(239,190,91,.58);
+  box-shadow:0 28px 90px rgba(17,5,0,.5),inset 0 0 0 1px rgba(255,226,159,.12);
+}
+.app-shell:before{opacity:.07;background-image:none}
+.topbar{
+  background:linear-gradient(180deg,rgba(51,17,4,.86),rgba(70,27,7,.5),transparent);
+  color:#f7e7c7;
+}
+.brand-mini{color:#f6e5c4}.brand-mini img{width:48px;height:48px;border-radius:50%}
+.back-btn,.share-chip{
+  color:#f7e7c7;
+  border:1px solid rgba(233,183,83,.55);
+  background:linear-gradient(145deg,rgba(108,52,17,.88),rgba(57,20,5,.94));
+  box-shadow:0 8px 18px rgba(15,4,0,.35),inset 0 1px 0 rgba(255,229,168,.22);
+}
+.screen{color:#f4e5c8}
+.screen > .breadcrumb,.screen > .section-sub,.screen > .detail-head .section-sub{color:#e9d5b5}
+.screen > .section-title,.screen > .detail-head .section-title{color:#fff0d2;text-shadow:0 2px 0 rgba(55,19,4,.65)}
+
+/* Light content modules on leather */
+.product-card,.store-card,.detail-card,.form-section,.summary-card,.store-offer,.origin-card,.testimonial-card,.work-card{
+  background:
+    linear-gradient(rgba(248,235,211,.94),rgba(231,208,171,.94)),
+    url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;
+  border:2px solid rgba(205,150,55,.72);
+  box-shadow:0 12px 28px rgba(25,7,0,.34),inset 0 1px 0 rgba(255,255,255,.75),inset 0 0 0 1px rgba(95,42,12,.08);
+  color:#421b08;
+}
+.product-card h3,.store-card h3,.detail-card h3,.form-section h3,.testimonial-body h2,.work-body h2,.origin-card h2{color:#421b08}
+.product-card p,.store-card p,.detail-card p,.detail-card li,.form-section p,.form-section li,.origin-card p,.testimonial-card p,.work-card p{color:#68401f}
+.money,.detail-price{color:#9c5a13;text-shadow:0 1px 0 #ffe6ad}
+.tab{background:#e7d1ad;color:#633718}.tab.active{background:linear-gradient(145deg,#d5a251,#72401b);color:#fff8e7}
+.field input,.field textarea,.field select{background:#fff9ed;color:#3e1b08;border-color:rgba(115,58,18,.28)}
+.note{background:#e6c79d;color:#4b220c}
+.app-footer{background:linear-gradient(180deg,rgba(66,24,6,.16),rgba(43,14,3,.78));color:#f0ddbb;border-top-color:rgba(216,163,62,.28)}
+.footer-link{color:#f4e2c2;border-color:rgba(215,165,70,.4);background:rgba(84,35,10,.58)}
+.footer-kicker{color:#e0ad4d}
+
+/* Home dashboard */
+.lux-home{max-width:900px;margin:0 auto;padding:8px clamp(4px,1vw,12px) 26px}
+.lux-hero-panel{display:grid;grid-template-columns:1.02fr .98fr;gap:16px;align-items:center;padding:6px 8px 12px}
+.lux-hero-copy{text-align:left;position:relative;z-index:2}
+.lux-round-logo{width:clamp(100px,17vw,158px);aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 10px 12px rgba(17,5,0,.3));margin-bottom:2px}
+.lux-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#efba58;font-weight:800;margin:2px 0 10px}
+.lux-hero-copy h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(37px,6.8vw,69px);line-height:.94;letter-spacing:-.025em;color:#fff0d2;margin:0 0 12px;text-shadow:0 2px 1px #351306,0 0 22px rgba(247,195,92,.12)}
+.lux-hero-copy p{margin:0;color:#f1debd;font-size:clamp(14px,2vw,17px);line-height:1.55;max-width:520px}
+.lux-avatar-wrap{position:relative;display:grid;place-items:center;min-height:310px}
+.lux-avatar-plaque{width:min(100%,390px);aspect-ratio:.9;border-radius:42% 38% 45% 32%/34% 46% 32% 45%;overflow:hidden;border:4px solid #d9a740;box-shadow:0 18px 38px rgba(20,5,0,.48),inset 0 0 0 2px #ffe09a;background:#ead5b3}
+.lux-avatar-plaque img{width:100%;height:100%;object-fit:cover;object-position:center 26%;display:block}
+.lux-butterfly{position:absolute;right:0;top:10px;width:clamp(72px,11vw,120px);filter:drop-shadow(0 8px 8px rgba(22,5,0,.42));transform:rotate(8deg)}
+.lux-primary-actions,.lux-service-grid,.lux-social-grid,.lux-extra-grid{display:grid;gap:8px;margin:8px 0}
+.lux-primary-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+.lux-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.lux-social-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:5px}
+.lux-extra-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:10px 2%}
+.asset-nav{display:block;width:100%;border:0;padding:0;background:transparent;cursor:pointer;text-decoration:none;filter:drop-shadow(0 10px 10px rgba(23,6,0,.3));transition:transform .18s ease,filter .18s ease}
+.asset-nav:hover{transform:translateY(-3px) scale(1.008);filter:drop-shadow(0 15px 13px rgba(23,6,0,.38))}
+.asset-nav:active{transform:translateY(1px) scale(.993)}
+.asset-nav img{display:block;width:100%;height:auto;object-fit:contain}
+.lux-about-action{margin:8px 0}.asset-nav.wide{max-width:100%;margin:auto}
+.lux-live-button{width:100%;min-height:82px;border:2px solid #d7a23d;border-radius:28px;background:
+  linear-gradient(rgba(246,229,199,.92),rgba(224,197,154,.94)),url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;
+  color:#542507;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:13px;text-align:left;padding:11px 16px;cursor:pointer;box-shadow:0 10px 20px rgba(24,7,0,.34),inset 0 2px 0 rgba(255,255,255,.75),inset 0 -4px 12px rgba(121,64,20,.12);transition:.18s transform}
+.lux-live-button:hover{transform:translateY(-2px)}
+.lux-live-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#7b3b13,#4c1f08);border:2px solid #d8a33e;color:#f9d77e;font-size:23px;box-shadow:inset 0 1px 0 rgba(255,226,154,.25),0 5px 10px rgba(64,24,5,.22)}
+.lux-live-button b{display:block;font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1}.lux-live-button small{display:block;margin-top:3px;color:#744523;font-size:11px}.lux-chevron{font-size:32px;color:#8a4b12}
+.lux-home-signoff{text-align:center;color:#efca7a;border-top:1px solid rgba(225,174,73,.42);margin:18px 7% 0;padding:16px 0 4px;letter-spacing:.2em}.lux-home-signoff span{font-family:'Cormorant Garamond',serif;font-size:18px}.lux-home-signoff small{display:block;margin-top:5px;font-size:8px;letter-spacing:.16em;color:#d6b17a}
+
+@media(max-width:680px){
+  .app-frame{padding:0}.app-shell{min-height:100vh;border-radius:0;border-left:0;border-right:0}
+  .lux-home{padding:8px 8px 24px}.lux-hero-panel{grid-template-columns:1fr 1fr;gap:7px;padding:5px 4px 8px}.lux-avatar-wrap{min-height:205px}.lux-avatar-plaque{max-width:220px;border-width:2px}.lux-round-logo{width:88px}.lux-kicker{font-size:7.5px;letter-spacing:.13em;margin-bottom:6px}.lux-hero-copy h1{font-size:clamp(28px,8.8vw,42px)}.lux-hero-copy p{font-size:11px;line-height:1.38}.lux-butterfly{width:62px;right:-2px;top:3px}
+  .lux-primary-actions,.lux-service-grid{gap:4px;margin:4px 0}.lux-social-grid{gap:3px}.lux-extra-grid{gap:6px;margin:6px 1%}
+  .asset-nav{filter:drop-shadow(0 5px 5px rgba(23,6,0,.3))}.lux-live-button{min-height:66px;padding:8px 10px;border-radius:22px;gap:8px}.lux-live-icon{width:38px;height:38px;font-size:18px}.lux-live-button b{font-size:18px}.lux-live-button small{font-size:9px}.lux-chevron{font-size:25px}
+}
+@media(max-width:430px){
+  .lux-hero-panel{grid-template-columns:1.05fr .95fr}.lux-avatar-wrap{min-height:170px}.lux-round-logo{width:70px}.lux-hero-copy h1{font-size:29px}.lux-hero-copy p{font-size:10px}.lux-primary-actions,.lux-service-grid{grid-template-columns:1fr 1fr}.lux-social-grid{grid-template-columns:1fr 1fr 1fr}.lux-extra-grid{grid-template-columns:1fr 1fr}
+}

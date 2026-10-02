@@ -22,7 +22,7 @@ function shell(content,{backable=true,share=true,dock=true,brand=true}={}){
   return `<div class="app-frame"><div class="app-shell">
     <header class="topbar">
       ${backable?`<button class="back-btn" data-back aria-label="Volver">${icon('back')}</button>`:''}
-      ${brand?`<button class="brand-mini" data-go="/" aria-label="Inicio"><img src="/assets/logo-esg.png" alt="ESG Experience"><span>ESG EXPERIENCE™</span></button>`:''}
+      ${brand?`<button class="brand-mini" data-go="/" aria-label="Inicio"><img src="/assets/ui-3d/brand/logo-esg-round-stone-gold.png" alt="ESG Experience"><span>ESG EXPERIENCE™</span></button>`:''}
       <div class="spacer"></div>
       ${share?`<button class="share-chip" data-share>Compartir ${icon('share')}</button>`:''}
     </header>
@@ -40,28 +40,57 @@ function dockHtml(){return `<footer class="app-footer">
   <small>${esc(APP.copyright||'© ESG Experience™ · Todos los derechos reservados')}</small>
 </footer>`;}
 function shareBox(){return ''}
-function home(){return shell(`<div class="hero-app">
-  <img class="logo-hero" src="/assets/logo-esg.png" alt="ESG Experience™">
-  <div class="kicker">${esc(APP.home?.kicker||'Una experiencia para construir con dirección')}</div>
-  <h1>${esc(APP.home?.title||'La IA puede generar todo menos tu marca')}</h1>
-  <p class="lead">${esc(APP.home?.lead||'Explora soluciones para organizar tu identidad, crear contenido, construir tu presencia digital o aprender a hacerlo tú misma.')}</p>
-  <div class="hero-actions"><button class="btn btn-gold" data-go="/servicios">Explorar servicios</button><a class="btn btn-dark" href="${APP.channel}" target="_blank" rel="noopener">Unirme al canal gratis</a></div>
-  <div class="tile-grid">
-    ${homeTile('Identidad','De Logo a Personaje™','Sistema visual + personaje reutilizable','/logo-a-personaje','✦')}
-    ${homeTile('Producción visual','ESG Made™','Imágenes y videos con IA y dirección','/esg-made','◈')}
-    ${homeTile('Presencia digital','Web ESG™','Web · Catálogo · WhatsApp · Shopify','/web-esg','▣')}
-    ${homeTile('Academia recomendada','MÍA — Monetiza con IA','Aprende IA y marketing digital','/mia','MÍA',true)}
+function assetNavButton(src,alt,path,cls=''){
+  return `<button class="asset-nav ${cls}" data-go="${path}" aria-label="${esc(alt)}"><img src="${src}" alt="${esc(alt)}"></button>`;
+}
+function assetLinkButton(src,alt,href,cls=''){
+  return `<a class="asset-nav ${cls}" href="${href}" target="_blank" rel="noopener" aria-label="${esc(alt)}"><img src="${src}" alt="${esc(alt)}"></a>`;
+}
+function home(){return shell(`<div class="lux-home">
+  <section class="lux-hero-panel">
+    <div class="lux-hero-copy">
+      <img class="lux-round-logo" src="/assets/ui-3d/brand/logo-esg-round-stone-gold.png" alt="ESG Experience™">
+      <div class="lux-kicker">${esc(APP.home?.kicker||'Una experiencia para construir con dirección')}</div>
+      <h1>${esc(APP.home?.title||'La IA puede generar todo menos tu marca')}</h1>
+      <p>${esc(APP.home?.lead||'Explora soluciones para organizar tu identidad, crear contenido, construir tu presencia digital o aprender a hacerlo tú misma.')}</p>
+    </div>
+    <div class="lux-avatar-wrap" aria-hidden="true">
+      <div class="lux-avatar-plaque"><img src="/assets/ui-3d/brand/eilen-avatar-portrait.png" alt=""></div>
+      <img class="lux-butterfly" src="/assets/ui-3d/brand/butterfly-gold-3d.png" alt="">
+    </div>
+  </section>
+
+  <div class="lux-primary-actions">
+    ${assetNavButton('/assets/ui-3d/buttons/home/01-explorar-servicios.png','Explorar servicios','/servicios')}
+    ${assetLinkButton('/assets/ui-3d/buttons/home/02-unirme-canal-gratis.png','Unirme al canal gratis',APP.channel)}
   </div>
-  <button class="relief-card store-home" data-go="/tienda"><div class="tile-icon">▦</div><div class="tag">Productos digitales ESG</div><h3>Tienda ESG</h3><p>Herramientas y experiencias prácticas para crear, comunicar y producir con IA.</p></button>
-  <button class="relief-card channel" data-go="/analisis"><div class="tag">No sé qué necesito</div><h3>Analiza mi proyecto</h3><p>Cuéntame tu objetivo y revisamos qué servicio puede encajar mejor.</p></button>
-  <button class="relief-card proof-home" data-go="/sobre-eilen"><div class="tag">Conoce quién está detrás</div><h3>Sobre EilenSG</h3><p>Historia, experiencia aplicada y testimonios públicos verificables.</p></button>
-</div>`,{backable:false,share:false});}
+
+  <div class="lux-service-grid">
+    ${assetNavButton('/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png','De Logo a Personaje™','/logo-a-personaje')}
+    ${assetNavButton('/assets/ui-3d/buttons/home/04-esg-made.png','ESG Made™','/esg-made')}
+    ${assetNavButton('/assets/ui-3d/buttons/home/05-web-esg.png','Web ESG™','/web-esg')}
+    ${assetNavButton('/assets/ui-3d/buttons/home/06-mia-monetiza-con-ia.png','MIA — Monetiza con IA','/mia')}
+  </div>
+
+  <div class="lux-extra-grid">
+    <button class="lux-live-button" data-go="/tienda"><span class="lux-live-icon">▦</span><span><b>Tienda ESG</b><small>Productos y herramientas digitales</small></span><span class="lux-chevron">›</span></button>
+    <button class="lux-live-button" data-go="/analisis"><span class="lux-live-icon">◎</span><span><b>Analiza mi proyecto</b><small>No sé qué solución necesito</small></span><span class="lux-chevron">›</span></button>
+  </div>
+
+  <div class="lux-about-action">${assetNavButton('/assets/ui-3d/buttons/home/07-conoce-eilensg.png','Conoce a EilenSG','/sobre-eilen','wide')}</div>
+  <div class="lux-social-grid">
+    ${assetNavButton('/assets/ui-3d/buttons/home/08-testimonios.png','Testimonios','/testimonios')}
+    ${assetLinkButton('/assets/ui-3d/buttons/home/09-instagram.png','Instagram',APP.instagram)}
+    ${assetLinkButton('/assets/ui-3d/buttons/home/10-canal-gratis.png','Canal gratis',APP.channel)}
+  </div>
+  <div class="lux-home-signoff"><span>ESG EXPERIENCE™</span><small>BY REEY MULTISERVICES · Todos los derechos reservados</small></div>
+</div>`,{backable:false,share:false,dock:false,brand:false});}
 function homeTile(tag,name,desc,path,ico,mia=false){return `<button class="relief-card ${mia?'mia':''}" data-go="${path}"><div class="tile-icon">${ico}</div><div class="tag">${tag}</div><h3>${name}</h3><p>${desc}</p></button>`}
 function servicesHome(){return shell(`<div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Entra por la solución que necesitas. Cada sección puede compartirse de forma independiente.</p><div class="tile-grid">
 ${homeTile('Identidad','De Logo a Personaje™','Sistema visual + personaje reutilizable','/logo-a-personaje','✦')}
 ${homeTile('Contenido visual','ESG Made™','4 opciones de producción visual','/esg-made','◈')}
 ${homeTile('Web y comercio','Web ESG™','Web, catálogo, WhatsApp o Shopify','/web-esg','▣')}
-${homeTile('Formación externa','MÍA — Monetiza con IA','Academia recomendada','/mia','MÍA',true)}
+${homeTile('Formación externa','MIA — Monetiza con IA','Academia recomendada','/mia','MIA',true)}
 </div>${shareBox('Servicios ESG Experience™')}`);}
 function familyMade(){return shell(`<div class="breadcrumb">Servicios / ESG Made™</div><h1 class="section-title">ESG Made™</h1><p class="section-sub">Visuales con IA para marcas que quieren verse coherentes y profesionales sin producir contenido al azar.</p><div class="product-list">
 ${productCard('Video Visual Individual','Una pieza puntual de 15–30 s.','$57 / $87','/esg-made/video-individual')}
@@ -140,7 +169,7 @@ function detailPanels(key,s){
   if(key==='fijo'){ panels['No incluye']=`<h3>No incluye</h3>${list(s.limits)}`; }
   return panels;
 }
-function mia(){const areas=(miaData.areas||[]).map(x=>`<div class="mia-mini"><b>${esc(x[0])}</b>${esc(x[1])}</div>`).join('');const inc=(miaData.includes||[]).map(x=>`<li>${esc(x)}</li>`).join('');return shell(`<div class="breadcrumb">Formación recomendada / MÍA</div><section class="mia-stage"><span class="admin-badge">${esc(miaData.eyebrow||'Academia externa recomendada')}</span><div class="mia-mark">MÍA</div><h2>${esc(miaData.title||'MÍA — Monetiza con IA')}</h2><p>${esc(miaData.intro||'')}</p><div class="mia-grid">${areas}</div></section><div class="detail-card" style="margin-top:12px"><h3>Qué encontrarás</h3><ul>${inc}</ul><div class="note">${esc(miaData.disclosure||'')}</div></div><div class="action-stack"><a class="btn btn-purple" href="${APP.mia}" target="_blank" rel="noopener">Ver MÍA y acceder</a></div>`);}
+function mia(){const areas=(miaData.areas||[]).map(x=>`<div class="mia-mini"><b>${esc(x[0])}</b>${esc(x[1])}</div>`).join('');const inc=(miaData.includes||[]).map(x=>`<li>${esc(x)}</li>`).join('');return shell(`<div class="breadcrumb">Formación recomendada / MIA</div><section class="mia-stage"><span class="admin-badge">${esc(miaData.eyebrow||'Academia externa recomendada')}</span><div class="mia-mark">MIA</div><h2>${esc(miaData.title||'MIA — Monetiza con IA')}</h2><p>${esc(miaData.intro||'')}</p><div class="mia-grid">${areas}</div></section><div class="detail-card" style="margin-top:12px"><h3>Qué encontrarás</h3><ul>${inc}</ul><div class="note">${esc(miaData.disclosure||'')}</div></div><div class="action-stack"><a class="btn btn-purple" href="${APP.mia}" target="_blank" rel="noopener">Ver MIA y acceder</a></div>`);}
 function analysis(prefill=''){ const s=prefill?services[prefill]:null; return shell(`<div class="breadcrumb">Análisis ESG</div><h1 class="section-title">No tienes que saber qué servicio necesitas</h1><p class="section-sub">Cuéntame dónde estás y qué quieres conseguir. Al enviar, se prepara un mensaje estructurado para ESG por WhatsApp.</p><form class="form" id="analysis-form"><div class="form-section"><h3>Tu proyecto</h3>${field('name','Nombre completo','text',true)}${field('business','Negocio o marca','text',false)}${field('phone','WhatsApp','tel',true)}${field('email','Email','email',true)}${field('goal','¿Qué quieres conseguir?','textarea',true)}${field('current','¿Qué tienes actualmente?','textarea',false)}${field('block','¿Qué te está frenando?','textarea',false)}<div class="field"><label>¿Qué necesitas de ESG?</label><select name="need"><option ${!s?'selected':''}>Recomiéndame qué servicio necesito</option><option ${s?.family==='Identidad'?'selected':''}>De Logo a Personaje™</option><option ${s?.family==='ESG Made™'?'selected':''}>Producción visual / ESG Made™</option><option ${s?.family==='Web ESG™'?'selected':''}>Web ESG™</option><option>Necesito una cotización diferente</option><option>Otro</option></select></div>${field('notes','Comentarios o referencias','textarea',false)}</div><button class="btn btn-gold" type="submit">Enviar análisis por WhatsApp</button></form>${shareBox('Análisis ESG')}`);}
 function field(name,label,type='text',req=false,placeholder=''){return `<div class="field"><label for="${name}">${label}${req?' *':''}</label>${type==='textarea'?`<textarea id="${name}" name="${name}" placeholder="${esc(placeholder)}" ${req?'required':''}></textarea>`:`<input id="${name}" name="${name}" type="${type}" placeholder="${esc(placeholder)}" ${req?'required':''}>`}</div>`}
 function deliveryFor(key){return (APP.delivery&&APP.delivery[key]) || {first:7,final:10,label:'7–10 días laborables estimados'};}
