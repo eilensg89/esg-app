@@ -1,0 +1,35 @@
+ESG EXPERIENCE™ — ARCHIVO EDITABLE DE TESTIMONIOS
+
+ARCHIVO QUE DEBES MODIFICAR:
+testimonios.js
+
+Para añadir, quitar o actualizar testimonios NO necesitas tocar app.js ni styles.css.
+
+FLUJO RECOMENDADO:
+1. Descarga o abre testimonios.js.
+2. Sube SOLO ese archivo a ChatGPT.
+3. Escribe algo como:
+   “Agrégame este nuevo testimonio a este archivo manteniendo exactamente el formato actual. Nombre: ____. Texto: ____. Link original de Facebook: ____. Servicios relacionados: ____. Link/video del antes y después: ____.”
+4. Descarga el testimonios.js actualizado.
+5. Reemplaza SOLO testimonios.js en la raíz del repositorio de GitHub.
+
+CAMPOS DE CADA TESTIMONIO:
+- id: identificador corto y único, sin espacios.
+- name: nombre público de la persona.
+- services: etiquetas que aparecen en la tarjeta.
+- quote: texto del testimonio.
+- facebookUrl: enlace a la recomendación original.
+- proofImage: captura opcional guardada en /assets/testimonios/.
+- video: opcional. Ruta de un .mp4/.webm directo, por ejemplo /assets/testimonios/cliente.mp4.
+- workUrl: opcional. Enlace a reel, historia destacada, caso de estudio o antes/después.
+- workLabel: texto del botón, por ejemplo “Ver antes y después”.
+
+COMPORTAMIENTO AUTOMÁTICO:
+- Si video tiene valor, aparece el reproductor.
+- Si no hay video pero sí proofImage, aparece la captura.
+- Si workUrl tiene valor, aparece el botón para ver el trabajo.
+- Si workUrl está vacío, el botón no se muestra.
+- Cada testimonio puede compartirse con su propio enlace /testimonios?id=...
+
+IMPORTANTE:
+Si agregas una imagen o video local nuevo, además de modificar testimonios.js debes subir ese archivo a la carpeta /assets/testimonios/ del repositorio.

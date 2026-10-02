@@ -1,0 +1,47 @@
+ESG EXPERIENCE™ — CÓMO EDITAR LA TIENDA SIN TOCAR LA APP
+
+ARCHIVO A MODIFICAR:
+productos.js
+
+La aplicación principal queda en app.js y NO debe modificarse para añadir, quitar o actualizar productos normales de la tienda.
+
+Puedes subir únicamente productos.js a ChatGPT y pedir, por ejemplo:
+
+"Modifica solamente productos.js. Agrega este producto nuevo manteniendo exactamente la estructura actual."
+
+"Modifica solamente productos.js. Cambia el precio de Crea tu Avatar... a $XX.XX y añade este checkout."
+
+"Modifica solamente productos.js. Añade estos tres ejemplos con sus links al producto Videos con tu Clon."
+
+CAMPOS PRINCIPALES DE CADA PRODUCTO:
+
+id            Identificador interno único.
+slug          Ruta compartible: /tienda/slug
+name          Nombre comercial.
+price         Precio visible.
+status        preparacion | disponible | oculto
+tag           Categoría corta.
+short         Resumen visible en la vitrina.
+problem       Problema que resuelve.
+result        Resultado prometido sin exageraciones.
+includes      Lista de entregables o componentes.
+bonus         Bono, si aplica.
+offer         Oferta 2x1, si aplica.
+landingUrl    URL de landing completa si se crea aparte.
+checkoutUrl   URL de compra directa cuando esté lista.
+examples      Links reales / pruebas / casos.
+notes         Nota interna o comercial temporal.
+
+EJEMPLOS:
+
+examples: [
+  { label: 'Ver canal creado con esta herramienta', url: 'https://...' },
+  { label: 'Ver video que alcanzó 72K vistas', url: 'https://...' }
+]
+
+REGLA IMPORTANTE:
+Cada producto mantiene su URL ESG aunque luego tenga landing o checkout externo.
+Ejemplo:
+https://TU-DOMINIO/tienda/reto-creativo-21-dias
+
+No borres app.js, testimonios.js ni styles.css al actualizar productos.js.
