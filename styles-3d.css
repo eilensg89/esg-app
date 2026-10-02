@@ -96,3 +96,19 @@ body{
 @media(max-width:430px){
   .lux-hero-panel{grid-template-columns:1.05fr .95fr}.lux-avatar-wrap{min-height:170px}.lux-round-logo{width:70px}.lux-hero-copy h1{font-size:29px}.lux-hero-copy p{font-size:10px}.lux-primary-actions,.lux-service-grid{grid-template-columns:1fr 1fr}.lux-social-grid{grid-template-columns:1fr 1fr 1fr}.lux-extra-grid{grid-template-columns:1fr 1fr}
 }
+
+/* V4.4 — cleaner home + services rendered with the same 3D sticker language */
+.lux-home-four{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0 12px}
+.lux-home-four .asset-nav img{aspect-ratio:3/1;object-fit:contain}
+.lux-services-page{max-width:900px;margin:0 auto;padding:4px 4px 18px}
+.lux-services-sticker-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 6px}
+.lux-services-sticker-grid .asset-nav{filter:drop-shadow(0 12px 12px rgba(23,6,0,.35))}
+.lux-services-sticker-grid .asset-nav.service-wide{grid-column:1/-1;max-width:calc(50% - 5px);margin:0 auto}
+.lux-services-sticker-grid .asset-nav img{display:block;width:100%;height:auto;object-fit:contain}
+
+@media(max-width:680px){
+  .lux-home-four{gap:5px;margin:6px 0 9px}
+  .lux-services-page{padding:2px 6px 16px}
+  .lux-services-sticker-grid{grid-template-columns:1fr;gap:7px;margin-top:13px}
+  .lux-services-sticker-grid .asset-nav.service-wide{grid-column:auto;max-width:none;margin:0}
+}

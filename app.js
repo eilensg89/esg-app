@@ -60,38 +60,22 @@ function home(){return shell(`<div class="lux-home">
     </div>
   </section>
 
-  <div class="lux-primary-actions">
+  <div class="lux-primary-actions lux-home-four">
     ${assetNavButton('/assets/ui-3d/buttons/home/01-explorar-servicios.png','Explorar servicios','/servicios')}
+    ${assetNavButton('/assets/ui-3d/buttons/home/11-tienda-esg.png','Tienda ESG','/tienda')}
     ${assetLinkButton('/assets/ui-3d/buttons/home/02-unirme-canal-gratis.png','Unirme al canal gratis',APP.channel)}
-  </div>
-
-  <div class="lux-service-grid">
-    ${assetNavButton('/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png','De Logo a Personaje™','/logo-a-personaje')}
-    ${assetNavButton('/assets/ui-3d/buttons/home/04-esg-made.png','ESG Made™','/esg-made')}
-    ${assetNavButton('/assets/ui-3d/buttons/home/05-web-esg.png','Web ESG™','/web-esg')}
     ${assetNavButton('/assets/ui-3d/buttons/home/06-mia-monetiza-con-ia.png','MIA — Monetiza con IA','/mia')}
   </div>
 
-  <div class="lux-extra-grid">
-    <button class="lux-live-button" data-go="/tienda"><span class="lux-live-icon">▦</span><span><b>Tienda ESG</b><small>Productos y herramientas digitales</small></span><span class="lux-chevron">›</span></button>
-    <button class="lux-live-button" data-go="/analisis"><span class="lux-live-icon">◎</span><span><b>Analiza mi proyecto</b><small>No sé qué solución necesito</small></span><span class="lux-chevron">›</span></button>
-  </div>
-
   <div class="lux-about-action">${assetNavButton('/assets/ui-3d/buttons/home/07-conoce-eilensg.png','Conoce a EilenSG','/sobre-eilen','wide')}</div>
-  <div class="lux-social-grid">
-    ${assetNavButton('/assets/ui-3d/buttons/home/08-testimonios.png','Testimonios','/testimonios')}
-    ${assetLinkButton('/assets/ui-3d/buttons/home/09-instagram.png','Instagram',APP.instagram)}
-    ${assetLinkButton('/assets/ui-3d/buttons/home/10-canal-gratis.png','Canal gratis',APP.channel)}
-  </div>
   <div class="lux-home-signoff"><span>ESG EXPERIENCE™</span><small>BY REEY MULTISERVICES · Todos los derechos reservados</small></div>
 </div>`,{backable:false,share:false,dock:false,brand:false});}
 function homeTile(tag,name,desc,path,ico,mia=false){return `<button class="relief-card ${mia?'mia':''}" data-go="${path}"><div class="tile-icon">${ico}</div><div class="tag">${tag}</div><h3>${name}</h3><p>${desc}</p></button>`}
-function servicesHome(){return shell(`<div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Entra por la solución que necesitas. Cada sección puede compartirse de forma independiente.</p><div class="tile-grid">
-${homeTile('Identidad','De Logo a Personaje™','Sistema visual + personaje reutilizable','/logo-a-personaje','✦')}
-${homeTile('Contenido visual','ESG Made™','4 opciones de producción visual','/esg-made','◈')}
-${homeTile('Web y comercio','Web ESG™','Web, catálogo, WhatsApp o Shopify','/web-esg','▣')}
-${homeTile('Formación externa','MIA — Monetiza con IA','Academia recomendada','/mia','MIA',true)}
-</div>${shareBox('Servicios ESG Experience™')}`);}
+function servicesHome(){return shell(`<div class="lux-services-page"><div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Elige el servicio que necesitas. MIA vive fuera de esta sección como academia recomendada.</p><div class="lux-services-sticker-grid">
+${assetNavButton('/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png','De Logo a Personaje™','/logo-a-personaje')}
+${assetNavButton('/assets/ui-3d/buttons/home/04-esg-made.png','ESG Made™','/esg-made')}
+${assetNavButton('/assets/ui-3d/buttons/home/05-web-esg.png','Web ESG™','/web-esg','service-wide')}
+</div></div>${shareBox('Servicios ESG Experience™')}`);}
 function familyMade(){return shell(`<div class="breadcrumb">Servicios / ESG Made™</div><h1 class="section-title">ESG Made™</h1><p class="section-sub">Visuales con IA para marcas que quieren verse coherentes y profesionales sin producir contenido al azar.</p><div class="product-list">
 ${productCard('Video Visual Individual','Una pieza puntual de 15–30 s.','$57 / $87','/esg-made/video-individual')}
 ${productCard('Mini Paquete Visual','2 universos · 10 imágenes + 10 videos.','$100','/esg-made/mini')}
