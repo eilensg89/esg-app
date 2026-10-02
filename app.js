@@ -61,17 +61,17 @@ function home(){return shell(`<div class="lux-home">
   </section>
 
   <div class="lux-primary-actions lux-home-four">
-    ${assetNavButton('/assets/ui-3d/buttons/home/01-explorar-servicios.png','Explorar servicios','/servicios')}
-    ${assetNavButton('/assets/ui-3d/buttons/home/11-tienda-esg.png','Tienda ESG','/tienda')}
-    ${assetLinkButton('/assets/ui-3d/buttons/home/02-unirme-canal-gratis.png','Unirme al canal gratis',APP.channel)}
-    ${assetNavButton('/assets/ui-3d/buttons/home/06-mia-monetiza-con-ia.png','MIA — Monetiza con IA','/mia')}
+    <div class="home-pathway">${assetNavButton('/assets/ui-3d/buttons/home/01-explorar-servicios.png','Explorar servicios','/servicios')}<div class="home-pathway-note">Para quien quiere delegar</div></div>
+    <div class="home-pathway">${assetNavButton('/assets/ui-3d/buttons/home/11-tienda-esg.png','Tienda ESG','/tienda')}<div class="home-pathway-note">Para quien quiere ejecutar</div></div>
+    <div class="home-pathway">${assetLinkButton('/assets/ui-3d/buttons/home/02-unirme-canal-gratis.png','Unirme al canal gratis',APP.channel)}<div class="home-pathway-note channel-note">Recursos gratis + información diaria</div></div>
+    <div class="home-pathway">${assetNavButton('/assets/ui-3d/buttons/home/06-mia-monetiza-con-ia.png','MIA — Monetiza con IA','/mia')}<div class="home-pathway-note">Para quien quiere aprender</div></div>
   </div>
 
   <div class="lux-about-action">${assetNavButton('/assets/ui-3d/buttons/home/07-conoce-eilensg.png','Conoce a EilenSG','/sobre-eilen','wide')}</div>
   <div class="lux-home-signoff"><span>ESG EXPERIENCE™</span><small>BY REEY MULTISERVICES · Todos los derechos reservados</small></div>
 </div>`,{backable:false,share:false,dock:false,brand:false});}
 function homeTile(tag,name,desc,path,ico,mia=false){return `<button class="relief-card ${mia?'mia':''}" data-go="${path}"><div class="tile-icon">${ico}</div><div class="tag">${tag}</div><h3>${name}</h3><p>${desc}</p></button>`}
-function servicesHome(){return shell(`<div class="lux-services-page"><div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Elige el servicio que necesitas. MIA vive fuera de esta sección como academia recomendada.</p><div class="lux-services-sticker-grid">
+function servicesHome(){return shell(`<div class="lux-services-page"><div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Elige el servicio que quieres delegar. Cada opción abre su propia ficha con alcance, precio, ejemplos y próximos pasos.</p><div class="lux-services-sticker-grid">
 ${assetNavButton('/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png','De Logo a Personaje™','/logo-a-personaje')}
 ${assetNavButton('/assets/ui-3d/buttons/home/04-esg-made.png','ESG Made™','/esg-made')}
 ${assetNavButton('/assets/ui-3d/buttons/home/05-web-esg.png','Web ESG™','/web-esg','service-wide')}
@@ -95,13 +95,17 @@ function storeStatusLabel(p){
   if(p.status==='oculto') return '<span class="store-status hidden">Oculto</span>';
   return '<span class="store-status">Próximamente</span>';
 }
-function storeCard(p){
-  const bonus=p.bonus?`<div class="store-bonus">BONO · ${esc(p.bonus.name)} <span>${esc(p.bonus.value||'')}</span></div>`:'';
-  const offer=p.offer?`<div class="store-bonus offer">${esc(p.offer.label)} <span>${esc(p.offer.price||p.price)}</span></div>`:'';
-  return `<button class="store-card" data-go="/tienda/${esc(p.slug)}"><div class="store-card-top"><span class="store-tag">${esc(p.tag||'Producto ESG')}</span>${storeStatusLabel(p)}</div><h3>${esc(p.name)}</h3><p>${esc(p.short)}</p>${bonus}${offer}<div class="store-card-foot"><strong>${esc(p.price)}</strong><span>Ver producto →</span></div></button>`;
+function storeSticker(p){
+  const status=p.status==='disponible'?'Disponible':p.status==='preparacion'?'Próximamente':'';
+  const price=p.price&&p.price!=='Precio por definir'?`<span class="store-sticker-price">${esc(p.price)}</span>`:'';
+  return `<button class="store-sticker" data-go="/tienda/${esc(p.slug)}">
+    <span class="store-sticker-medallion">${esc(p.stickerIcon||'ESG')}</span>
+    <span class="store-sticker-copy"><small>${esc(p.tag||'Producto ESG')}</small><b>${esc(p.name)}</b><em>${esc(p.stickerLine||p.short)}</em></span>
+    <span class="store-sticker-meta">${status?`<i>${esc(status)}</i>`:''}${price}<strong>›</strong></span>
+  </button>`;
 }
 function storeHome(){
-  return shell(`<div class="breadcrumb">Productos ESG / Tienda</div><div class="store-hero"><span class="admin-badge">Productos propios</span><h1 class="section-title">Tienda ESG</h1><p class="section-sub">Una vitrina de herramientas y experiencias prácticas. Entra por la necesidad que quieres resolver; cada producto tendrá su propia página de venta y su enlace compartible.</p></div>${storeProducts.length?`<div class="store-list">${storeProducts.filter(p=>p.status!=='oculto').map(storeCard).join('')}</div>`:`<div class="empty">La tienda está preparada. Todavía no hay productos cargados.</div>`}<div class="detail-card store-note"><h3>Cómo funciona esta vitrina</h3><p class="section-sub" style="margin:0">Las rutas ya quedan reservadas. En la segunda etapa cada producto puede recibir su landing completa, checkout, ejemplos, carruseles, videos o enlaces reales sin modificar la estructura principal de la app.</p></div>${shareBox('Tienda ESG')}`);
+  return shell(`<div class="breadcrumb">Productos ESG / Tienda</div><div class="store-hero"><span class="admin-badge">Productos propios</span><h1 class="section-title">Tienda ESG</h1><p class="section-sub">Productos prácticos para quien quiere ejecutar por su cuenta. Toca un producto para ver qué resuelve, qué incluye y cómo funciona.</p></div>${storeProducts.length?`<div class="store-sticker-grid">${storeProducts.filter(p=>p.status!=='oculto').map(storeSticker).join('')}</div>`:`<div class="empty">La tienda está preparada. Todavía no hay productos cargados.</div>`}<div class="store-flex-note"><b>La tienda está preparada para crecer.</b><span>Podrás añadir, editar u ocultar productos sin cambiar la estructura principal de la web.</span></div>${shareBox('Tienda ESG')}`);
 }
 function storeProduct(){
   const slug=route().split('/').pop();
@@ -218,7 +222,8 @@ function works(){
 function about(){
   const paragraphs=(aboutData.origin||[]).map(x=>`<p>${esc(x)}</p>`).join('');
   const trust=(aboutData.trust||[]).map(x=>`<li>${esc(x)}</li>`).join('');
-  return shell(`<div class="breadcrumb">Sobre nosotros / EilenSG</div><span class="admin-badge">${esc(aboutData.eyebrow||'Detrás de ESG Experience™')}</span><h1 class="section-title">${esc(aboutData.title||'Sobre EilenSG')}</h1><section class="origin-card">${paragraphs}</section><section class="detail-card"><h3>Por qué confiar</h3><ul>${trust}</ul></section><section class="about-testimonials"><div class="section-heading"><span class="testimonial-kicker">Recomendaciones verificables</span><h2>Lo que dicen quienes ya trabajaron conmigo</h2></div>${testimonialsData.length?`<div class="testimonial-list">${testimonialsData.map(testimonialCard).join('')}</div>`:`<div class="empty">Todavía no hay testimonios cargados.</div>`}</section><div class="action-stack"><button class="btn btn-ghost" data-go="/trabajos">Ver trabajos reales</button></div>`,{share:true});
+  const ecosystem=(aboutData.ecosystem||[]).map(x=>`<div class="about-path"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');
+  return shell(`<div class="about-page"><div class="breadcrumb">Sobre Eilen / ESG Experience™</div><span class="admin-badge">${esc(aboutData.eyebrow||'Detrás de ESG Experience™')}</span><h1 class="section-title">${esc(aboutData.title||'Sobre EilenSG')}</h1><section class="origin-card">${paragraphs}</section><section class="about-ecosystem"><div class="about-path-grid">${ecosystem}</div></section><section class="detail-card about-compact"><h3>${esc(aboutData.academyTitle||'Por qué recomiendo una academia')}</h3><p>${esc(aboutData.academy||'')}</p><button class="btn btn-purple" data-go="/mia">Conocer MIA — Monetiza con IA</button></section><section class="detail-card about-compact"><h3>${esc(aboutData.humanTitle||'Una razón personal')}</h3><p>${esc(aboutData.human||'')}</p></section><blockquote class="about-closing">“${esc(aboutData.closing||'')}”</blockquote><section class="detail-card"><h3>Por qué confiar</h3><ul>${trust}</ul></section><section class="about-testimonials"><div class="section-heading"><span class="testimonial-kicker">Recomendaciones verificables</span><h2>Lo que dicen quienes ya trabajaron conmigo</h2></div>${testimonialsData.length?`<div class="testimonial-list">${testimonialsData.map(testimonialCard).join('')}</div>`:`<div class="empty">Todavía no hay testimonios cargados.</div>`}</section><div class="action-stack"><button class="btn btn-ghost" data-go="/trabajos">Ver trabajos reales</button></div></div>`,{share:true});
 }
 function render(){ const p=route(); let html;
   if(p==='/') html=home();

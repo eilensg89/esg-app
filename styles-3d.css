@@ -112,3 +112,33 @@ body{
   .lux-services-sticker-grid{grid-template-columns:1fr;gap:7px;margin-top:13px}
   .lux-services-sticker-grid .asset-nav.service-wide{grid-column:auto;max-width:none;margin:0}
 }
+
+
+/* V4.5 — communication, contrast, store stickers and About refresh */
+.lux-services-page .breadcrumb,.store-hero + * .breadcrumb,.about-page .breadcrumb{color:#e8b75a}
+.lux-services-page .section-title,.store-hero .section-title,.about-page > .section-title{color:#f7dfaa;text-shadow:0 2px 0 rgba(48,15,3,.85),0 0 18px rgba(232,183,90,.10)}
+.lux-services-page .section-sub,.store-hero .section-sub{color:#f1dfc1;text-shadow:0 1px 0 rgba(48,15,3,.65)}
+
+.home-pathway{display:flex;flex-direction:column;gap:3px;min-width:0}
+.home-pathway-note{font-size:11px;line-height:1.2;text-align:center;color:#f4dfb8;letter-spacing:.01em;padding:0 6px 4px;text-shadow:0 1px 0 rgba(47,15,3,.8)}
+.home-pathway-note.channel-note{color:#ffd985;font-weight:800}
+
+.store-sticker-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.store-sticker{position:relative;min-height:154px;display:grid;grid-template-columns:94px 1fr auto;align-items:center;gap:14px;width:100%;border:2px solid #d4a03c;border-radius:32px 46px 34px 50px/40px 31px 52px 34px;padding:15px 16px;background:linear-gradient(rgba(247,232,203,.95),rgba(224,199,158,.96)),url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;color:#4a1e08;text-align:left;cursor:pointer;box-shadow:0 13px 30px rgba(22,6,0,.35),inset 0 2px 0 rgba(255,255,255,.78),inset 0 0 0 1px rgba(92,39,9,.09);transition:transform .18s ease,box-shadow .18s ease;overflow:hidden}
+.store-sticker:nth-child(even){border-radius:48px 30px 50px 32px/30px 50px 34px 48px}
+.store-sticker:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(22,6,0,.4),inset 0 2px 0 rgba(255,255,255,.82)}
+.store-sticker:before{content:'';position:absolute;inset:6px;border:1px solid rgba(255,222,145,.7);border-radius:inherit;pointer-events:none}
+.store-sticker-medallion{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#ffdfa0;background:radial-gradient(circle at 35% 28%,#8f4b18,#4c1d07 70%);border:4px double #e2b65d;box-shadow:0 8px 16px rgba(72,26,4,.28),inset 0 1px 0 rgba(255,231,173,.35);z-index:1}
+.store-sticker-copy{display:grid;gap:3px;z-index:1;min-width:0}.store-sticker-copy small{text-transform:uppercase;letter-spacing:.12em;font-weight:800;font-size:9px;color:#8a531e}.store-sticker-copy b{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,31px);line-height:.96;color:#4a1e08}.store-sticker-copy em{font-style:normal;font-size:12px;line-height:1.28;color:#70411d}
+.store-sticker-meta{align-self:stretch;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:8px;z-index:1}.store-sticker-meta i{font-style:normal;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#8a531e}.store-sticker-price{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#8b4d11}.store-sticker-meta strong{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f4ce78,#aa681f);border:2px solid #f1cf7d;color:#4b1d06;font-size:27px;line-height:1;box-shadow:0 5px 10px rgba(76,27,4,.24)}
+.store-flex-note{display:flex;justify-content:space-between;gap:18px;align-items:center;margin:16px 0 4px;padding:14px 16px;border-top:1px solid rgba(223,174,78,.35);border-bottom:1px solid rgba(223,174,78,.35);color:#f0d8ae}.store-flex-note b{color:#f4c96d}.store-flex-note span{font-size:12px;line-height:1.4;text-align:right;max-width:520px}
+
+.about-page{max-width:900px;margin:0 auto}.about-ecosystem{margin:14px 0}.about-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.about-path{background:linear-gradient(rgba(247,232,203,.95),rgba(224,199,158,.95)),url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;border:2px solid rgba(211,158,62,.7);border-radius:22px 34px 24px 38px;padding:16px;color:#4b1e08;box-shadow:0 8px 18px rgba(26,7,0,.25),inset 0 1px 0 rgba(255,255,255,.7)}.about-path b{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1;color:#4b1e08}.about-path span{display:block;margin-top:6px;color:#6d3e1b;font-size:13px}
+.about-compact p{margin-bottom:14px}.about-closing{margin:18px 0;padding:20px 22px;border-left:3px solid #e2b356;background:rgba(61,21,5,.45);border-radius:0 22px 22px 0;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.2vw,34px);line-height:1.2;color:#f8e2b7;text-shadow:0 1px 0 #351306}
+
+@media(max-width:680px){
+  .home-pathway-note{font-size:9px;padding:0 2px 3px}
+  .store-sticker-grid{grid-template-columns:1fr;gap:8px;margin-top:13px}.store-sticker{min-height:128px;grid-template-columns:72px 1fr auto;padding:12px 12px;gap:10px;border-radius:26px 36px 28px 40px/32px 26px 40px 28px}.store-sticker-medallion{width:66px;height:66px;font-size:22px;border-width:3px}.store-sticker-copy small{font-size:7px}.store-sticker-copy b{font-size:24px}.store-sticker-copy em{font-size:10px}.store-sticker-meta i{font-size:7px}.store-sticker-price{font-size:17px}.store-sticker-meta strong{width:32px;height:32px;font-size:22px}.store-flex-note{display:grid;gap:5px}.store-flex-note span{text-align:left}
+  .about-path-grid{grid-template-columns:1fr 1fr;gap:7px}.about-path{padding:13px}.about-path b{font-size:21px}.about-path span{font-size:11px}.about-closing{padding:16px 17px;font-size:24px}
+}
+@media(max-width:430px){.about-path-grid{grid-template-columns:1fr}.store-sticker-copy b{font-size:22px}}

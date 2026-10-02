@@ -6,9 +6,9 @@ window.ESG_CONFIG = {
   email: 'info@reeymultiservices.com',
   sheetsEndpoint: '',
   home: {
-    kicker: 'Una experiencia para construir con dirección',
+    kicker: 'Servicios · productos · recursos gratis · formación',
     title: 'La IA puede generar todo menos tu marca',
-    lead: 'Explora soluciones para organizar tu identidad, crear contenido, construir tu presencia digital o aprender a hacerlo tú misma.'
+    lead: 'Servicios para quien quiere delegar. Productos prácticos para quien quiere ejecutar. Recursos gratis para quien quiere empezar. Y una academia recomendada para quien necesita aprender con una base organizada.'
   },
   contractTerms: `CONDICIONES OPERATIVAS ESG EXPERIENCE™\n\nInicio del trabajo: la producción comienza cuando ESG Experience ha recibido el pago correspondiente y los materiales e información necesarios.\n\nPago: 100% por adelantado o división en 2 pagos. Si se divide, la producción y la entrega también se dividen; la segunda fase no se entrega antes de recibir el segundo pago.\n\nMétodos: Zelle y PayPal. Para tarjeta, el cliente solicita el enlace por WhatsApp y ESG envía manualmente un Stripe Payment Link.\n\nRevisión: 1 ronda de revisión/corrección dentro del alcance aprobado. Cambiar concepto completo, rehacer estrategia o solicitar piezas nuevas se cotiza aparte.\n\nPolítica de no reembolso: una vez completado y entregado el trabajo contratado, incluida la ronda de revisión correspondiente al alcance aprobado, los pagos realizados son no reembolsables.\n\nRetrasos del cliente: retrasos en materiales, respuestas o aprobaciones desplazan proporcionalmente el calendario de entrega.`,
   copyright: '© ESG Experience™ · EilenSG · Todos los derechos reservados',
