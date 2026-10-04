@@ -63,5 +63,23 @@ window.ESG_SERVICIOS = {
     intro:'Precio inicial de lanzamiento mientras ESG mide el esfuerzo real de los primeros proyectos. No es una tarifa cerrada para tiendas complejas.',
     include:['Montaje inicial de Shopify dentro del alcance acordado.','Hasta 50 productos cargados.','Kit Visual de Marca ESG™.','Portal independiente de productos.','1 ronda de revisión/corrección.'],
     limits:['Puede aumentar por muchas variantes, migraciones, aplicaciones pagadas, automatizaciones, integraciones o requerimientos especiales.','Shopify, dominio, apps y servicios externos los paga el cliente.'], tabs:['Resumen','Qué incluye','Puede aumentar','Costos externos']
+  },
+  hora: {
+    slug:'acompanamiento-por-hora', family:'Acompañamiento ESG™', name:'Acompañamiento ESG por hora', price:'$25/h',
+    summary:'Orientación y apoyo práctico para avanzar sin contratar un servicio completo.',
+    intro:'Una modalidad flexible para negocios y emprendedores que necesitan una mano extra, guía o acompañamiento puntual en tareas relacionadas con las áreas que trabaja ESG.',
+    ideal:['Negocios que necesitan orientación sin contratar un proyecto completo.','Emprendedores que quieren revisar una idea, proceso, herramienta o implementación.','Equipos que necesitan apoyo puntual o bloques recurrentes de acompañamiento.'],
+    include:['Orientación práctica durante el bloque contratado.','Revisión de procesos, herramientas, contenido, IA, presencia digital o web dentro del área de experiencia ESG.','Apoyo para organizar próximos pasos y prioridades.','Opción de contratar una hora puntual o bloques recurrentes según disponibilidad.'],
+    limits:['No incluye manejo de redes sociales ni community management.','Los servicios completos de web, identidad o producción visual conservan su propio alcance y precio.','El tiempo se reserva según disponibilidad y el alcance se confirma antes de comenzar.'],
+    tabs:['Resumen','Qué puede incluir','Cómo funciona','Condiciones']
   }
 };
+
+
+/* Top-level service cards. Kept separate from sub-services so the future admin can add/reorder service families without editing app.js. */
+window.ESG_SERVICE_HUBS = [
+  { id:'dlp', label:'De Logo a Personaje™', path:'/logo-a-personaje', asset:'/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png', active:true },
+  { id:'made', label:'ESG Made™', path:'/esg-made', asset:'/assets/ui-3d/buttons/home/04-esg-made.png', active:true },
+  { id:'web', label:'Web ESG™', path:'/web-esg', asset:'/assets/ui-3d/buttons/home/05-web-esg.png', active:true },
+  { id:'hora', label:'Acompañamiento ESG por hora', path:'/acompanamiento-por-hora', asset:'/assets/ui-3d/buttons/home/12-acompanamiento-hora.svg', active:true }
+];

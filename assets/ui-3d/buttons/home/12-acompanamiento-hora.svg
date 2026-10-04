@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2172 724" role="img" aria-labelledby="title desc">
+  <title id="title">Acompañamiento ESG por hora</title>
+  <desc id="desc">Botón de piedra marfil con borde dorado para acompañamiento ESG a 25 dólares por hora.</desc>
+  <defs>
+    <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1d2"/><stop offset=".52" stop-color="#ead1a7"/><stop offset="1" stop-color="#d9b77f"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff0a7"/><stop offset=".2" stop-color="#c88a27"/><stop offset=".48" stop-color="#f6d477"/><stop offset=".75" stop-color="#9c5b13"/><stop offset="1" stop-color="#edc45e"/>
+    </linearGradient>
+    <radialGradient id="med" cx="35%" cy="28%" r="75%">
+      <stop offset="0" stop-color="#98501a"/><stop offset="1" stop-color="#4b1b06"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#190600" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M125 152 C245 65 466 82 658 100 C882 121 1070 64 1290 90 C1515 116 1704 89 1958 133 C2051 149 2096 227 2077 322 C2058 418 2100 493 2016 564 C1906 657 1683 625 1492 619 C1277 612 1093 654 874 625 C650 595 464 659 265 617 C145 592 85 514 104 419 C121 333 48 224 125 152 Z" fill="url(#gold)"/>
+    <path d="M150 166 C268 91 467 107 654 121 C869 137 1063 87 1278 109 C1497 132 1698 108 1939 151 C2016 165 2053 231 2038 313 C2021 401 2057 475 1984 536 C1883 620 1680 591 1488 585 C1276 579 1094 620 884 594 C669 567 478 625 287 587 C185 567 132 500 148 416 C164 330 99 229 150 166 Z" fill="url(#stone)" stroke="#8b4b10" stroke-opacity=".24" stroke-width="5"/>
+    <ellipse cx="397" cy="360" rx="218" ry="205" fill="url(#gold)"/>
+    <ellipse cx="397" cy="360" rx="185" ry="173" fill="url(#med)" stroke="#f2ce72" stroke-width="10"/>
+    <text x="397" y="330" text-anchor="middle" font-family="Georgia,serif" font-size="92" font-weight="700" fill="#ffe09a">$25</text>
+    <text x="397" y="412" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="700" fill="#f7ddac" letter-spacing="3">/ HORA</text>
+    <text x="703" y="293" font-family="Georgia,serif" font-size="105" font-weight="700" fill="#562208">Acompañamiento ESG</text>
+    <text x="706" y="390" font-family="Georgia,serif" font-size="56" fill="#6d3616">Orientación + apoyo práctico</text>
+    <text x="706" y="467" font-family="Arial,sans-serif" font-size="35" font-weight="700" fill="#8a531e" letter-spacing="2">POR HORA · PARA NEGOCIOS Y EMPRENDEDORES</text>
+    <circle cx="1870" cy="362" r="83" fill="url(#gold)" stroke="#fff0a7" stroke-width="5"/>
+    <path d="M1844 316 L1900 362 L1844 408" fill="none" stroke="#5a260a" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

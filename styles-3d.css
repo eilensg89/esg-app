@@ -142,3 +142,80 @@ body{
   .about-path-grid{grid-template-columns:1fr 1fr;gap:7px}.about-path{padding:13px}.about-path b{font-size:21px}.about-path span{font-size:11px}.about-closing{padding:16px 17px;font-size:24px}
 }
 @media(max-width:430px){.about-path-grid{grid-template-columns:1fr}.store-sticker-copy b{font-size:22px}}
+
+/* V4.6 — stable contrast system + team/referral layer */
+/* Rule: text that sits directly on leather must be light. Text inside stone cards remains dark. */
+.screen > .breadcrumb,
+.screen > .section-sub,
+.screen > .detail-head .section-sub,
+.lux-services-page > .breadcrumb,
+.lux-services-page > .section-sub,
+.store-hero > .section-sub,
+.about-page > .breadcrumb{
+  color:#f1dfc1 !important;
+  text-shadow:0 1px 0 rgba(42,13,3,.72);
+}
+.screen > .section-title,
+.screen > .detail-head .section-title,
+.lux-services-page > .section-title,
+.store-hero > .section-title,
+.about-page > .section-title,
+.about-testimonials > .section-heading h2{
+  color:#f8e5bb !important;
+  text-shadow:0 2px 0 rgba(42,13,3,.86),0 0 16px rgba(235,187,91,.12);
+}
+.about-testimonials > .section-heading .testimonial-kicker{
+  display:inline-flex;
+  color:#ffe09a !important;
+  background:rgba(73,27,7,.72);
+  border:1px solid rgba(224,171,68,.58);
+  border-radius:999px;
+  padding:7px 11px;
+  text-shadow:0 1px 0 rgba(42,13,3,.86);
+}
+/* Preserve dark text inside light modules. */
+.detail-card .section-title,.form-section .section-title,.summary-card .section-title,
+.origin-card .section-title,.testimonial-card .section-title,.work-card .section-title{color:#421b08 !important;text-shadow:none}
+
+.team-referral-strip{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin:12px 0 14px;
+}
+.team-copy,.referral-copy,.service-referral-note{
+  border:1px solid rgba(222,169,69,.58);
+  background:linear-gradient(145deg,rgba(76,29,7,.80),rgba(48,16,4,.90));
+  box-shadow:0 10px 22px rgba(19,5,0,.30),inset 0 1px 0 rgba(255,226,158,.12);
+  border-radius:20px 28px 20px 30px;
+  padding:13px 15px;
+  color:#f5e2bd;
+}
+.team-copy b,.referral-copy b,.service-referral-note b{display:block;font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;color:#ffd77e;margin-bottom:5px}
+.team-copy span,.referral-copy span,.service-referral-note span{display:block;font-size:11px;line-height:1.45;color:#f1dfc1}
+.referral-copy small{display:block;margin-top:7px;color:#ffe09a;font-size:10px}.referral-copy small strong{color:#fff0c7}
+.service-referral-note{display:grid;gap:2px;margin:16px 0 4px}
+
+.referral-form-block{
+  margin-top:16px;
+  padding:15px;
+  border-radius:18px 24px 18px 26px;
+  background:#ead2aa;
+  border:1px solid rgba(139,76,21,.22);
+  color:#4c210b;
+}
+.referral-form-block>b{font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1;color:#4c210b}
+.referral-form-block p{margin:7px 0 4px;color:#69401e !important;font-size:12px;line-height:1.45}
+.referral-form-block .field{margin-bottom:0}
+
+.lux-services-sticker-grid .asset-nav img[src$="12-acompanamiento-hora.svg"]{aspect-ratio:3/1;object-fit:contain}
+
+@media(max-width:680px){
+  .team-referral-strip{grid-template-columns:1fr;gap:6px;margin:8px 0 10px}
+  .team-copy,.referral-copy,.service-referral-note{padding:11px 12px;border-radius:17px 23px 17px 25px}
+  .team-copy b,.referral-copy b,.service-referral-note b{font-size:19px}
+  .team-copy span,.referral-copy span,.service-referral-note span{font-size:9.5px}
+  .referral-form-block{padding:12px}.referral-form-block>b{font-size:21px}
+}
+.lux-team-line{margin-top:9px;color:#ffd77e;font-size:11px;font-weight:800;line-height:1.35;text-shadow:0 1px 0 rgba(42,13,3,.8)}
+@media(max-width:680px){.lux-team-line{font-size:9px;margin-top:6px}}

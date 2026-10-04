@@ -8,12 +8,14 @@ function doPost(e) {
   const data = JSON.parse(e.postData.contents || '{}');
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName('ESG_LEADS') || ss.insertSheet('ESG_LEADS');
-  const headers = ['createdAt','type','name','business','phone','email','service','goal','need','payment','delivery','page','payload'];
+  const headers = ['createdAt','type','name','business','phone','email','service','goal','need','payment','delivery','referralCode','referralName','referralVerified','discountPercent','page','payload'];
   if (sheet.getLastRow() === 0) sheet.appendRow(headers);
   sheet.appendRow([
     data.createdAt || new Date(), data.type || '', data.name || '', data.business || '',
     data.phone || '', data.email || '', data.service || '', data.goal || '', data.need || '',
-    data.payment || '', data.delivery || '', data.page || '', JSON.stringify(data)
+    data.payment || '', data.delivery || '', data.referralCode || '', data.referralName || '',
+    data.referralVerified === true ? 'TRUE' : (data.referralVerified === false ? 'FALSE' : ''), data.discountPercent || '',
+    data.page || '', JSON.stringify(data)
   ]);
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }

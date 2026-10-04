@@ -1,21 +1,57 @@
 const APP = window.ESG_CONFIG || {};
 
 const services = window.ESG_SERVICIOS || {};
+const serviceHubs = Array.isArray(window.ESG_SERVICE_HUBS) ? window.ESG_SERVICE_HUBS : [];
 const serviceByPath = Object.fromEntries(Object.entries(services).map(([k,v])=>['/'+v.slug,k]));
 const testimonialsData = Array.isArray(window.ESG_TESTIMONIOS) ? window.ESG_TESTIMONIOS : [];
 const storeProducts = Array.isArray(window.ESG_PRODUCTOS) ? window.ESG_PRODUCTOS : [];
 const worksData = Array.isArray(window.ESG_TRABAJOS) ? window.ESG_TRABAJOS : [];
 const aboutData = window.ESG_ABOUT || {origin:[],trust:[]};
 const miaData = window.ESG_MIA || {};
+const referralProfiles = Array.isArray(window.ESG_REFERRALS) ? window.ESG_REFERRALS : [];
 const app = document.getElementById('app');
 const toast = document.getElementById('toast');
 let currentTab = 0;
 
 function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1700); }
 function esc(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-function go(path){ history.pushState({},'',path); currentTab=0; render(); }
+function normalizeRef(v=''){return String(v||'').trim().toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40)}
+function referralProfile(code=''){const c=normalizeRef(code);return referralProfiles.find(x=>x.active!==false&&normalizeRef(x.code)===c)||null}
+function captureReferral(){
+  if(APP.referral?.enabled===false) return;
+  const code=normalizeRef(new URLSearchParams(location.search).get('ref')||'');
+  if(!code) return;
+  try{localStorage.setItem(APP.referral?.storageKey||'esgReferral',JSON.stringify({code,capturedAt:Date.now()}));}catch{}
+}
+function activeReferral(){
+  if(APP.referral?.enabled===false) return null;
+  try{
+    const raw=JSON.parse(localStorage.getItem(APP.referral?.storageKey||'esgReferral')||'null');
+    if(!raw?.code) return null;
+    const max=(Number(APP.referral?.days)||30)*86400000;
+    if(Date.now()-Number(raw.capturedAt||0)>max){localStorage.removeItem(APP.referral?.storageKey||'esgReferral');return null}
+    const profile=referralProfile(raw.code);
+    return {code:normalizeRef(raw.code),name:profile?.name||raw.code,verified:!!profile,profile};
+  }catch{return null}
+}
+function referralData(manual=''){
+  const typed=String(manual||'').trim();
+  const typedCode=normalizeRef(typed);
+  if(typedCode){try{localStorage.setItem(APP.referral?.storageKey||'esgReferral',JSON.stringify({code:typedCode,capturedAt:Date.now()}));}catch{}}
+  const active=activeReferral();
+  const code=typedCode||active?.code||'';
+  const profile=referralProfile(code);
+  return {referralCode:code,referralName:profile?.name||(typed||active?.name||''),referralVerified:!!profile,discountPercent:code?(Number(APP.referral?.discountPercent)||5):''};
+}
+function shareableUrl(raw=location.href){
+  const u=new URL(raw,location.origin); const r=activeReferral();
+  if(r?.code) u.searchParams.set('ref',r.code);
+  return u.toString();
+}
+function go(path){ history.pushState({},'',path); captureReferral(); currentTab=0; render(); }
 function back(){ if(history.length>1) history.back(); else go('/'); }
 function route(){ return location.pathname.replace(/\/$/,'') || '/'; }
+captureReferral();
 function icon(name){ const map={back:'←',share:'↗',home:'⌂',services:'◇',analyse:'◎',channel:'◉',copy:'⧉',whatsapp:'W',phone:'☎',instagram:'◎'}; return map[name]||'•'; }
 function shell(content,{backable=true,share=true,dock=true,brand=true}={}){
   const p=route();
@@ -46,6 +82,20 @@ function assetNavButton(src,alt,path,cls=''){
 function assetLinkButton(src,alt,href,cls=''){
   return `<a class="asset-nav ${cls}" href="${href}" target="_blank" rel="noopener" aria-label="${esc(alt)}"><img src="${src}" alt="${esc(alt)}"></a>`;
 }
+function teamReferralStrip(){
+  const t=APP.team||{}; const r=APP.referral||{}; const active=activeReferral();
+  return `<section class="team-referral-strip"><div class="team-copy"><b>${esc(t.headline||'ESG Experience™ es un equipo.')}</b><span>${esc(t.text||'Trabajamos con colaboradoras y colaboradores según cada proyecto.')}</span></div><div class="referral-copy"><b>${esc(r.publicTitle||'¿Vienes referido por alguien de nuestro equipo?')}</b><span>${esc(r.publicText||'Indica su nombre o código al solicitar tu cotización.')}</span>${active?`<small>Referencia detectada: <strong>${esc(active.name)}</strong></small>`:''}</div></section>`;
+}
+function referralFormBlock(){
+  const active=activeReferral(); const pct=Number(APP.referral?.discountPercent)||5;
+  return `<div class="referral-form-block"><b>¿Vienes de parte de alguien de nuestro equipo?</b><p>${active?`Detectamos el código <strong>${esc(active.code)}</strong>.`:`Escribe el nombre o código de la colaboradora o colaborador que te recomendó ESG.`} El beneficio de ${pct}% en servicios se confirma al preparar la cotización.</p><div class="field"><label for="referralManual">Nombre o código de referido</label><input id="referralManual" name="referralManual" type="text" value="${active?esc(active.code):''}" placeholder="Ej. ana"></div></div>`;
+}
+function productExternalUrl(p,url){
+  const r=activeReferral();
+  if(r?.code && p?.affiliateLinks?.[r.code]) return p.affiliateLinks[r.code];
+  if(r?.code && r.profile?.productAffiliateUrls?.[p?.slug]) return r.profile.productAffiliateUrls[p.slug];
+  return url;
+}
 function home(){return shell(`<div class="lux-home">
   <section class="lux-hero-panel">
     <div class="lux-hero-copy">
@@ -53,6 +103,7 @@ function home(){return shell(`<div class="lux-home">
       <div class="lux-kicker">${esc(APP.home?.kicker||'Una experiencia para construir con dirección')}</div>
       <h1>${esc(APP.home?.title||'La IA puede generar todo menos tu marca')}</h1>
       <p>${esc(APP.home?.lead||'Explora soluciones para organizar tu identidad, crear contenido, construir tu presencia digital o aprender a hacerlo tú misma.')}</p>
+      <div class="lux-team-line">ESG Experience™ es un equipo de colaboradoras y colaboradores.</div>
     </div>
     <div class="lux-avatar-wrap" aria-hidden="true">
       <div class="lux-avatar-plaque"><img src="/assets/ui-3d/brand/eilen-avatar-portrait.png" alt=""></div>
@@ -67,15 +118,17 @@ function home(){return shell(`<div class="lux-home">
     <div class="home-pathway">${assetNavButton('/assets/ui-3d/buttons/home/06-mia-monetiza-con-ia.png','MIA — Monetiza con IA','/mia')}<div class="home-pathway-note">Para quien quiere aprender</div></div>
   </div>
 
+  ${teamReferralStrip()}
   <div class="lux-about-action">${assetNavButton('/assets/ui-3d/buttons/home/07-conoce-eilensg.png','Conoce a EilenSG','/sobre-eilen','wide')}</div>
   <div class="lux-home-signoff"><span>ESG EXPERIENCE™</span><small>BY REEY MULTISERVICES · Todos los derechos reservados</small></div>
 </div>`,{backable:false,share:false,dock:false,brand:false});}
 function homeTile(tag,name,desc,path,ico,mia=false){return `<button class="relief-card ${mia?'mia':''}" data-go="${path}"><div class="tile-icon">${ico}</div><div class="tag">${tag}</div><h3>${name}</h3><p>${desc}</p></button>`}
-function servicesHome(){return shell(`<div class="lux-services-page"><div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Elige el servicio que quieres delegar. Cada opción abre su propia ficha con alcance, precio, ejemplos y próximos pasos.</p><div class="lux-services-sticker-grid">
-${assetNavButton('/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png','De Logo a Personaje™','/logo-a-personaje')}
-${assetNavButton('/assets/ui-3d/buttons/home/04-esg-made.png','ESG Made™','/esg-made')}
-${assetNavButton('/assets/ui-3d/buttons/home/05-web-esg.png','Web ESG™','/web-esg','service-wide')}
-</div></div>${shareBox('Servicios ESG Experience™')}`);}
+function servicesHome(){const hubs=(serviceHubs.length?serviceHubs:[
+  {label:'De Logo a Personaje™',path:'/logo-a-personaje',asset:'/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png'},
+  {label:'ESG Made™',path:'/esg-made',asset:'/assets/ui-3d/buttons/home/04-esg-made.png'},
+  {label:'Web ESG™',path:'/web-esg',asset:'/assets/ui-3d/buttons/home/05-web-esg.png'},
+  {label:'Acompañamiento ESG por hora',path:'/acompanamiento-por-hora',asset:'/assets/ui-3d/buttons/home/12-acompanamiento-hora.svg'}
+]).filter(x=>x.active!==false);return shell(`<div class="lux-services-page"><div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Elige lo que quieres delegar o el tipo de acompañamiento que necesitas. Cada opción abre su propia ficha con alcance, precio y próximos pasos.</p><div class="lux-services-sticker-grid">${hubs.map(x=>assetNavButton(x.asset,x.label,x.path)).join('')}</div><div class="service-referral-note"><b>${esc(APP.referral?.publicTitle||'¿Vienes referido por alguien de nuestro equipo?')}</b><span>${esc(APP.referral?.publicText||'Indica su nombre o código al solicitar tu cotización.')}</span></div></div>${shareBox('Servicios ESG Experience™')}`);}
 function familyMade(){return shell(`<div class="breadcrumb">Servicios / ESG Made™</div><h1 class="section-title">ESG Made™</h1><p class="section-sub">Visuales con IA para marcas que quieren verse coherentes y profesionales sin producir contenido al azar.</p><div class="product-list">
 ${productCard('Video Visual Individual','Una pieza puntual de 15–30 s.','$57 / $87','/esg-made/video-individual')}
 ${productCard('Mini Paquete Visual','2 universos · 10 imágenes + 10 videos.','$100','/esg-made/mini')}
@@ -116,15 +169,15 @@ function storeProduct(){
   const offer=p.offer?`<div class="store-offer offer"><span>${esc(p.offer.label)}</span><h3>${esc(p.offer.price)}</h3><p>Valor combinado: ${esc(p.offer.value||'')}</p><p>${esc(p.offer.text||'')}</p></div>`:'';
   const examples=(p.examples||[]).length?`<div class="detail-card"><h3>Ejemplos / resultados</h3><div class="store-examples">${p.examples.map(e=>`<a href="${esc(e.url||'#')}" target="_blank" rel="noopener">${esc(e.label||'Ver ejemplo')}</a>`).join('')}</div></div>`:`<div class="detail-card store-placeholder"><h3>Ejemplos y resultados</h3><p>Aquí podrán añadirse después enlaces, carruseles de hasta 4 imágenes, casos reales, canales, reels o videos que demuestren qué se puede conseguir con esta herramienta.</p></div>`;
   let cta='';
-  if(p.checkoutUrl){cta=`<a class="btn btn-gold" href="${esc(p.checkoutUrl)}" target="_blank" rel="noopener">Comprar ahora</a>`}
-  else if(p.landingUrl){cta=`<a class="btn btn-gold" href="${esc(p.landingUrl)}" target="_blank" rel="noopener">Ver página completa</a>`}
+  if(p.checkoutUrl){cta=`<a class="btn btn-gold" href="${esc(productExternalUrl(p,p.checkoutUrl))}" target="_blank" rel="noopener">Comprar ahora</a>`}
+  else if(p.landingUrl){cta=`<a class="btn btn-gold" href="${esc(productExternalUrl(p,p.landingUrl))}" target="_blank" rel="noopener">Ver página completa</a>`}
   else {cta=`<button class="btn btn-gold" disabled aria-disabled="true">Página de compra en preparación</button>`}
   return shell(`<div class="breadcrumb">Tienda ESG / ${esc(p.name)}</div><div class="detail-head store-product-head"><div><span class="store-tag">${esc(p.tag||'Producto ESG')}</span><h1 class="section-title">${esc(p.name)}</h1><p class="section-sub">${esc(p.short)}</p></div><div class="detail-price">${esc(p.price)}</div></div>${offer}${bonus}<div class="detail-card"><h3>Qué resuelve</h3><p>${esc(p.problem||'')}</p><h3>Resultado</h3><p>${esc(p.result||'')}</p></div><div class="detail-card"><h3>Qué incluye</h3><ul>${list}</ul></div>${examples}${p.notes?`<div class="note store-product-note">${esc(p.notes)}</div>`:''}<div class="action-stack">${cta}<button class="btn btn-dark" data-go="/tienda">Ver todos los productos</button></div>${shareBox(p.name)}`);
 }
-function detail(key){ const s=services[key]; const panels=detailPanels(key,s); const tabNames=Object.keys(panels); const tabName=tabNames[Math.min(currentTab,tabNames.length-1)]; return shell(`<div class="breadcrumb">${s.family} / ${s.name}</div><div class="detail-head"><div><div class="detail-badge">${s.family}</div><h1 class="section-title">${s.name}</h1><p class="section-sub">${s.summary}</p></div><div class="detail-price">${s.price}</div></div>
+function detail(key){ const s=services[key]; const panels=detailPanels(key,s); const tabNames=Object.keys(panels); const tabName=tabNames[Math.min(currentTab,tabNames.length-1)]; const actions=key==='hora'?`<div class="split-actions"><button class="btn btn-gold" data-analysis="hora">Solicitar acompañamiento</button><button class="btn btn-dark" data-go="/servicios">Ver otros servicios</button></div>`:`<div class="split-actions"><button class="btn btn-gold" data-contract="${key}">Quiero contratarlo</button><button class="btn btn-dark" data-analysis="${key}">Quiero explicar mi proyecto</button></div><button class="btn btn-ghost" data-go="/trabajos?servicio=${key}">Ver trabajos reales</button>`; return shell(`<div class="breadcrumb">${s.family} / ${s.name}</div><div class="detail-head"><div><div class="detail-badge">${s.family}</div><h1 class="section-title">${s.name}</h1><p class="section-sub">${s.summary}</p></div><div class="detail-price">${s.price}</div></div>
 <div class="tabbar">${tabNames.map((t,i)=>`<button class="tab ${i===currentTab?'active':''}" data-tab="${i}">${t}</button>`).join('')}</div>
 <div class="detail-card detail-panel">${panels[tabName]}</div>
-<div class="action-stack"><div class="split-actions"><button class="btn btn-gold" data-contract="${key}">Quiero contratarlo</button><button class="btn btn-dark" data-analysis="${key}">Quiero explicar mi proyecto</button></div><button class="btn btn-ghost" data-go="/trabajos?servicio=${key}">Ver trabajos reales</button></div>${shareBox(s.name)}`);}
+<div class="action-stack">${actions}</div>${shareBox(s.name)}`);}
 function detailPanels(key,s){
   const list=arr=>`<ul>${arr.map(x=>`<li>${x}</li>`).join('')}</ul>`;
   if(key==='dlp') return {
@@ -146,6 +199,12 @@ function detailPanels(key,s){
     'Ventaja Pro':`<h3>Por qué supera la suma de add-ons</h3><p>El paquete de $200 + voz en 2 videos + tratamiento comercial en 2 videos ya suma $400. El Pro mantiene ese precio y añade 2 cortes de 15 s + 2 propuestas de CTA/copy.</p>`,
     'Condiciones':`<h3>Condiciones</h3>${list(s.limits)}<p>Incluye 1 ronda de revisión/corrección.</p>`
   };
+  if(key==='hora') return {
+    'Resumen':`<h3>Ayuda cuando la necesitas</h3><p>${s.intro}</p><h3>Para quién funciona</h3>${list(s.ideal||[])}`,
+    'Qué puede incluir':`<h3>Durante tu bloque</h3>${list(s.include)}`,
+    'Cómo funciona':`<h3>$25 por hora</h3><p>Puedes solicitar una hora puntual o bloques recurrentes. Antes de reservar confirmamos qué quieres trabajar y si corresponde a esta modalidad. Si el proyecto requiere un servicio completo, te indicamos la opción adecuada antes de comenzar.</p>`,
+    'Condiciones':`<h3>Límites claros</h3>${list(s.limits)}`
+  };
   const panels={
     'Resumen':`<h3>Qué resuelve</h3><p>${s.intro}</p>`,
     'Qué incluye':`<h3>Checklist</h3>${list(s.include)}`,
@@ -158,7 +217,7 @@ function detailPanels(key,s){
   return panels;
 }
 function mia(){const areas=(miaData.areas||[]).map(x=>`<div class="mia-mini"><b>${esc(x[0])}</b>${esc(x[1])}</div>`).join('');const inc=(miaData.includes||[]).map(x=>`<li>${esc(x)}</li>`).join('');return shell(`<div class="breadcrumb">Formación recomendada / MIA</div><section class="mia-stage"><span class="admin-badge">${esc(miaData.eyebrow||'Academia externa recomendada')}</span><div class="mia-mark">MIA</div><h2>${esc(miaData.title||'MIA — Monetiza con IA')}</h2><p>${esc(miaData.intro||'')}</p><div class="mia-grid">${areas}</div></section><div class="detail-card" style="margin-top:12px"><h3>Qué encontrarás</h3><ul>${inc}</ul><div class="note">${esc(miaData.disclosure||'')}</div></div><div class="action-stack"><a class="btn btn-purple" href="${APP.mia}" target="_blank" rel="noopener">Ver MIA y acceder</a></div>`);}
-function analysis(prefill=''){ const s=prefill?services[prefill]:null; return shell(`<div class="breadcrumb">Análisis ESG</div><h1 class="section-title">No tienes que saber qué servicio necesitas</h1><p class="section-sub">Cuéntame dónde estás y qué quieres conseguir. Al enviar, se prepara un mensaje estructurado para ESG por WhatsApp.</p><form class="form" id="analysis-form"><div class="form-section"><h3>Tu proyecto</h3>${field('name','Nombre completo','text',true)}${field('business','Negocio o marca','text',false)}${field('phone','WhatsApp','tel',true)}${field('email','Email','email',true)}${field('goal','¿Qué quieres conseguir?','textarea',true)}${field('current','¿Qué tienes actualmente?','textarea',false)}${field('block','¿Qué te está frenando?','textarea',false)}<div class="field"><label>¿Qué necesitas de ESG?</label><select name="need"><option ${!s?'selected':''}>Recomiéndame qué servicio necesito</option><option ${s?.family==='Identidad'?'selected':''}>De Logo a Personaje™</option><option ${s?.family==='ESG Made™'?'selected':''}>Producción visual / ESG Made™</option><option ${s?.family==='Web ESG™'?'selected':''}>Web ESG™</option><option>Necesito una cotización diferente</option><option>Otro</option></select></div>${field('notes','Comentarios o referencias','textarea',false)}</div><button class="btn btn-gold" type="submit">Enviar análisis por WhatsApp</button></form>${shareBox('Análisis ESG')}`);}
+function analysis(prefill=''){ const s=prefill?services[prefill]:null; return shell(`<div class="breadcrumb">Análisis ESG</div><h1 class="section-title">No tienes que saber qué servicio necesitas</h1><p class="section-sub">Cuéntanos dónde estás y qué quieres conseguir. Al enviar, se prepara un mensaje estructurado para el equipo ESG por WhatsApp.</p><form class="form" id="analysis-form"><div class="form-section"><h3>Tu proyecto</h3>${field('name','Nombre completo','text',true)}${field('business','Negocio o marca','text',false)}${field('phone','WhatsApp','tel',true)}${field('email','Email','email',true)}${field('goal','¿Qué quieres conseguir?','textarea',true)}${field('current','¿Qué tienes actualmente?','textarea',false)}${field('block','¿Qué te está frenando?','textarea',false)}<div class="field"><label>¿Qué necesitas de ESG?</label><select name="need"><option ${!s?'selected':''}>Recomiéndame qué servicio necesito</option><option ${s?.family==='Identidad'?'selected':''}>De Logo a Personaje™</option><option ${s?.family==='ESG Made™'?'selected':''}>Producción visual / ESG Made™</option><option ${s?.family==='Web ESG™'?'selected':''}>Web ESG™</option><option ${s?.family==='Acompañamiento ESG™'?'selected':''}>Acompañamiento ESG por hora · $25/h</option><option>Necesito una cotización diferente</option><option>Otro</option></select></div>${field('notes','Comentarios o referencias','textarea',false)}${referralFormBlock()}</div><button class="btn btn-gold" type="submit">Enviar análisis por WhatsApp</button></form>${shareBox('Análisis ESG')}`);}
 function field(name,label,type='text',req=false,placeholder=''){return `<div class="field"><label for="${name}">${label}${req?' *':''}</label>${type==='textarea'?`<textarea id="${name}" name="${name}" placeholder="${esc(placeholder)}" ${req?'required':''}></textarea>`:`<input id="${name}" name="${name}" type="${type}" placeholder="${esc(placeholder)}" ${req?'required':''}>`}</div>`}
 function deliveryFor(key){return (APP.delivery&&APP.delivery[key]) || {first:7,final:10,label:'7–10 días laborables estimados'};}
 function contract(key){
@@ -186,7 +245,7 @@ function contractEditor(){
 function contractComplete(data,key){const s=services[key]; postLead({type:'contrato_firmado',service:s.name,...data}); const phoneMsg=`Hola ESG Experience. He completado el acuerdo para ${s.name}.\n\nNombre: ${data.name}\nNegocio: ${data.business||'-'}\nEmail: ${data.email}\nWhatsApp: ${data.phone}\nModalidad: ${data.payment}\n\nQuiero continuar con el pago y la entrevista.`; return shell(`<div class="breadcrumb">Contrato / Siguiente paso</div><h1 class="section-title">Acuerdo confirmado</h1><p class="section-sub">El siguiente paso es coordinar el pago. Después puedes completar la entrevista de producción ahora o más tarde.</p><div class="detail-card"><h3>Métodos</h3><ul><li>Zelle.</li><li>PayPal.</li><li>Tarjeta: solicita por WhatsApp el Stripe Payment Link.</li></ul></div><div class="action-stack"><a class="btn btn-gold" target="_blank" rel="noopener" href="https://wa.me/${APP.whatsapp}?text=${encodeURIComponent(phoneMsg)}">Continuar por WhatsApp</a><button class="btn btn-dark" data-go="/entrevista/${key}">Completar entrevista ahora</button><button class="btn btn-ghost" data-go="/">Completar después</button></div>`,{share:false});}
 function interview(key){
   const s=services[key]||null; const family=s?.family||'Proyecto ESG';
-  return shell(`<div class="breadcrumb">Entrevista / ${family}</div><h1 class="section-title">Brief del proyecto</h1><p class="section-sub">Cuéntanos lo necesario para comenzar con dirección. Cada pregunta incluye una guía breve.</p><form class="form" id="interview-form"><input type="hidden" name="service" value="${esc(s?.name||'Proyecto ESG')}"><div class="form-section"><h3>Tu proyecto</h3>${field('name','¿Cuál es tu nombre?','text',true,'Nombre y apellido')}${field('business','¿Cómo se llama tu negocio o marca?','text',false,'Si todavía no tiene nombre, puedes indicarlo.')}${field('objective','¿Qué quieres conseguir con este proyecto?','textarea',true,'Ej. presentar un servicio, lanzar una promoción, crear contenido o mejorar tu presencia digital.')}${field('audience','¿A quién quieres llegar?','textarea',false,'Describe brevemente a tu cliente o público principal.')}${field('identity','¿Ya tienes identidad visual o referencias?','textarea',false,'Cuéntanos si tienes logo, colores, tipografías o comparte enlaces/referencias.')}${field('materials','¿Qué materiales tienes disponibles?','textarea',false,'Fotos, videos, textos, productos, enlaces, documentos u otros recursos.')}${field('details','¿Qué debemos presentar, promocionar o respetar?','textarea',false,'Indica producto/servicio, plataforma donde se usará, fechas, formatos, requisitos, cosas que quieres evitar o cualquier detalle importante.')}</div><button class="btn btn-gold" type="submit">Enviar brief</button></form>`,{share:true});
+  return shell(`<div class="breadcrumb">Entrevista / ${family}</div><h1 class="section-title">Brief del proyecto</h1><p class="section-sub">Cuéntanos lo necesario para comenzar con dirección. Cada pregunta incluye una guía breve.</p><form class="form" id="interview-form"><input type="hidden" name="service" value="${esc(s?.name||'Proyecto ESG')}"><div class="form-section"><h3>Tu proyecto</h3>${field('name','¿Cuál es tu nombre?','text',true,'Nombre y apellido')}${field('business','¿Cómo se llama tu negocio o marca?','text',false,'Si todavía no tiene nombre, puedes indicarlo.')}${field('objective','¿Qué quieres conseguir con este proyecto?','textarea',true,'Ej. presentar un servicio, lanzar una promoción, crear contenido o mejorar tu presencia digital.')}${field('audience','¿A quién quieres llegar?','textarea',false,'Describe brevemente a tu cliente o público principal.')}${field('identity','¿Ya tienes identidad visual o referencias?','textarea',false,'Cuéntanos si tienes logo, colores, tipografías o comparte enlaces/referencias.')}${field('materials','¿Qué materiales tienes disponibles?','textarea',false,'Fotos, videos, textos, productos, enlaces, documentos u otros recursos.')}${field('details','¿Qué debemos presentar, promocionar o respetar?','textarea',false,'Indica producto/servicio, plataforma donde se usará, fechas, formatos, requisitos, cosas que quieres evitar o cualquier detalle importante.')}${referralFormBlock()}</div><button class="btn btn-gold" type="submit">Enviar brief</button></form>`,{share:true});
 }
 function portalProducts(){return shell(`<div class="breadcrumb">Post-contratación</div><h1 class="section-title">Portal Maestro de Productos</h1><p class="section-sub">Para Catálogo fijo, Catálogo a WhatsApp y Shopify. Organiza Categoría → Subcategoría → Producto y exporta un Excel maestro.</p><form class="form" id="product-form"><div class="form-section"><h3>Proyecto</h3><div class="field"><label>Tipo</label><select name="type" id="product-type"><option>Catálogo fijo</option><option>Catálogo a WhatsApp</option><option>Shopify</option></select></div>${field('category','Categoría','text',true)}${field('subcategory','Subcategoría','text',false)}${field('name','Producto / servicio','text',true)}${field('code','Código interno / SKU','text',false)}${field('price','Precio o “desde”','text',false)}${field('variants','Variantes / modelos','textarea',false)}${field('description','Descripción completa','textarea',false)}${field('includes','Qué incluye','textarea',false)}${field('specs','Especificaciones / medidas / duración','textarea',false)}${field('conditions','Condiciones importantes','textarea',false)}${field('delivery','Tiempo de entrega / instalación','text',false)}${field('keywords','Palabras clave','text',false)}${field('cta','Llamada a la acción','text',false)}${field('media','Imágenes / archivos relacionados','textarea',false)}${field('notes','Observaciones para ESG','textarea',false)}</div><button class="btn btn-gold" type="submit">Añadir producto</button></form><div style="margin-top:12px" id="product-list"></div><div class="action-stack"><button class="btn btn-dark" id="export-xlsx">Exportar Excel maestro (.xlsx)</button><button class="btn btn-ghost" id="clear-products">Vaciar lista</button></div>`,{dock:false});}
 function testimonialCard(t){
@@ -262,17 +321,63 @@ function bind(){
   document.getElementById('export-xlsx')?.addEventListener('click',exportXlsx);
   document.getElementById('clear-products')?.addEventListener('click',()=>{localStorage.removeItem('esgProducts');renderProducts();showToast('Lista vaciada')});
 }
-async function shareCurrent(){ const data={title:document.title,text:'Mira esta opción de ESG Experience™',url:location.href}; if(navigator.share){try{await navigator.share(data);return}catch{}} copyCurrent(); }
-async function copyCurrent(){try{await navigator.clipboard.writeText(location.href);showToast('Enlace copiado')}catch{showToast('Copia el enlace del navegador')}}
-function shareWhatsApp(title='ESG Experience™'){window.open(`https://wa.me/?text=${encodeURIComponent(`Creo que esto te puede interesar: ${title}\n${location.href}`)}`,'_blank')}
-async function shareTestimonial(id){const t=testimonialsData.find(x=>x.id===id);const url=`${location.origin}/testimonios?id=${encodeURIComponent(id)}`;const data={title:t?`Testimonio de ${t.name} — ESG Experience™`:'Testimonio ESG Experience™',text:'Mira esta experiencia real compartida sobre ESG Experience™.',url};if(navigator.share){try{await navigator.share(data);return}catch{}}try{await navigator.clipboard.writeText(url);showToast('Enlace del testimonio copiado')}catch{showToast('Copia el enlace del navegador')}}
+async function shareCurrent(){ const url=shareableUrl(); const data={title:document.title,text:'Mira esta opción de ESG Experience™',url}; if(navigator.share){try{await navigator.share(data);return}catch{}} try{await navigator.clipboard.writeText(url);showToast('Enlace copiado')}catch{showToast('Copia el enlace del navegador')} }
+async function copyCurrent(){try{await navigator.clipboard.writeText(shareableUrl());showToast('Enlace copiado')}catch{showToast('Copia el enlace del navegador')}}
+function shareWhatsApp(title='ESG Experience™'){window.open(`https://wa.me/?text=${encodeURIComponent(`Creo que esto te puede interesar: ${title}
+${shareableUrl()}`)}`,'_blank')}
+async function shareTestimonial(id){const t=testimonialsData.find(x=>x.id===id);const url=shareableUrl(`${location.origin}/testimonios?id=${encodeURIComponent(id)}`);const data={title:t?`Testimonio de ${t.name} — ESG Experience™`:'Testimonio ESG Experience™',text:'Mira esta experiencia real compartida sobre ESG Experience™.',url};if(navigator.share){try{await navigator.share(data);return}catch{}}try{await navigator.clipboard.writeText(url);showToast('Enlace del testimonio copiado')}catch{showToast('Copia el enlace del navegador')}}
 function postLead(payload){
   if(!APP.sheetsEndpoint) return;
-  try{fetch(APP.sheetsEndpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...payload,createdAt:new Date().toISOString(),page:location.href})});}catch{}
+  try{fetch(APP.sheetsEndpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...payload,createdAt:new Date().toISOString(),page:shareableUrl(),source:'ESG Web App'})});}catch{}
 }
-function submitAnalysis(e){e.preventDefault(); const d=Object.fromEntries(new FormData(e.currentTarget)); postLead({type:'analisis',...d}); const msg=`NUEVA SOLICITUD DE ANÁLISIS ESG\n\nNombre: ${d.name}\nNegocio: ${d.business||'-'}\nWhatsApp: ${d.phone}\nEmail: ${d.email}\n\nOBJETIVO:\n${d.goal}\n\nSITUACIÓN ACTUAL:\n${d.current||'-'}\n\nQUÉ LE ESTÁ FRENANDO:\n${d.block||'-'}\n\nSOLICITA:\n${d.need}\n\nCOMENTARIOS:\n${d.notes||'-'}`; window.open(`https://wa.me/${APP.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');}
-function submitInterview(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget)); postLead({type:'brief',...d});const msg=`NUEVO BRIEF ESG\n\nServicio: ${d.service}\nNombre: ${d.name}\nNegocio: ${d.business||'-'}\n\nOBJETIVO:\n${d.objective}\n\nPÚBLICO:\n${d.audience||'-'}\n\nIDENTIDAD / REFERENCIAS:\n${d.identity||'-'}\n\nMATERIALES:\n${d.materials||'-'}\n\nDETALLES IMPORTANTES:\n${d.details||'-'}`;window.open(`https://wa.me/${APP.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank')}
-function submitContract(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget));sessionStorage.setItem('lastContractData',JSON.stringify(d));app.innerHTML=contractComplete(d,e.currentTarget.dataset.service);bind();}
+function submitAnalysis(e){e.preventDefault(); const d=Object.fromEntries(new FormData(e.currentTarget)); const ref=referralData(d.referralManual); postLead({type:'analisis',...d,...ref}); const refLine=ref.referralCode?`
+
+REFERIDO POR:
+${ref.referralName||ref.referralCode} (${ref.referralCode}) · Beneficio ${ref.discountPercent}% sujeto a confirmación en cotización`:''; const msg=`NUEVA SOLICITUD DE ANÁLISIS ESG
+
+Nombre: ${d.name}
+Negocio: ${d.business||'-'}
+WhatsApp: ${d.phone}
+Email: ${d.email}
+
+OBJETIVO:
+${d.goal}
+
+SITUACIÓN ACTUAL:
+${d.current||'-'}
+
+QUÉ LE ESTÁ FRENANDO:
+${d.block||'-'}
+
+SOLICITA:
+${d.need}
+
+COMENTARIOS:
+${d.notes||'-'}${refLine}`; window.open(`https://wa.me/${APP.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank');}
+function submitInterview(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget)); const ref=referralData(d.referralManual); postLead({type:'brief',...d,...ref});const refLine=ref.referralCode?`
+
+REFERIDO POR:
+${ref.referralName||ref.referralCode} (${ref.referralCode})`:'';const msg=`NUEVO BRIEF ESG
+
+Servicio: ${d.service}
+Nombre: ${d.name}
+Negocio: ${d.business||'-'}
+
+OBJETIVO:
+${d.objective}
+
+PÚBLICO:
+${d.audience||'-'}
+
+IDENTIDAD / REFERENCIAS:
+${d.identity||'-'}
+
+MATERIALES:
+${d.materials||'-'}
+
+DETALLES IMPORTANTES:
+${d.details||'-'}${refLine}`;window.open(`https://wa.me/${APP.whatsapp}?text=${encodeURIComponent(msg)}`,'_blank')}
+function submitContract(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget));const ref=referralData();postLead({type:'contrato_firmado',service:e.currentTarget.dataset.service,...d,...ref});sessionStorage.setItem('lastContractData',JSON.stringify({...d,...ref}));app.innerHTML=contractComplete(d,e.currentTarget.dataset.service);bind();}
 function syncEditorPrice(){const sel=document.getElementById('editor-service');const price=document.querySelector('#contract-editor [name=price]');if(sel&&price){const d=deliveryFor(sel.value);price.value=services[sel.value].price;const f=document.querySelector('#contract-editor [name=deliveryFirst]');const fin=document.querySelector('#contract-editor [name=deliveryFinal]');const lab=document.querySelector('#contract-editor [name=deliveryLabel]');if(f)f.value=d.first;if(fin)fin.value=d.final;if(lab)lab.value=d.label;}}
 function submitEditor(e){e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget));const payload={price:d.price,extras:d.extras,phase:d.phase,deliveryFirst:d.deliveryFirst,deliveryFinal:d.deliveryFinal,deliveryLabel:d.deliveryLabel,specialNotes:d.specialNotes,terms:d.terms};const url=`${location.origin}/contrato/${d.service}?c=${encodeObj(payload)}`;document.getElementById('editor-result').innerHTML=`<div class="summary-card" style="margin-top:12px"><b>Contrato personalizado listo</b><p class="section-sub">Este enlace conserva el precio, tiempos, notas específicas y términos de esta copia. La plantilla maestra no cambia.</p><div class="field"><input value="${esc(url)}" readonly></div><div class="split-actions"><button class="btn btn-gold" id="copy-contract-url">Copiar enlace</button><a class="btn btn-dark" href="${url}" target="_blank">Abrir contrato</a></div></div>`;document.getElementById('copy-contract-url').onclick=async()=>{await navigator.clipboard.writeText(url);showToast('Enlace del contrato copiado')};}
 function loadProducts(){try{return JSON.parse(localStorage.getItem('esgProducts')||'[]')}catch{return []}}

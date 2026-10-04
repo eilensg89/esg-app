@@ -6,6 +6,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/acompanamiento-por-hora",
+      "destination": "/index.html"
+    },
+    {
       "source": "/logo-a-personaje",
       "destination": "/index.html"
     },

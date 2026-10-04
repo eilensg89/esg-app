@@ -144,4 +144,31 @@ window.ESG_PRODUCTOS = [
     notes: 'También se incluye como bono en productos participantes y forma parte del 2×1 Visual ESG.'
   }
 
+  ,{
+    id: 'crea-imagenes-con-atajos',
+    slug: 'crea-imagenes-con-atajos',
+    name: 'Crea Imágenes con Atajos',
+    price: 'Precio por definir',
+    status: 'preparacion',
+    tag: 'Imagen + atajos IA',
+    stickerIcon: '/IMG',
+    stickerLine: 'Describe lo que quieres y recibe atajos útiles',
+    short: 'Una aplicación guiada para transformar una idea visual en comandos y atajos claros, sin tener que adivinar qué instrucción usar.',
+    problem: 'Para quien quiere crear imágenes de producto, UGC, retratos, restauraciones o ediciones creativas y pierde tiempo intentando descubrir qué atajos o instrucciones producen el resultado que busca.',
+    result: 'Describes qué quieres crear y la herramienta te propone una ruta de comandos, atajos e instrucciones para llevar una imagen real o una idea visual a un resultado más trabajado.',
+    includes: [
+      'Guía para describir el objetivo de la imagen.',
+      'Sugerencias de atajos y comandos según el tipo de resultado.',
+      'Ideas para fotografía de producto, UGC, retratos y escenas promocionales.',
+      'Rutas para restaurar, mejorar o transformar imágenes existentes.',
+      'Salida preparada para copiar y usar en el flujo de IA correspondiente.'
+    ],
+    bonus: null,
+    landingUrl: '',
+    checkoutUrl: '',
+    affiliateLinks: {},
+    examples: [],
+    notes: 'Aplicación en fase de prueba. Nombre comercial, precio final y posible modalidad de suscripción se administrarán después sin cambiar la estructura de la tienda.'
+  }
+
 ];

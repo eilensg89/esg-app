@@ -8,7 +8,19 @@ window.ESG_CONFIG = {
   home: {
     kicker: 'Servicios · productos · recursos gratis · formación',
     title: 'La IA puede generar todo menos tu marca',
-    lead: 'Servicios para quien quiere delegar. Productos prácticos para quien quiere ejecutar. Recursos gratis para quien quiere empezar. Y una academia recomendada para quien necesita aprender con una base organizada.'
+    lead: 'Servicios para quien quiere delegar. Productos prácticos para quien quiere ejecutar. Recursos gratis para quien quiere empezar. Una academia recomendada para quien necesita aprender. Y un equipo para acompañarte cuando no quieres hacerlo sola.'
+  },
+  team: {
+    headline: 'ESG Experience™ es un equipo.',
+    text: 'Trabajamos con colaboradoras y colaboradores según las necesidades de cada proyecto, manteniendo una misma dirección y experiencia ESG.'
+  },
+  referral: {
+    enabled: true,
+    storageKey: 'esgReferral',
+    days: 30,
+    discountPercent: 5,
+    publicTitle: '¿Vienes referido por alguien de nuestro equipo?',
+    publicText: 'Indica su nombre o código al solicitar tu cotización y recibe 5% de descuento en servicios ESG. El beneficio se confirma al cotizar.'
   },
   contractTerms: `CONDICIONES OPERATIVAS ESG EXPERIENCE™\n\nInicio del trabajo: la producción comienza cuando ESG Experience ha recibido el pago correspondiente y los materiales e información necesarios.\n\nPago: 100% por adelantado o división en 2 pagos. Si se divide, la producción y la entrega también se dividen; la segunda fase no se entrega antes de recibir el segundo pago.\n\nMétodos: Zelle y PayPal. Para tarjeta, el cliente solicita el enlace por WhatsApp y ESG envía manualmente un Stripe Payment Link.\n\nRevisión: 1 ronda de revisión/corrección dentro del alcance aprobado. Cambiar concepto completo, rehacer estrategia o solicitar piezas nuevas se cotiza aparte.\n\nPolítica de no reembolso: una vez completado y entregado el trabajo contratado, incluida la ronda de revisión correspondiente al alcance aprobado, los pagos realizados son no reembolsables.\n\nRetrasos del cliente: retrasos en materiales, respuestas o aprobaciones desplazan proporcionalmente el calendario de entrega.`,
   copyright: '© ESG Experience™ · EilenSG · Todos los derechos reservados',
@@ -21,6 +33,7 @@ window.ESG_CONFIG = {
     esencial: { first: 7, final: 10, label: '7–10 días laborables estimados' },
     fijo: { first: 7, final: 10, label: '10 días laborables estimados' },
     whatsapp: { first: 7, final: 12, label: '10–12 días laborables estimados' },
-    shopify: { first: 10, final: 15, label: '12–15 días laborables estimados' }
+    shopify: { first: 10, final: 15, label: '12–15 días laborables estimados' },
+    hora: { first: 1, final: 1, label: 'Por hora · según disponibilidad y bloque acordado' }
   }
 };
