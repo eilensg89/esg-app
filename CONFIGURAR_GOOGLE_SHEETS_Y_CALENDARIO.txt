@@ -1,0 +1,36 @@
+ESG EXPERIENCE — GOOGLE SHEETS + CALENDARIO POR HORA
+
+1) GOOGLE SHEETS — CONEXIÓN AUTOMÁTICA
+La web ya envía análisis, briefs, contratos y solicitudes por hora cuando se configura sheetsEndpoint.
+
+PASOS UNA SOLA VEZ:
+1. En Google Drive crea una hoja nueva.
+2. Dentro de la hoja: Extensiones > Apps Script.
+3. Borra el contenido de ejemplo y pega TODO el archivo google-sheets-webhook.gs de esta carpeta.
+4. Pulsa Implementar > Nueva implementación.
+5. Tipo: Aplicación web.
+6. Ejecutar como: tú.
+7. Quién tiene acceso: Cualquier persona con el enlace (o la opción equivalente disponible en tu cuenta).
+8. Implementa y copia la URL que termina en /exec.
+9. Abre site-config.js y pega esa URL en: sheetsEndpoint: 'AQUI'.
+10. Guarda, Commit y Push.
+
+La pestaña ESG_LEADS se crea automáticamente al entrar el primer formulario.
+
+PARA DESCARGAR LA HOJA:
+En Google Sheets: Archivo > Descargar > Microsoft Excel (.xlsx) o Valores separados por comas (.csv).
+No necesitas descargarla para que la web funcione; la hoja queda online y se actualiza sola.
+
+2) CALENDARIO — ACOMPAÑAMIENTO ESG POR HORA
+Ya está dentro del contrato por hora. El cliente selecciona:
+- cantidad de horas;
+- fecha preferida;
+- hora preferida;
+- modalidad puntual o recurrente.
+
+El precio se calcula automáticamente a $25/h y todos esos datos también se envían a Google Sheets.
+
+IMPORTANTE: por ahora la fecha/hora es una SOLICITUD, no una reserva automática. ESG confirma disponibilidad por WhatsApp. Esto evita dobles reservas hasta conectar un calendario real.
+
+MÁS ADELANTE:
+En site-config.js existe hourlyBooking.calendarUrl. Ahí se podrá pegar un enlace de agenda/calendario sin rehacer la web.

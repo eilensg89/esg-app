@@ -5,6 +5,15 @@ window.ESG_CONFIG = {
   mia: 'https://shop.beacons.ai/eilensg/3e84c161-bf2c-4a92-968b-95b2bf772c61?t=1790794026873',
   email: 'info@reeymultiservices.com',
   sheetsEndpoint: '',
+  hourlyBooking: {
+    enabled: true,
+    hourlyRate: 25,
+    minHours: 1,
+    maxHours: 8,
+    calendarUrl: '',
+    timezoneLabel: 'Hora local del cliente',
+    confirmationText: 'La fecha y hora seleccionadas son una solicitud de disponibilidad. ESG confirma el bloque por WhatsApp antes de considerarlo reservado.'
+  },
   home: {
     kicker: 'Servicios · productos · recursos gratis · formación',
     title: 'La IA puede generar todo menos tu marca',
