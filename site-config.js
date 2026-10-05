@@ -4,13 +4,13 @@ window.ESG_CONFIG = {
   channel: 'https://whatsapp.com/channel/0029Vb8G2cR1CYoYTEzvGT01',
   mia: 'https://shop.beacons.ai/eilensg/3e84c161-bf2c-4a92-968b-95b2bf772c61?t=1790794026873',
   email: 'info@reeymultiservices.com',
-  sheetsEndpoint: '',
+  sheetsEndpoint: 'https://script.google.com/macros/s/AKfycbyfsww14vT1TdJdDb-tz61L3erVl67KJbR4XhPwOoK2Jg_bpqxtXy_mDbHYoGHQSzD-JA/exec',
   hourlyBooking: {
     enabled: true,
     hourlyRate: 25,
     minHours: 1,
     maxHours: 8,
-    calendarUrl: '',
+    calendarUrl: 'https://calendar.app.google/Gi8kqxkGA9EXVKos5',
     timezoneLabel: 'Hora local del cliente',
     confirmationText: 'La fecha y hora seleccionadas son una solicitud de disponibilidad. ESG confirma el bloque por WhatsApp antes de considerarlo reservado.'
   },
