@@ -49,7 +49,22 @@ function shareableUrl(raw=location.href){
   return u.toString();
 }
 function go(path){ history.pushState({},'',path); captureReferral(); currentTab=0; render(); }
-function back(){ if(history.length>1) history.back(); else go('/'); }
+function back(){
+  const p=route();
+  if(p==='/') return;
+  if(p.startsWith('/contrato/') || p.startsWith('/entrevista/')){
+    const key=p.split('/').pop();
+    const svc=services[key];
+    if(svc?.slug) return go('/'+svc.slug);
+    return go('/servicios');
+  }
+  if(p.startsWith('/tienda/')) return go('/tienda');
+  if(p.startsWith('/esg-made/')) return go('/esg-made');
+  if(p.startsWith('/web-esg/')) return go('/web-esg');
+  if(p==='/esg-made' || p==='/web-esg' || p==='/logo-a-personaje' || p==='/acompanamiento-por-hora') return go('/servicios');
+  if(p==='/servicios' || p==='/tienda' || p==='/mia' || p==='/sobre-eilen' || p==='/testimonios' || p==='/trabajos' || p==='/analisis') return go('/');
+  go('/');
+}
 function route(){ return location.pathname.replace(/\/$/,'') || '/'; }
 captureReferral();
 function icon(name){ const map={back:'←',share:'↗',home:'⌂',services:'◇',analyse:'◎',channel:'◉',copy:'⧉',whatsapp:'W',phone:'☎',instagram:'◎'}; return map[name]||'•'; }
@@ -64,6 +79,7 @@ function shell(content,{backable=true,share=true,dock=true,brand=true}={}){
     </header>
     <main class="screen">${content}</main>
     ${dock?dockHtml(p):''}
+    ${backable && p!=='/'?`<button class="floating-back-bottom" data-back aria-label="Regresar a la pantalla anterior">← Regresar</button>`:''}
   </div></div>`;
 }
 function dockHtml(){return `<footer class="app-footer">
@@ -244,7 +260,12 @@ function contract(key){
   const referredHourly=isHourly && !!activeReferral();
   const paymentSection=isHourly?(referredHourly?`<div class="form-section"><h3>Pago</h3><div class="note"><b>Solicitud con referido:</b> no se procesa pago desde esta pantalla. ESG confirmará primero el referido, el descuento aplicable, la disponibilidad y la forma de pago.</div><input type="hidden" name="payment" value="Coordinación manual por referido"></div>`:`<div class="form-section"><h3>Pago</h3><div class="checks"><label class="check"><input type="radio" name="payment" value="100% antes del bloque" checked> 100% antes del bloque confirmado.</label></div><div class="note">El horario se confirma por WhatsApp. El pago se coordina después de confirmar disponibilidad.</div></div>`):`<div class="form-section"><h3>Modalidad de pago</h3><div class="checks"><label class="check"><input type="radio" name="payment" value="100% por adelantado" checked> 100% por adelantado.</label><label class="check"><input type="radio" name="payment" value="2 pagos"> 2 pagos. La producción y la entrega se dividen; la segunda fase no se entrega antes de recibir el segundo pago.</label></div>${phase?`<div class="note" style="margin-top:10px">${esc(phase)}</div>`:''}</div>`;
   const summaryPrice=isHourly?'$25/h':esc(price);
-  return shell(`<div class="breadcrumb">Contrato / ${s.name}</div><h1 class="section-title">${isHourly?'Solicitud de acompañamiento por hora':'Acuerdo de servicio'}</h1><p class="section-sub">${isHourly?'Elige el bloque que necesitas, solicita una fecha y completa tus datos. Confirmaremos disponibilidad antes del pago.':'Revisa el alcance, precio, tiempos estimados y condiciones de esta versión antes de firmar.'}</p><form class="form" id="contract-form" data-service="${key}"><div class="summary-card"><div class="summary-row"><span>Servicio</span><span>${s.name}</span></div><div class="summary-row"><span>${isHourly?'Tarifa':'Precio acordado'}</span><span><b>${summaryPrice}</b></span></div><div class="summary-row"><span>Tiempo estimado</span><span>${esc(deliveryLabel)}</span></div>${extras?`<div class="summary-row"><span>Ajuste especial</span><span>${esc(extras)}</span></div>`:''}</div><div class="form-section"><h3>Alcance incluido</h3><ul>${s.include.map(x=>`<li>${x}</li>`).join('')}</ul>${extras?`<div class="note"><b>Ajuste personalizado:</b> ${esc(extras)}</div>`:''}</div>${calendarSection}<div class="form-section"><h3>Datos mínimos</h3>${field('name','Nombre completo','text',true,'Nombre y apellido')}${field('business','Negocio o marca','text',false,'Nombre del negocio, si aplica')}${field('phone','WhatsApp','tel',true,'Número con código de país')}${field('email','Email','email',true,'correo@ejemplo.com')}${referralFormBlock()}</div>${paymentSection}<div class="form-section"><h3>Términos</h3><div class="contract-preview">${esc(terms)}</div><label class="check" style="margin-top:10px"><input type="checkbox" required> He leído y acepto el alcance, precio, calendario y condiciones mostradas.</label>${field('signature','Firma electrónica — escribe tu nombre completo','text',true,'Escribe tu nombre como firma')}<p class="section-sub" style="margin:0">Al enviar, confirmas tu aceptación electrónica de esta versión del acuerdo.</p></div><input type="hidden" name="priceBase" value="${esc(price)}"><input type="hidden" name="delivery" value="${esc(deliveryLabel)}"><button class="btn btn-gold" type="submit">${isHourly?'Solicitar bloque y continuar':'Firmar y continuar al pago'}</button></form>`,{share:false});
+  const baseNum=fixedPriceNumber(price);
+  const initialRef=!isHourly && !!activeReferral()?.code;
+  const initialPct=initialRef?(Number(APP.referral?.discountPercent)||5):0;
+  const initialTotal=baseNum===null?summaryPrice:`$${(baseNum*(1-initialPct/100)).toFixed(2)}`;
+  const referralSummary=isHourly?'':`<div class="summary-row" id="contract-referral-discount" ${initialRef?'':'hidden'}><span>Descuento por referido</span><span><b data-discount-value>${initialPct||Number(APP.referral?.discountPercent)||5}%</b></span></div><div class="summary-row"><span>Total estimado</span><span><b id="contract-final-total">${initialTotal}</b></span></div>`;
+  return shell(`<div class="breadcrumb">Contrato / ${s.name}</div><h1 class="section-title">${isHourly?'Solicitud de acompañamiento por hora':'Acuerdo de servicio'}</h1><p class="section-sub">${isHourly?'Elige el bloque que necesitas, solicita una fecha y completa tus datos. Confirmaremos disponibilidad antes del pago.':'Revisa el alcance, precio, tiempos estimados y condiciones de esta versión antes de firmar.'}</p><form class="form" id="contract-form" data-service="${key}"><div class="summary-card"><div class="summary-row"><span>Servicio</span><span>${s.name}</span></div><div class="summary-row"><span>${isHourly?'Tarifa':'Precio acordado'}</span><span><b>${summaryPrice}</b></span></div>${referralSummary}<div class="summary-row"><span>Tiempo estimado</span><span>${esc(deliveryLabel)}</span></div>${extras?`<div class="summary-row"><span>Ajuste especial</span><span>${esc(extras)}</span></div>`:''}</div><div class="form-section"><h3>Alcance incluido</h3><ul>${s.include.map(x=>`<li>${x}</li>`).join('')}</ul>${extras?`<div class="note"><b>Ajuste personalizado:</b> ${esc(extras)}</div>`:''}</div>${calendarSection}<div class="form-section"><h3>Datos mínimos</h3>${field('name','Nombre completo','text',true,'Nombre y apellido')}${field('business','Negocio o marca','text',false,'Nombre del negocio, si aplica')}${field('phone','WhatsApp','tel',true,'Número con código de país')}${field('email','Email','email',true,'correo@ejemplo.com')}${referralFormBlock()}</div>${paymentSection}<div class="form-section"><h3>Términos</h3><div class="contract-preview">${esc(terms)}</div><label class="check" style="margin-top:10px"><input type="checkbox" required> He leído y acepto el alcance, precio, calendario y condiciones mostradas.</label>${field('signature','Firma electrónica — escribe tu nombre completo','text',true,'Escribe tu nombre como firma')}<p class="section-sub" style="margin:0">Al enviar, confirmas tu aceptación electrónica de esta versión del acuerdo.</p></div><input type="hidden" name="priceBase" value="${esc(price)}"><input type="hidden" name="delivery" value="${esc(deliveryLabel)}"><button class="btn btn-gold" type="submit">${isHourly?'Solicitar bloque y continuar':'Firmar y continuar al pago'}</button></form>`,{share:false});
 }
 function defaultTerms(){return APP.contractTerms || 'CONDICIONES OPERATIVAS ESG EXPERIENCE™';}
 function encodeObj(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replaceAll('+','-').replaceAll('/','_').replaceAll('=','')}
@@ -254,7 +275,19 @@ function contractEditor(){
   const firstKey=Object.keys(services)[0]; const d=deliveryFor(firstKey);
   return shell(`<div class="breadcrumb">Herramienta interna</div><span class="admin-badge">Constructor privado de contrato ESG</span><h1 class="section-title">Preparar contrato para un cliente</h1><p class="section-sub">Esta pantalla no forma parte del recorrido público. Edita la copia del cliente y genera un enlace cerrado para firma.</p><form class="form" id="contract-editor"><div class="form-section"><h3>Acuerdo comercial</h3><div class="field"><label>Servicio</label><select name="service" id="editor-service">${Object.entries(services).map(([k,s])=>`<option value="${k}">${s.name}</option>`).join('')}</select></div>${field('price','Precio final','text',true,'Ej. $300')}${field('extras','Entregable o ajuste adicional','textarea',false,'Ej. 1 video adicional de 15 segundos por +$50')}${field('phase','División especial de fases','textarea',false,'Describe cómo se divide el trabajo si aplica.')}</div><div class="form-section"><h3>Tiempos editables</h3>${field('deliveryFirst','Primera etapa / avance — días laborables','number',true,String(d.first))}${field('deliveryFinal','Entrega final — días laborables','number',true,String(d.final))}${field('deliveryLabel','Texto que verá el cliente','text',true,d.label)}${field('specialNotes','Notas específicas de este contrato','textarea',false,'Añade aquí cualquier condición particular acordada con este cliente.')}</div><div class="form-section"><h3>Términos editables</h3><div class="field"><label>Términos del contrato</label><textarea name="terms" id="editor-terms" style="min-height:260px">${esc(defaultTerms())}</textarea></div></div><button class="btn btn-gold" type="submit">Generar enlace del contrato</button></form><div id="editor-result"></div>`,{share:false,dock:false});
 }
-function contractComplete(data,key){const s=services[key]; const referralLine=data.referralCode?`\nReferido por: ${data.referralName||data.referralCode} (${data.referralCode}) · Beneficio ${data.discountPercent||APP.referral?.discountPercent||5}% sujeto a confirmación en cotización`:''; const bookingLine=key==='hora'?`\nHoras solicitadas: ${data.hours||1}\nFecha preferida: ${data.requestedDate||'-'}\nHora preferida: ${data.requestedTime||'-'}\nModalidad: ${data.recurrence||'Una sola vez'}\nTotal estimado: $${data.hourlyTotal||Number(APP.hourlyBooking?.hourlyRate)||25}`:''; const phoneMsg=`Hola ESG Experience. He completado el acuerdo para ${s.name}.\n\nNombre: ${data.name}\nNegocio: ${data.business||'-'}\nEmail: ${data.email}\nWhatsApp: ${data.phone}\nModalidad de pago: ${data.payment}${bookingLine}${referralLine}\n\n${key==='hora'?'Quiero confirmar disponibilidad para este bloque y coordinar el pago.':'Quiero continuar con el pago y la entrevista.'}`; return shell(`<div class="breadcrumb">Contrato / Siguiente paso</div><h1 class="section-title">${key==='hora'?'Solicitud registrada':'Acuerdo confirmado'}</h1><p class="section-sub">${key==='hora'?'Tu fecha y hora preferidas quedaron registradas. El siguiente paso es confirmar disponibilidad por WhatsApp antes del pago.':'El siguiente paso es coordinar el pago. Después puedes completar la entrevista de producción ahora o más tarde.'}</p>${key==='hora'?`<div class="summary-card"><div class="summary-row"><span>Horas</span><span>${esc(data.hours||'1')}</span></div><div class="summary-row"><span>Fecha</span><span>${esc(data.requestedDate||'-')}</span></div><div class="summary-row"><span>Hora</span><span>${esc(data.requestedTime||'-')}</span></div><div class="summary-row"><span>Total estimado</span><span><b>$${esc(data.hourlyTotal||String(Number(APP.hourlyBooking?.hourlyRate)||25))}</b></span></div></div>`:`<div class="detail-card"><h3>Métodos</h3><ul><li>Zelle.</li><li>PayPal.</li><li>Tarjeta: solicita por WhatsApp el Stripe Payment Link.</li></ul></div>`}<div class="action-stack"><a class="btn btn-gold" target="_blank" rel="noopener" href="https://wa.me/${APP.whatsapp}?text=${encodeURIComponent(phoneMsg)}">${key==='hora'?'Confirmar horario por WhatsApp':'Continuar por WhatsApp'}</a>${key==='hora'?`<button class="btn btn-dark" data-go="/servicios">Volver a servicios</button>`:`<button class="btn btn-dark" data-go="/entrevista/${key}">Completar entrevista ahora</button><button class="btn btn-ghost" data-go="/">Completar después</button>`}</div>`,{share:false});}
+function contractComplete(data,key){
+  const s=services[key];
+  const referralLine=data.referralCode?`\nReferido por: ${data.referralName||data.referralCode} (${data.referralCode}) · Beneficio ${data.discountPercent||APP.referral?.discountPercent||5}%`:'';
+  const bookingLine=key==='hora'?`\nHoras solicitadas: ${data.hours||1}\nFecha preferida: ${data.requestedDate||'-'}\nHora preferida: ${data.requestedTime||'-'}\nModalidad: ${data.recurrence||'Una sola vez'}\nTotal estimado: $${data.hourlyTotal||Number(APP.hourlyBooking?.hourlyRate)||25}`:'';
+  const phoneMsg=`Hola ESG Experience. He completado el acuerdo para ${s.name}.\n\nNombre: ${data.name}\nNegocio: ${data.business||'-'}\nEmail: ${data.email}\nWhatsApp: ${data.phone}\nModalidad de pago: ${data.payment}${bookingLine}${referralLine}\n\n${key==='hora'?'Quiero confirmar disponibilidad para este bloque y coordinar el pago.':'Quiero continuar con el pago y la entrevista.'}`;
+  const priceSummary=key==='hora'
+    ?`<div class="summary-card"><div class="summary-row"><span>Horas</span><span>${esc(data.hours||'1')}</span></div><div class="summary-row"><span>Fecha</span><span>${esc(data.requestedDate||'-')}</span></div><div class="summary-row"><span>Hora</span><span>${esc(data.requestedTime||'-')}</span></div><div class="summary-row"><span>Total estimado</span><span><b>$${esc(data.hourlyTotal||String(Number(APP.hourlyBooking?.hourlyRate)||25))}</b></span></div></div>`
+    :`<div class="summary-card"><div class="summary-row"><span>Precio base</span><span>${esc(data.priceBase||s.price||'—')}</span></div>${data.referralCode?`<div class="summary-row"><span>Descuento referido</span><span>${esc(String(data.discountPercent||APP.referral?.discountPercent||5))}%</span></div>`:''}<div class="summary-row"><span>Total</span><span><b>$${esc(data.total||fixedPriceNumber(data.priceBase||s.price)?.toFixed(2)||'—')}</b></span></div></div>`;
+  const nextActions=key==='hora'
+    ?`<button class="btn btn-dark" data-go="/servicios">Volver a servicios</button><button class="btn btn-ghost" data-go="/">Ir al inicio</button>`
+    :`<button class="btn btn-dark" data-go="/entrevista/${key}">Completar entrevista ahora</button><button class="btn btn-ghost" data-go="/servicios">Seguir explorando servicios</button><button class="btn btn-ghost" data-go="/">Ir al inicio</button>`;
+  return shell(`<div class="breadcrumb">Contrato / Siguiente paso</div><h1 class="section-title">${key==='hora'?'Solicitud registrada':'Acuerdo confirmado'}</h1><p class="section-sub">${key==='hora'?'Tu fecha y hora preferidas quedaron registradas. El siguiente paso es confirmar disponibilidad por WhatsApp antes del pago.':'Tu solicitud fue registrada. Puedes continuar con la entrevista, volver a explorar otros servicios o regresar al inicio.'}</p>${priceSummary}${key==='hora'?'':`<div class="detail-card"><h3>Métodos</h3><ul><li>Zelle.</li><li>PayPal.</li><li>Tarjeta: solicita por WhatsApp el Stripe Payment Link.</li></ul></div>`}<div class="action-stack"><a class="btn btn-gold" target="_blank" rel="noopener" href="https://wa.me/${APP.whatsapp}?text=${encodeURIComponent(phoneMsg)}">${key==='hora'?'Confirmar horario por WhatsApp':'Continuar por WhatsApp'}</a>${nextActions}</div>`,{share:false});
+}
 function interview(key){
   const s=services[key]||null; const family=s?.family||'Proyecto ESG';
   return shell(`<div class="breadcrumb">Entrevista / ${family}</div><h1 class="section-title">Brief del proyecto</h1><p class="section-sub">Cuéntanos lo necesario para comenzar con dirección. Cada pregunta incluye una guía breve.</p><form class="form" id="interview-form"><input type="hidden" name="service" value="${esc(s?.name||'Proyecto ESG')}"><div class="form-section"><h3>Tu proyecto</h3>${field('name','¿Cuál es tu nombre?','text',true,'Nombre y apellido')}${field('business','¿Cómo se llama tu negocio o marca?','text',false,'Si todavía no tiene nombre, puedes indicarlo.')}${field('objective','¿Qué quieres conseguir con este proyecto?','textarea',true,'Ej. presentar un servicio, lanzar una promoción, crear contenido o mejorar tu presencia digital.')}${field('audience','¿A quién quieres llegar?','textarea',false,'Describe brevemente a tu cliente o público principal.')}${field('identity','¿Ya tienes identidad visual o referencias?','textarea',false,'Cuéntanos si tienes logo, colores, tipografías o comparte enlaces/referencias.')}${field('materials','¿Qué materiales tienes disponibles?','textarea',false,'Fotos, videos, textos, productos, enlaces, documentos u otros recursos.')}${field('details','¿Qué debemos presentar, promocionar o respetar?','textarea',false,'Indica producto/servicio, plataforma donde se usará, fechas, formatos, requisitos, cosas que quieres evitar o cualquier detalle importante.')}${referralFormBlock()}</div><button class="btn btn-gold" type="submit">Enviar brief</button></form>`,{share:true});
@@ -328,7 +361,9 @@ function bind(){
   document.getElementById('interview-form')?.addEventListener('submit',submitInterview);
   document.getElementById('contract-form')?.addEventListener('submit',submitContract);
   document.getElementById('hours')?.addEventListener('input',updateHourlyTotal);
+  document.getElementById('referralManual')?.addEventListener('input',updateContractReferralPrice);
   initHourlyDate();
+  updateContractReferralPrice();
   document.getElementById('contract-editor')?.addEventListener('submit',submitEditor);
   document.getElementById('editor-service')?.addEventListener('change',syncEditorPrice);
   document.getElementById('product-form')?.addEventListener('submit',addProduct);
@@ -351,11 +386,28 @@ function contractSheetTotal(basePrice,ref,key,data={}){
   if(key==='hora') return data.hourlyTotal||'';
   const amount=fixedPriceNumber(basePrice);
   if(amount===null) return '';
-  // El descuento público se registra, pero solo se aplica automáticamente al total
-  // cuando el código existe en el directorio local de colaboradores.
-  const pct=ref?.referralVerified?Number(ref.discountPercent||0):0;
+  // En servicios ESG el beneficio público se aplica cuando existe un nombre o código
+  // de referido. La validación y la comisión interna se controlan después en el CRM.
+  const hasReferral=!!(ref?.referralCode || ref?.referralName);
+  const pct=hasReferral?Number(ref.discountPercent||APP.referral?.discountPercent||5):0;
   const total=pct?amount*(1-pct/100):amount;
   return total.toFixed(2);
+}
+function updateContractReferralPrice(){
+  const form=document.getElementById('contract-form');
+  const row=document.getElementById('contract-referral-discount');
+  const totalEl=document.getElementById('contract-final-total');
+  if(!form||!row||!totalEl) return;
+  const key=form.dataset.service;
+  if(key==='hora') return;
+  const base=fixedPriceNumber(form.querySelector('[name=priceBase]')?.value||'');
+  if(base===null) return;
+  const manual=String(document.getElementById('referralManual')?.value||'').trim();
+  const hasReferral=!!(manual || activeReferral()?.code);
+  const pct=hasReferral?(Number(APP.referral?.discountPercent)||5):0;
+  row.hidden=!hasReferral;
+  row.querySelector('[data-discount-value]').textContent=hasReferral?`${pct}%`:'—';
+  totalEl.textContent=`$${(base*(1-pct/100)).toFixed(2)}`;
 }
 function postLead(payload){
   if(!APP.sheetsEndpoint) return;
