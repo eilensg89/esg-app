@@ -82,3 +82,23 @@ button{color:inherit}
 }
 .floating-back-bottom:hover{transform:translateY(-1px);background:rgba(82,44,27,.98)}
 @media(max-width:640px){.floating-back-bottom{left:12px;bottom:12px;padding:10px 14px;font-size:13px}}
+
+
+/* V4.6.7 — tarifa variable ESG Made + navegación mínima */
+.rate-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.rate-choice{align-items:center;cursor:pointer;border:1px solid rgba(123,79,36,.16)}
+.rate-choice input{margin-top:2px}
+.rate-choice span{display:grid;gap:3px}
+.rate-choice small{color:#8a5b1e;font-weight:800}
+.completion-mini-nav{display:flex;justify-content:center;margin-top:10px}
+.mini-home-link{
+  border:0;
+  background:transparent;
+  color:#f0d7a4;
+  font:700 13px/1 'DM Sans',sans-serif;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  cursor:pointer;
+  padding:8px 10px
+}
+@media(max-width:640px){.rate-choice-grid{grid-template-columns:1fr}}
