@@ -19,8 +19,8 @@ CAMPOS DE CADA TESTIMONIO:
 - services: etiquetas que aparecen en la tarjeta.
 - quote: texto del testimonio.
 - facebookUrl: enlace a la recomendación original.
-- proofImage: captura opcional guardada en /assets/testimonios/.
-- video: opcional. Ruta de un .mp4/.webm directo, por ejemplo /assets/testimonios/cliente.mp4.
+- proofImage: captura opcional guardada en /a/.
+- video: opcional. Ruta de un .mp4/.webm directo, por ejemplo /a/cliente.mp4.
 - workUrl: opcional. Enlace a reel, historia destacada, caso de estudio o antes/después.
 - workLabel: texto del botón, por ejemplo “Ver antes y después”.
 
@@ -32,4 +32,4 @@ COMPORTAMIENTO AUTOMÁTICO:
 - Cada testimonio puede compartirse con su propio enlace /testimonios?id=...
 
 IMPORTANTE:
-Si agregas una imagen o video local nuevo, además de modificar testimonios.js debes subir ese archivo a la carpeta /assets/testimonios/ del repositorio.
+Si agregas una imagen o video local nuevo, además de modificar testimonios.js debes subir ese archivo a la carpeta /a/ del repositorio.

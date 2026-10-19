@@ -11,14 +11,14 @@
 }
 html{background:var(--esg-leather-deep)}
 body{
-  background:#3a1607 url('/assets/ui-3d/backgrounds/app-leather-cover.png') center top/cover fixed no-repeat;
+  background:#3a1607 url('/a/bg.png') center top/cover fixed no-repeat;
   color:#f6ead4;
 }
 .app-frame{padding:clamp(8px,1.8vw,22px)}
 .app-shell{
   background:
     linear-gradient(rgba(78,31,8,.18),rgba(47,16,4,.22)),
-    url('/assets/ui-3d/backgrounds/app-leather-cover.png') center/cover no-repeat;
+    url('/a/bg.png') center/cover no-repeat;
   border:1px solid rgba(239,190,91,.58);
   box-shadow:0 28px 90px rgba(17,5,0,.5),inset 0 0 0 1px rgba(255,226,159,.12);
 }
@@ -42,7 +42,7 @@ body{
 .product-card,.store-card,.detail-card,.form-section,.summary-card,.store-offer,.origin-card,.testimonial-card,.work-card{
   background:
     linear-gradient(rgba(248,235,211,.94),rgba(231,208,171,.94)),
-    url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;
+    url('/a/stone.png') center/cover;
   border:2px solid rgba(205,150,55,.72);
   box-shadow:0 12px 28px rgba(25,7,0,.34),inset 0 1px 0 rgba(255,255,255,.75),inset 0 0 0 1px rgba(95,42,12,.08);
   color:#421b08;
@@ -80,7 +80,7 @@ body{
 .asset-nav img{display:block;width:100%;height:auto;object-fit:contain}
 .lux-about-action{margin:8px 0}.asset-nav.wide{max-width:100%;margin:auto}
 .lux-live-button{width:100%;min-height:82px;border:2px solid #d7a23d;border-radius:28px;background:
-  linear-gradient(rgba(246,229,199,.92),rgba(224,197,154,.94)),url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;
+  linear-gradient(rgba(246,229,199,.92),rgba(224,197,154,.94)),url('/a/stone.png') center/cover;
   color:#542507;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:13px;text-align:left;padding:11px 16px;cursor:pointer;box-shadow:0 10px 20px rgba(24,7,0,.34),inset 0 2px 0 rgba(255,255,255,.75),inset 0 -4px 12px rgba(121,64,20,.12);transition:.18s transform}
 .lux-live-button:hover{transform:translateY(-2px)}
 .lux-live-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#7b3b13,#4c1f08);border:2px solid #d8a33e;color:#f9d77e;font-size:23px;box-shadow:inset 0 1px 0 rgba(255,226,154,.25),0 5px 10px rgba(64,24,5,.22)}
@@ -124,7 +124,7 @@ body{
 .home-pathway-note.channel-note{color:#ffd985;font-weight:800}
 
 .store-sticker-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
-.store-sticker{position:relative;min-height:154px;display:grid;grid-template-columns:94px 1fr auto;align-items:center;gap:14px;width:100%;border:2px solid #d4a03c;border-radius:32px 46px 34px 50px/40px 31px 52px 34px;padding:15px 16px;background:linear-gradient(rgba(247,232,203,.95),rgba(224,199,158,.96)),url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;color:#4a1e08;text-align:left;cursor:pointer;box-shadow:0 13px 30px rgba(22,6,0,.35),inset 0 2px 0 rgba(255,255,255,.78),inset 0 0 0 1px rgba(92,39,9,.09);transition:transform .18s ease,box-shadow .18s ease;overflow:hidden}
+.store-sticker{position:relative;min-height:154px;display:grid;grid-template-columns:94px 1fr auto;align-items:center;gap:14px;width:100%;border:2px solid #d4a03c;border-radius:32px 46px 34px 50px/40px 31px 52px 34px;padding:15px 16px;background:linear-gradient(rgba(247,232,203,.95),rgba(224,199,158,.96)),url('/a/stone.png') center/cover;color:#4a1e08;text-align:left;cursor:pointer;box-shadow:0 13px 30px rgba(22,6,0,.35),inset 0 2px 0 rgba(255,255,255,.78),inset 0 0 0 1px rgba(92,39,9,.09);transition:transform .18s ease,box-shadow .18s ease;overflow:hidden}
 .store-sticker:nth-child(even){border-radius:48px 30px 50px 32px/30px 50px 34px 48px}
 .store-sticker:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(22,6,0,.4),inset 0 2px 0 rgba(255,255,255,.82)}
 .store-sticker:before{content:'';position:absolute;inset:6px;border:1px solid rgba(255,222,145,.7);border-radius:inherit;pointer-events:none}
@@ -133,7 +133,7 @@ body{
 .store-sticker-meta{align-self:stretch;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:8px;z-index:1}.store-sticker-meta i{font-style:normal;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#8a531e}.store-sticker-price{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#8b4d11}.store-sticker-meta strong{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f4ce78,#aa681f);border:2px solid #f1cf7d;color:#4b1d06;font-size:27px;line-height:1;box-shadow:0 5px 10px rgba(76,27,4,.24)}
 .store-flex-note{display:flex;justify-content:space-between;gap:18px;align-items:center;margin:16px 0 4px;padding:14px 16px;border-top:1px solid rgba(223,174,78,.35);border-bottom:1px solid rgba(223,174,78,.35);color:#f0d8ae}.store-flex-note b{color:#f4c96d}.store-flex-note span{font-size:12px;line-height:1.4;text-align:right;max-width:520px}
 
-.about-page{max-width:900px;margin:0 auto}.about-ecosystem{margin:14px 0}.about-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.about-path{background:linear-gradient(rgba(247,232,203,.95),rgba(224,199,158,.95)),url('/assets/ui-3d/textures/ivory-stone-texture.png') center/cover;border:2px solid rgba(211,158,62,.7);border-radius:22px 34px 24px 38px;padding:16px;color:#4b1e08;box-shadow:0 8px 18px rgba(26,7,0,.25),inset 0 1px 0 rgba(255,255,255,.7)}.about-path b{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1;color:#4b1e08}.about-path span{display:block;margin-top:6px;color:#6d3e1b;font-size:13px}
+.about-page{max-width:900px;margin:0 auto}.about-ecosystem{margin:14px 0}.about-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.about-path{background:linear-gradient(rgba(247,232,203,.95),rgba(224,199,158,.95)),url('/a/stone.png') center/cover;border:2px solid rgba(211,158,62,.7);border-radius:22px 34px 24px 38px;padding:16px;color:#4b1e08;box-shadow:0 8px 18px rgba(26,7,0,.25),inset 0 1px 0 rgba(255,255,255,.7)}.about-path b{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1;color:#4b1e08}.about-path span{display:block;margin-top:6px;color:#6d3e1b;font-size:13px}
 .about-compact p{margin-bottom:14px}.about-closing{margin:18px 0;padding:20px 22px;border-left:3px solid #e2b356;background:rgba(61,21,5,.45);border-radius:0 22px 22px 0;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.2vw,34px);line-height:1.2;color:#f8e2b7;text-shadow:0 1px 0 #351306}
 
 @media(max-width:680px){
@@ -219,3 +219,22 @@ body{
 }
 .lux-team-line{margin-top:9px;color:#ffd77e;font-size:11px;font-weight:800;line-height:1.35;text-shadow:0 1px 0 rgba(42,13,3,.8)}
 @media(max-width:680px){.lux-team-line{font-size:9px;margin-top:6px}}
+
+/* V4.6.8 — limpieza de producción */
+.referral-clear-link{
+  border:0;background:transparent;color:#7a4c24;text-decoration:underline;
+  font-size:11px;font-weight:700;padding:2px 0;cursor:pointer;margin-top:3px
+}
+.hourly-calendar-btn{margin-top:8px;width:100%;text-align:center}
+.hourly-grid.compact{grid-template-columns:repeat(2,minmax(0,1fr))}
+.testimonial-card.compact-review .testimonial-proof{max-height:360px;object-fit:contain;background:#f7efe4}
+.testimonial-card.compact-review .testimonial-body{padding:16px 18px}
+.testimonial-card.compact-review .testimonial-body h2{font-size:30px}
+.testimonial-card.compact-review .testimonial-tags{margin:5px 0 10px}
+.testimonial-card.compact-review .testimonial-actions{margin-top:6px}
+.testimonial-top-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.compact-review-all{padding:9px 12px;font-size:12px}
+@media(max-width:640px){
+  .hourly-grid.compact{grid-template-columns:1fr}
+  .testimonial-top-actions{justify-content:flex-start}
+}

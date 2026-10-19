@@ -1,6 +1,7 @@
 window.ESG_CONFIG = {
   whatsapp: '17863032835',
   instagram: 'https://www.instagram.com/eilensg',
+  facebookReviewsUrl: '',
   channel: 'https://whatsapp.com/channel/0029Vb8G2cR1CYoYTEzvGT01',
   mia: 'https://shop.beacons.ai/eilensg/3e84c161-bf2c-4a92-968b-95b2bf772c61?t=1790794026873',
   email: 'info@reeymultiservices.com',
@@ -11,8 +12,7 @@ window.ESG_CONFIG = {
     minHours: 1,
     maxHours: 8,
     calendarUrl: 'https://calendar.app.google/Gi8kqxkGA9EXVKos5',
-    timezoneLabel: 'Hora local del cliente',
-    confirmationText: 'La fecha y hora seleccionadas son una solicitud de disponibilidad. ESG confirma el bloque por WhatsApp antes de considerarlo reservado.'
+    timezoneLabel: 'Hora local del cliente'
   },
   home: {
     kicker: 'Servicios · productos · recursos gratis · formación',
@@ -29,7 +29,7 @@ window.ESG_CONFIG = {
     days: 30,
     discountPercent: 5,
     publicTitle: '¿Vienes referido por alguien de nuestro equipo?',
-    publicText: 'Indica su nombre o código al solicitar tu cotización y recibe 5% de descuento en servicios ESG. El beneficio se confirma al cotizar.'
+    publicText: 'Indica su nombre o código al solicitar tu cotización y recibe 5% de descuento en servicios ESG por proyecto. No aplica a la contratación por hora.'
   },
   contractTerms: `CONDICIONES OPERATIVAS ESG EXPERIENCE™\n\nInicio del trabajo: la producción comienza cuando ESG Experience ha recibido el pago correspondiente y los materiales e información necesarios.\n\nPago: 100% por adelantado o división en 2 pagos. Si se divide, la producción y la entrega también se dividen; la segunda fase no se entrega antes de recibir el segundo pago.\n\nMétodos: Zelle y PayPal. Para tarjeta, el cliente solicita el enlace por WhatsApp y ESG envía manualmente un Stripe Payment Link.\n\nRevisión: 1 ronda de revisión/corrección dentro del alcance aprobado. Cambiar concepto completo, rehacer estrategia o solicitar piezas nuevas se cotiza aparte.\n\nPolítica de no reembolso: una vez completado y entregado el trabajo contratado, incluida la ronda de revisión correspondiente al alcance aprobado, los pagos realizados son no reembolsables.\n\nRetrasos del cliente: retrasos en materiales, respuestas o aprobaciones desplazan proporcionalmente el calendario de entrega.`,
   copyright: '© ESG Experience™ · EilenSG · Todos los derechos reservados',

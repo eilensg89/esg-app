@@ -78,8 +78,8 @@ window.ESG_SERVICIOS = {
 
 /* Top-level service cards. Kept separate from sub-services so the future admin can add/reorder service families without editing app.js. */
 window.ESG_SERVICE_HUBS = [
-  { id:'dlp', label:'De Logo a Personaje™', path:'/logo-a-personaje', asset:'/assets/ui-3d/buttons/home/03-de-logo-a-personaje.png', active:true },
-  { id:'made', label:'ESG Made™', path:'/esg-made', asset:'/assets/ui-3d/buttons/home/04-esg-made.png', active:true },
-  { id:'web', label:'Web ESG™', path:'/web-esg', asset:'/assets/ui-3d/buttons/home/05-web-esg.png', active:true },
-  { id:'hora', label:'Acompañamiento ESG por hora', path:'/acompanamiento-por-hora', asset:'/assets/ui-3d/buttons/home/12-acompanamiento-hora.svg', active:true }
+  { id:'dlp', label:'De Logo a Personaje™', path:'/logo-a-personaje', asset:'/a/b3.png', active:true },
+  { id:'made', label:'ESG Made™', path:'/esg-made', asset:'/a/b4.png', active:true },
+  { id:'web', label:'Web ESG™', path:'/web-esg', asset:'/a/b5.png', active:true },
+  { id:'hora', label:'Acompañamiento ESG por hora', path:'/acompanamiento-por-hora', asset:'/a/b12.svg', active:true }
 ];

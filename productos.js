@@ -168,7 +168,7 @@ window.ESG_PRODUCTOS = [
     checkoutUrl: '',
     affiliateLinks: {},
     examples: [],
-    notes: 'Aplicación en fase de prueba. Nombre comercial, precio final y posible modalidad de suscripción se administrarán después sin cambiar la estructura de la tienda.'
+    notes: ''
   }
 
 ];
