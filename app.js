@@ -12,6 +12,7 @@ const referralProfiles = Array.isArray(window.ESG_REFERRALS) ? window.ESG_REFERR
 const app = document.getElementById('app');
 const toast = document.getElementById('toast');
 let currentTab = 0;
+const REFERRAL_STORE_VERSION = 2;
 
 function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1700); }
 function esc(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
@@ -33,18 +34,30 @@ function captureReferral(){
   }
   const code=normalizeRef(qs.get('ref')||'');
   if(!code) return;
-  try{localStorage.setItem(APP.referral?.storageKey||'esgReferral',JSON.stringify({code,capturedAt:Date.now()}));}catch{}
+  try{
+    localStorage.setItem(
+      APP.referral?.storageKey||'esgReferral',
+      JSON.stringify({code,capturedAt:Date.now(),source:'link',version:REFERRAL_STORE_VERSION})
+    );
+  }catch{}
 }
 function activeReferral(){
   if(APP.referral?.enabled===false) return null;
   try{
-    const raw=JSON.parse(localStorage.getItem(APP.referral?.storageKey||'esgReferral')||'null');
+    const key=APP.referral?.storageKey||'esgReferral';
+    const raw=JSON.parse(localStorage.getItem(key)||'null');
     if(!raw?.code) return null;
+    // Limpia referencias heredadas de versiones anteriores. Solo un ?ref= real
+    // puede crear una atribución persistente en esta versión.
+    if(raw.source!=='link' || Number(raw.version)!==REFERRAL_STORE_VERSION){
+      clearReferral();
+      return null;
+    }
     const max=(Number(APP.referral?.days)||30)*86400000;
     if(Date.now()-Number(raw.capturedAt||0)>max){clearReferral();return null}
     const profile=referralProfile(raw.code);
     return {code:normalizeRef(raw.code),name:profile?.name||raw.code,verified:!!profile,profile};
-  }catch{return null}
+  }catch{clearReferral();return null}
 }
 function referralData(manual=''){
   // Un código escrito manualmente aplica solo a esta solicitud.
@@ -75,7 +88,8 @@ function back(){
   if(p.startsWith('/esg-made/')) return go('/esg-made');
   if(p.startsWith('/web-esg/')) return go('/web-esg');
   if(p==='/esg-made' || p==='/web-esg' || p==='/logo-a-personaje' || p==='/acompanamiento-por-hora') return go('/servicios');
-  if(p==='/servicios' || p==='/tienda' || p==='/mia' || p==='/sobre-eilen' || p==='/testimonios' || p==='/trabajos' || p==='/analisis') return go('/');
+  if(p==='/mia') return go('/tienda');
+  if(p==='/servicios' || p==='/tienda' || p==='/sobre-eilen' || p==='/testimonios' || p==='/trabajos' || p==='/analisis') return go('/');
   go('/');
 }
 function route(){ return location.pathname.replace(/\/$/,'') || '/'; }
@@ -125,38 +139,28 @@ function productExternalUrl(p,url){
   if(r?.code && r.profile?.productAffiliateUrls?.[p?.slug]) return r.profile.productAffiliateUrls[p.slug];
   return url;
 }
-function home(){return shell(`<div class="lux-home">
-  <section class="lux-hero-panel">
-    <div class="lux-hero-copy">
-      <img class="lux-round-logo" src="/a/logo.png" alt="ESG Experience™">
-      <div class="lux-kicker">${esc(APP.home?.kicker||'Una experiencia para construir con dirección')}</div>
-      <h1>${esc(APP.home?.title||'La IA puede generar todo menos tu marca')}</h1>
-      <p>${esc(APP.home?.lead||'Explora soluciones para organizar tu identidad, crear contenido, construir tu presencia digital o aprender a hacerlo tú misma.')}</p>
-      <div class="lux-team-line">ESG Experience™ es un equipo de colaboradoras y colaboradores.</div>
-    </div>
-    <div class="lux-avatar-wrap" aria-hidden="true">
-      <div class="lux-avatar-plaque"><img src="/a/eilen.png" alt=""></div>
-      <img class="lux-butterfly" src="/a/bgold.png" alt="">
-    </div>
-  </section>
-
-  <div class="lux-primary-actions lux-home-four">
-    <div class="home-pathway">${assetNavButton('/a/b1.png','Explorar servicios','/servicios')}<div class="home-pathway-note">Para quien quiere delegar</div></div>
-    <div class="home-pathway">${assetNavButton('/a/b11.png','Tienda ESG','/tienda')}<div class="home-pathway-note">Para quien quiere ejecutar</div></div>
-    <div class="home-pathway">${assetLinkButton('/a/b2.png','Unirme al canal gratis',APP.channel)}<div class="home-pathway-note channel-note">Recursos gratis + información diaria</div></div>
-    <div class="home-pathway">${assetNavButton('/a/b6.png','MIA — Monetiza con IA','/mia')}<div class="home-pathway-note">Para quien quiere aprender</div></div>
-  </div>
-
-  <div class="lux-about-action">${assetNavButton('/a/b7.png','Conoce a EilenSG','/sobre-eilen','wide')}</div>
-  <div class="lux-home-signoff"><span>ESG EXPERIENCE™</span><small>BY REEY MULTISERVICES · Todos los derechos reservados</small></div>
-</div>`,{backable:false,share:false,dock:false,brand:false});}
+function home(){return `<div class="editorial-home" role="main">
+  <h1 class="sr-only">ESG Experience™ — La IA puede generar todo menos tu marca</h1>
+  <p class="sr-only">Servicios para delegar, productos para ejecutar, recursos gratis para empezar y la historia detrás de ESG Experience.</p>
+  <nav class="editorial-home-nav" aria-label="Navegación principal ESG Experience">
+    ${assetNavButton('/a/nav-s.png','Servicios','/servicios','editorial-home-btn')}
+    ${assetNavButton('/a/nav-t.png','Tienda ESG','/tienda','editorial-home-btn')}
+    ${assetLinkButton('/a/nav-c.png','Canal y recursos gratis',APP.channel,'editorial-home-btn')}
+    ${assetNavButton('/a/nav-a.png','Conoce a EilenSG','/sobre-eilen','editorial-home-btn')}
+  </nav>
+  <div class="editorial-home-foot">Identidad visual · Contenido · Recursos <span>· ESG Experience™ trabaja con colaboradores según cada proyecto.</span></div>
+</div>`;}
 function homeTile(tag,name,desc,path,ico,mia=false){return `<button class="relief-card ${mia?'mia':''}" data-go="${path}"><div class="tile-icon">${ico}</div><div class="tag">${tag}</div><h3>${name}</h3><p>${desc}</p></button>`}
-function servicesHome(){const hubs=(serviceHubs.length?serviceHubs:[
-  {label:'De Logo a Personaje™',path:'/logo-a-personaje',asset:'/a/b3.png'},
-  {label:'ESG Made™',path:'/esg-made',asset:'/a/b4.png'},
-  {label:'Web ESG™',path:'/web-esg',asset:'/a/b5.png'},
-  {label:'Acompañamiento ESG por hora',path:'/acompanamiento-por-hora',asset:'/a/b12.svg'}
-]).filter(x=>x.active!==false);return shell(`<div class="lux-services-page"><div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Elige lo que quieres delegar o el tipo de acompañamiento que necesitas. Cada opción abre su propia ficha con alcance, precio y próximos pasos.</p><div class="lux-services-sticker-grid">${hubs.map(x=>assetNavButton(x.asset,x.label,x.path)).join('')}</div><div class="service-referral-note"><b>${esc(APP.referral?.publicTitle||'¿Vienes referido por alguien de nuestro equipo?')}</b><span>${esc(APP.referral?.publicText||'Indica su nombre o código al solicitar tu cotización.')}</span></div></div>${shareBox('Servicios ESG Experience™')}`);}
+function servicesHome(){
+  const hubs=(serviceHubs.length?serviceHubs:[
+    {label:'De Logo a Personaje™',path:'/logo-a-personaje',eyebrow:'Identidad',desc:'Sistema visual + personaje reutilizable.'},
+    {label:'ESG Made™',path:'/esg-made',eyebrow:'Producción visual',desc:'Imágenes y videos con IA para tu marca.'},
+    {label:'Web ESG™',path:'/web-esg',eyebrow:'Presencia digital',desc:'Web, catálogo, WhatsApp y Shopify.'},
+    {label:'Acompañamiento ESG por hora',path:'/acompanamiento-por-hora',eyebrow:'Acompañamiento',desc:'Orientación y apoyo práctico desde $25/h.'}
+  ]).filter(x=>x.active!==false);
+  const cards=hubs.map(x=>`<button class="editorial-service-card" data-go="${x.path}"><span>${esc(x.eyebrow||'Servicio ESG')}</span><b>${esc(x.label)}</b><em>${esc(x.desc||'Ver alcance, precio y próximos pasos.')}</em><strong>›</strong></button>`).join('');
+  return shell(`<div class="lux-services-page editorial-page-head"><div class="breadcrumb">Servicios ESG</div><h1 class="section-title">¿Qué quieres resolver?</h1><p class="section-sub">Elige lo que quieres delegar o el tipo de acompañamiento que necesitas.</p><div class="editorial-service-grid">${cards}</div></div>${shareBox('Servicios ESG Experience™')}`);
+}
 function familyMade(){return shell(`<div class="breadcrumb">Servicios / ESG Made™</div><h1 class="section-title">ESG Made™</h1><p class="section-sub">Visuales con IA para marcas que quieren verse coherentes y profesionales sin producir contenido al azar.</p><div class="product-list">
 ${productCard('Video Visual Individual','Una pieza puntual de 15–30 s.','$57 / $87','/esg-made/video-individual')}
 ${productCard('Mini Paquete Visual','2 universos · 10 imágenes + 10 videos.','$100','/esg-made/mini')}
@@ -186,7 +190,9 @@ function storeSticker(p){
   </button>`;
 }
 function storeHome(){
-  return shell(`<div class="breadcrumb">Productos ESG / Tienda</div><div class="store-hero"><span class="admin-badge">Productos propios</span><h1 class="section-title">Tienda ESG</h1><p class="section-sub">Productos prácticos para quien quiere ejecutar por su cuenta. Toca un producto para ver qué resuelve, qué incluye y cómo funciona.</p></div>${storeProducts.length?`<div class="store-sticker-grid">${storeProducts.filter(p=>p.status!=='oculto').map(storeSticker).join('')}</div>`:`<div class="empty">No hay productos disponibles en este momento.</div>`}${shareBox('Tienda ESG')}`);
+  const products=storeProducts.filter(p=>p.status!=='oculto').map(storeSticker).join('');
+  const training=`<section class="editorial-training-card"><span>Formación recomendada · externa</span><h2>${esc(miaData.title||'MIA — Monetiza con IA')}</h2><p>Una biblioteca de aprendizaje en IA y marketing digital para quien prefiere aprender y construir por su cuenta.</p><button class="btn editorial-secondary-btn" data-go="/mia">Ver formación recomendada</button></section>`;
+  return shell(`<div class="breadcrumb">Productos ESG / Tienda</div><div class="store-hero editorial-page-head"><span class="admin-badge">Productos propios</span><h1 class="section-title">Tienda ESG</h1><p class="section-sub">Productos prácticos para quien quiere ejecutar por su cuenta.</p></div>${products?`<div class="store-sticker-grid editorial-store-grid">${products}</div>`:`<div class="empty">No hay productos disponibles en este momento.</div>`}${training}${shareBox('Tienda ESG')}`);
 }
 function storeProduct(){
   const slug=route().split('/').pop();
@@ -344,7 +350,7 @@ function about(){
   const paragraphs=(aboutData.origin||[]).map(x=>`<p>${esc(x)}</p>`).join('');
   const trust=(aboutData.trust||[]).map(x=>`<li>${esc(x)}</li>`).join('');
   const ecosystem=(aboutData.ecosystem||[]).map(x=>`<div class="about-path"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('');
-  return shell(`<div class="about-page"><div class="breadcrumb">Sobre Eilen / ESG Experience™</div><span class="admin-badge">${esc(aboutData.eyebrow||'Detrás de ESG Experience™')}</span><h1 class="section-title">${esc(aboutData.title||'Sobre EilenSG')}</h1><section class="origin-card">${paragraphs}</section><section class="about-ecosystem"><div class="about-path-grid">${ecosystem}</div></section><section class="detail-card about-compact"><h3>${esc(aboutData.academyTitle||'Por qué recomiendo una academia')}</h3><p>${esc(aboutData.academy||'')}</p><button class="btn btn-purple" data-go="/mia">Conocer MIA — Monetiza con IA</button></section><section class="detail-card about-compact"><h3>${esc(aboutData.humanTitle||'Una razón personal')}</h3><p>${esc(aboutData.human||'')}</p></section><blockquote class="about-closing">“${esc(aboutData.closing||'')}”</blockquote><section class="detail-card"><h3>Por qué confiar</h3><ul>${trust}</ul></section><section class="about-testimonials"><div class="section-heading"><span class="testimonial-kicker">Recomendaciones verificables</span><h2>Lo que dicen quienes ya trabajaron conmigo</h2></div><div class="testimonial-top-actions"><button class="btn btn-ghost compact-review-all" data-go="/testimonios">Ver todos</button>${APP.facebookReviewsUrl?`<a class="btn btn-ghost compact-review-all" href="${esc(APP.facebookReviewsUrl)}" target="_blank" rel="noopener">Ver todos en Facebook</a>`:''}</div>${testimonialsData.length?`<div class="testimonial-list">${testimonialsData.map(testimonialCard).join('')}</div>`:`<div class="empty">No hay testimonios disponibles en este momento.</div>`}</section><div class="action-stack"><button class="btn btn-ghost" data-go="/trabajos">Ver trabajos reales</button></div></div>`,{share:true});
+  return shell(`<div class="about-page"><div class="breadcrumb">Sobre Eilen / ESG Experience™</div><span class="admin-badge">${esc(aboutData.eyebrow||'Detrás de ESG Experience™')}</span><h1 class="section-title">${esc(aboutData.title||'Sobre EilenSG')}</h1><section class="origin-card">${paragraphs}</section><section class="about-ecosystem"><div class="about-path-grid">${ecosystem}</div></section><section class="detail-card about-compact"><h3>${esc(aboutData.academyTitle||'Por qué recomiendo una academia')}</h3><p>${esc(aboutData.academy||'')}</p><button class="btn editorial-secondary-btn" data-go="/tienda">Ver formación recomendada en Tienda</button></section><section class="detail-card about-compact"><h3>${esc(aboutData.humanTitle||'Una razón personal')}</h3><p>${esc(aboutData.human||'')}</p></section><blockquote class="about-closing">“${esc(aboutData.closing||'')}”</blockquote><section class="detail-card"><h3>Por qué confiar</h3><ul>${trust}</ul></section><section class="about-testimonials"><div class="section-heading"><span class="testimonial-kicker">Recomendaciones verificables</span><h2>Lo que dicen quienes ya trabajaron conmigo</h2></div><div class="testimonial-top-actions"><button class="btn btn-ghost compact-review-all" data-go="/testimonios">Ver todos</button>${APP.facebookReviewsUrl?`<a class="btn btn-ghost compact-review-all" href="${esc(APP.facebookReviewsUrl)}" target="_blank" rel="noopener">Ver todos en Facebook</a>`:''}</div>${testimonialsData.length?`<div class="testimonial-list">${testimonialsData.map(testimonialCard).join('')}</div>`:`<div class="empty">No hay testimonios disponibles en este momento.</div>`}</section><div class="action-stack"><button class="btn btn-ghost" data-go="/trabajos">Ver trabajos reales</button></div></div>`,{share:true});
 }
 function render(){ const p=route(); let html;
   if(p==='/') html=home();
@@ -357,7 +363,8 @@ function render(){ const p=route(); let html;
   else if(p==='/analisis') html=analysis(new URLSearchParams(location.search).get('s')||'');
   else if(p==='/contrato-editor') html=contractEditor();
   else if(p==='/portal-productos') html=portalProducts();
-  else if(p==='/testimonios' || p==='/sobre-eilen') html=about();
+  else if(p==='/testimonios') html=testimonials();
+  else if(p==='/sobre-eilen') html=about();
   else if(p==='/trabajos') html=works();
   else if(p.startsWith('/entrevista/')) html=interview(p.split('/').pop());
   else if(p.startsWith('/contrato/')) html=contract(p.split('/').pop());
@@ -451,7 +458,7 @@ function postLead(payload){
     whatsapp: payload.whatsapp || payload.phone || '',
     codigoReferido: payload.codigoReferido || payload.referralCode || '',
     referido: payload.referido || payload.referralName || '',
-    descuento: payload.descuento || payload.discountPercent || '',
+    descuento: payload.descuento || (payload.discountPercent!==undefined && payload.discountPercent!=='' ? `${String(payload.discountPercent).replace(/%/g,'')}%` : ''),
     precioBase: payload.precioBase || payload.hourlyRate || '',
     total: payload.total || payload.hourlyTotal || '',
     horarioSolicitado: payload.horarioSolicitado || [payload.requestedDate,payload.requestedTime].filter(Boolean).join(' '),

@@ -1,0 +1,128 @@
+/* ESG EXPERIENCE™ — V4.7 EDITORIAL
+   Nueva piel visual: cuero caramelo, crema editorial, oro fino y tipografía de revista.
+   La lógica de rutas, servicios, contratos, tienda y CRM permanece modular. */
+:root{
+  --ed-leather:#5b250c;
+  --ed-leather-2:#7b3514;
+  --ed-caramel:#9a4d1e;
+  --ed-cream:#f4ead5;
+  --ed-cream-2:#e8d5b2;
+  --ed-gold:#d1a84a;
+  --ed-gold-soft:#f0cf7c;
+  --ed-ink:#3a1607;
+  --ed-paper:#f7eedc;
+  --ed-shadow:0 18px 44px rgba(18,5,0,.32);
+}
+html,body{background:#2b1004}
+body{font-family:'DM Sans',sans-serif;color:var(--ed-cream)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* HOME — revista interactiva */
+.editorial-home{
+  min-height:100svh;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  padding:clamp(360px,45svh,610px) 24px 38px;
+  background-color:#4d200b;
+  background-image:linear-gradient(180deg,rgba(24,7,0,.02) 0%,rgba(24,7,0,.03) 43%,rgba(24,7,0,.32) 100%),url('/a/ehome.png');
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:auto 100%;
+  position:relative;
+  overflow:hidden;
+}
+.editorial-home:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 20%,rgba(255,216,144,.08),transparent 31%),linear-gradient(90deg,rgba(49,17,4,.55),transparent 16%,transparent 84%,rgba(49,17,4,.55));mix-blend-mode:screen;opacity:.38}
+.editorial-home-nav{position:relative;z-index:2;width:min(760px,94vw);display:grid;gap:12px}
+.editorial-home-btn{width:100%;border:0;background:transparent;padding:0;cursor:pointer;display:block;filter:drop-shadow(0 13px 18px rgba(15,4,0,.34));transition:transform .18s ease,filter .18s ease}
+.editorial-home-btn:hover{transform:translateY(-2px);filter:drop-shadow(0 16px 22px rgba(15,4,0,.42))}
+.editorial-home-btn:active{transform:translateY(1px) scale(.995)}
+.editorial-home-btn img{display:block;width:100%;height:auto;max-height:126px;object-fit:contain}
+.editorial-home-foot{position:relative;z-index:2;margin-top:23px;font-family:'Bodoni Moda','Cormorant Garamond',serif;font-size:13px;letter-spacing:.22em;text-align:center;color:#ead7ba;text-shadow:0 1px 2px #2c0d02}
+.editorial-home-foot span{display:block;margin-top:8px;font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.08em;color:#d9b77a}
+
+/* INTERNAL SHELL — same editorial world */
+.app-frame{min-height:100vh;padding:clamp(8px,1.5vw,18px);background:#3d1706}
+.app-shell{width:min(1120px,100%);min-height:calc(100vh - 18px);margin:auto;border:1px solid rgba(213,166,74,.72);border-radius:28px;overflow:hidden;box-shadow:0 30px 90px rgba(10,2,0,.46),inset 0 1px 0 rgba(255,227,166,.14);background:
+  linear-gradient(rgba(61,23,5,.89),rgba(45,15,3,.94)),
+  url('/a/ehome.png') center/cover no-repeat;
+}
+.app-shell:before{opacity:.10;background-image:radial-gradient(rgba(250,218,158,.2) .5px,transparent .5px);background-size:6px 6px;mix-blend-mode:screen}
+.topbar{padding:14px 18px 12px;background:linear-gradient(180deg,rgba(45,14,3,.94),rgba(45,14,3,.76));backdrop-filter:blur(10px);border-bottom:1px solid rgba(213,166,74,.22)}
+.brand-mini{color:#f5e4c7}.brand-mini span{font-size:11px;letter-spacing:.13em}.brand-mini img{width:38px;height:38px}
+.back-btn,.share-chip{background:rgba(118,55,20,.68);color:#f7e5c2;border:1px solid rgba(217,171,78,.5);box-shadow:0 8px 18px rgba(15,4,0,.22),inset 0 1px 0 rgba(255,224,158,.12);border-radius:999px}
+.back-btn{width:44px;height:44px}.share-chip{padding:10px 14px}
+.screen{padding:22px clamp(18px,4vw,48px) 44px}
+.breadcrumb,.kicker,.detail-badge,.admin-badge,.store-tag,.testimonial-kicker,.footer-kicker{color:#eac66f}
+.section-title,.hero-app h1,.testimonial-body h2,.work-body h2,.section-heading h2{font-family:'Bodoni Moda','Cormorant Garamond',serif!important;color:#f8e9ce!important;font-weight:500!important;letter-spacing:-.035em;text-shadow:0 2px 8px rgba(21,5,0,.35)}
+.section-title{font-size:clamp(40px,6vw,66px);line-height:.96}
+.section-sub,.lead{color:#ead8ba!important;line-height:1.65;text-shadow:0 1px 2px rgba(28,7,0,.45)}
+
+/* Editorial service choices */
+.editorial-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0 8px}
+.editorial-service-card{position:relative;display:grid;gap:7px;min-height:170px;padding:24px 64px 22px 24px;text-align:left;border-radius:24px;border:1px solid rgba(223,179,91,.75);background:linear-gradient(145deg,rgba(119,51,17,.96),rgba(76,27,7,.98));box-shadow:var(--ed-shadow),inset 0 1px 0 rgba(255,220,154,.16);color:#f8e9ce;cursor:pointer;overflow:hidden;transition:.18s ease}
+.editorial-service-card:nth-child(2n){background:linear-gradient(145deg,rgba(245,231,202,.98),rgba(226,202,158,.98));color:var(--ed-ink)}
+.editorial-service-card:hover{transform:translateY(-3px)}
+.editorial-service-card span{font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:800;color:#e4b85e}
+.editorial-service-card:nth-child(2n) span{color:#8e571e}
+.editorial-service-card b{font-family:'Bodoni Moda','Cormorant Garamond',serif;font-size:clamp(28px,3.4vw,41px);line-height:.98;font-weight:500}
+.editorial-service-card em{font-style:normal;font-size:12px;line-height:1.45;color:#e5ceb0}
+.editorial-service-card:nth-child(2n) em{color:#6b3c1c}
+.editorial-service-card strong{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-family:'Bodoni Moda',serif;font-size:54px;font-weight:300;color:#e4b85e}
+
+/* Cards / forms / product pages */
+.detail-card,.form-section,.summary-card,.store-offer,.origin-card,.testimonial-card,.work-card,.product-card,.store-card{
+  background:linear-gradient(145deg,rgba(249,239,219,.98),rgba(231,209,174,.97));
+  color:var(--ed-ink);border:1px solid rgba(204,151,63,.7);border-radius:22px;box-shadow:0 14px 34px rgba(20,5,0,.28),inset 0 1px 0 rgba(255,255,255,.7)
+}
+.detail-card h3,.form-section h3,.product-card h3,.store-card h3{font-family:'Bodoni Moda','Cormorant Garamond',serif;font-weight:500;color:#4a1b08}
+.detail-card p,.detail-card li,.form-section p,.form-section li,.product-card p,.store-card p{color:#64391f}
+.btn{border-radius:999px;box-shadow:0 9px 20px rgba(16,4,0,.24);transition:.18s ease}
+.btn-gold{background:linear-gradient(145deg,#e4b95f,#b87820);color:#3e1a07}.btn-dark{background:linear-gradient(145deg,#833c16,#4d1b06);color:#fff1d8}.btn-ghost,.editorial-secondary-btn{background:rgba(247,234,209,.94);color:#4a1b08;border:1px solid rgba(190,133,43,.55)}
+.tabbar{gap:7px}.tab{border-radius:999px;background:rgba(242,223,189,.92);color:#6b3d1f;border:1px solid rgba(194,139,50,.26)}.tab.active{background:linear-gradient(145deg,#a55220,#662304);color:#fff0d6;border-color:#d6a84a}
+.field input,.field textarea,.field select{border-radius:16px!important;border:1px solid rgba(150,91,31,.28)!important;background:#fffaf1!important;color:#3f1907!important}
+.note{background:#e6c99a;color:#55270c;border-left-color:#b77b28}
+.floating-back-bottom{border:1px solid rgba(213,166,74,.7)!important;background:rgba(77,28,7,.94)!important;color:#f8e2b7!important;box-shadow:0 12px 30px rgba(10,2,0,.4)!important;backdrop-filter:blur(8px)}
+
+/* Store — editorial, not a second sticker universe */
+.editorial-store-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.editorial-store-grid .store-sticker{min-height:170px;grid-template-columns:1fr auto;padding:24px;border-radius:22px;background:linear-gradient(145deg,rgba(248,235,210,.98),rgba(226,201,159,.98));border:1px solid rgba(208,156,66,.75);box-shadow:var(--ed-shadow);color:var(--ed-ink)}
+.editorial-store-grid .store-sticker:before{display:none}
+.editorial-store-grid .store-sticker-medallion{display:none}
+.editorial-store-grid .store-sticker-copy{gap:7px}.editorial-store-grid .store-sticker-copy small{color:#8c541a}.editorial-store-grid .store-sticker-copy b{font-family:'Bodoni Moda','Cormorant Garamond',serif;font-size:clamp(27px,3vw,39px);font-weight:500;color:#4a1b08}.editorial-store-grid .store-sticker-copy em{font-size:12px;color:#704122;line-height:1.45}
+.editorial-store-grid .store-sticker-meta{justify-content:center}.editorial-store-grid .store-sticker-meta i{color:#98601f}.editorial-store-grid .store-sticker-price{font-family:'Bodoni Moda',serif;color:#7c4312}.editorial-store-grid .store-sticker-meta strong{background:transparent;border:0;box-shadow:none;color:#ad7323;font-size:48px;width:auto;height:auto}
+.editorial-training-card{margin:28px 0 8px;padding:24px 26px;border-radius:22px;border:1px solid rgba(215,169,78,.65);background:linear-gradient(145deg,rgba(91,36,9,.92),rgba(54,18,4,.94));box-shadow:var(--ed-shadow);color:#f7e7ca}
+.editorial-training-card>span{display:block;color:#e9bd66;font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:800}.editorial-training-card h2{font-family:'Bodoni Moda','Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,4vw,48px);margin:8px 0;color:#fff0d4}.editorial-training-card p{max-width:720px;color:#e8d3b5;line-height:1.6}
+
+/* About / testimonials / portfolio */
+.about-path{border-radius:18px!important;background:linear-gradient(145deg,#f6e8cd,#dfc293)!important;border:1px solid rgba(203,148,59,.66)!important;box-shadow:0 10px 24px rgba(17,4,0,.22)!important}.about-path b{font-family:'Bodoni Moda','Cormorant Garamond',serif!important;font-weight:500!important}
+.about-closing{font-family:'Bodoni Moda','Cormorant Garamond',serif!important;background:rgba(78,27,7,.72)!important;border-left:1px solid #d2a54d!important;border-radius:18px!important;color:#f6e3bd!important}
+.testimonial-card,.work-card{overflow:hidden}.testimonial-body h2,.work-body h2{color:#4a1b08!important;text-shadow:none!important}.testimonial-kicker{color:#8e5418!important}.testimonial-proof{background:#f6ead4!important}
+.app-footer{background:linear-gradient(180deg,rgba(53,17,3,.2),rgba(38,11,2,.86));border-top:1px solid rgba(211,164,71,.24);color:#dfc7a5}.footer-link{background:rgba(114,48,14,.74)!important;color:#f3dfbd!important;border:1px solid rgba(211,164,71,.42)!important}
+
+/* MIA now reads as a recommendation inside the ecosystem, not a visual protagonist */
+.mia-stage{background:linear-gradient(145deg,rgba(244,228,199,.97),rgba(225,197,153,.97))!important;border:1px solid rgba(201,148,56,.7)!important;color:#4a1b08!important;box-shadow:var(--ed-shadow)!important}.mia-stage h2,.mia-stage p,.mia-mini{color:#4a1b08!important}.mia-mark{background:linear-gradient(145deg,#8a461c,#5c2208)!important;color:#f8dd9b!important;border-color:#c99638!important}.mia-mini{background:rgba(255,249,237,.5)!important;border-color:rgba(139,78,24,.2)!important}
+
+@media(min-width:900px){
+  .editorial-home-nav{grid-template-columns:1fr 1fr;width:min(940px,88vw);gap:13px 16px}
+  .editorial-home-btn img{max-height:108px}
+  .editorial-home{padding-top:clamp(390px,48vh,600px);background-size:auto 100%;}
+}
+@media(max-width:760px){
+  .editorial-home{padding:42svh 16px 28px;background-size:cover;background-position:center top}
+  .editorial-home-nav{gap:9px;width:min(700px,100%)}
+  .editorial-home-btn img{max-height:100px}
+  .editorial-home-foot{font-size:10px;letter-spacing:.16em;margin-top:17px}.editorial-home-foot span{font-size:8px}
+  .editorial-service-grid,.editorial-store-grid{grid-template-columns:1fr}
+  .editorial-service-card{min-height:140px;padding:20px 55px 18px 20px}.editorial-service-card b{font-size:31px}.editorial-service-card strong{right:18px;font-size:44px}
+  .editorial-store-grid .store-sticker{min-height:142px;padding:19px}
+  .screen{padding:18px 15px 38px}.section-title{font-size:44px}
+}
+@media(max-width:430px){
+  .editorial-home{padding-top:43svh}
+  .editorial-home-btn img{max-height:88px}
+  .editorial-home-foot{font-size:9px}
+  .editorial-service-card b{font-size:28px}
+}
