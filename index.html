@@ -674,6 +674,122 @@ body{font-family:'DM Sans',sans-serif;color:var(--ed-cream)}
 
 /* El arte maestro ya contiene el titular; evitamos duplicarlo en desktop. */
 .publication-home-copy{display:none!important}
+
+
+/* =========================================================
+   V4.8.1 — DESKTOP EDITORIAL FIX
+   Desktop-only composition. Mobile rules remain untouched.
+   ========================================================= */
+
+/* Badges on paper/light cards: darker, editorial, readable. */
+.detail-card .detail-badge,
+.form-section .detail-badge,
+.summary-card .detail-badge,
+.store-offer .detail-badge,
+.origin-card .detail-badge,
+.product-card .detail-badge,
+.store-card .detail-badge,
+.admin-badge,
+.store-tag,
+.testimonial-kicker{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  max-width:100%;
+  padding:7px 11px;
+  border-radius:999px;
+  background:linear-gradient(145deg,#6f3415,#4d200b)!important;
+  border:1px solid rgba(213,168,74,.68)!important;
+  color:#fff0d6!important;
+  text-shadow:none!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 5px 14px rgba(52,18,4,.12);
+}
+
+/* Make light cards strictly dark-on-light. */
+.detail-card,.form-section,.summary-card,.product-card,.store-card,.store-offer,.origin-card,
+.detail-card p,.form-section p,.summary-card p,.product-card p,.store-card p,.store-offer p,.origin-card p,
+.detail-card li,.form-section li,.summary-card li,.product-card li,.store-card li,.store-offer li,.origin-card li{
+  color:#4a2413;
+}
+.detail-card h1,.detail-card h2,.detail-card h3,.form-section h1,.form-section h2,.form-section h3,
+.summary-card h1,.summary-card h2,.summary-card h3,.product-card h1,.product-card h2,.product-card h3,
+.store-card h1,.store-card h2,.store-card h3,.store-offer h1,.store-offer h2,.store-offer h3,
+.origin-card h1,.origin-card h2,.origin-card h3{color:#421907!important}
+
+/* Cleaner footer language. */
+.app-footer .footer-links{align-items:stretch}
+.app-footer .footer-whatsapp{font-weight:800}
+
+@media(min-width:900px){
+  /* Keep the vertical artwork intact, but turn the side gutters into an
+     editorial extension of the same image instead of flat brown bars. */
+  .publication-home{
+    min-height:100vh;
+    padding:clamp(390px,50vh,565px) 4vw 54px!important;
+    background-size:auto 100%!important;
+    background-position:center top!important;
+    background-repeat:no-repeat!important;
+    background-color:#54220c!important;
+    overflow:hidden;
+  }
+  .publication-home:before{
+    display:block!important;
+    inset:-46px!important;
+    z-index:0!important;
+    opacity:.72!important;
+    filter:blur(34px) saturate(.88) brightness(.48)!important;
+    transform:scale(1.12)!important;
+    background-size:cover!important;
+    background-position:center!important;
+  }
+  .publication-home:after{
+    z-index:1!important;
+    background:
+      linear-gradient(90deg,rgba(45,14,3,.48),rgba(45,14,3,.08) 26%,rgba(45,14,3,.08) 74%,rgba(45,14,3,.48)),
+      linear-gradient(180deg,rgba(22,5,0,.02),rgba(22,5,0,.18))!important;
+  }
+  .editorial-home-nav{
+    position:relative;
+    z-index:2;
+    width:min(900px,72vw)!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px 18px!important;
+    margin:0 auto!important;
+    padding:14px 16px!important;
+    border-radius:28px;
+    background:linear-gradient(145deg,rgba(69,24,6,.20),rgba(36,10,2,.10));
+    border:1px solid rgba(228,183,91,.18);
+    backdrop-filter:blur(5px);
+  }
+  .editorial-home-btn{
+    filter:drop-shadow(0 9px 13px rgba(15,4,0,.28))!important;
+  }
+  .editorial-home-btn img{
+    width:100%!important;
+    max-height:92px!important;
+    object-fit:contain!important;
+  }
+  .editorial-home-foot{
+    position:relative;
+    z-index:2;
+    margin-top:18px!important;
+    font-size:11px!important;
+    letter-spacing:.18em!important;
+  }
+
+  /* Desktop internal pages: wider reading column, less phone-like. */
+  .app-shell{width:min(1360px,96vw)!important}
+  .screen{padding:34px clamp(42px,5vw,78px) 56px!important}
+  .topbar{padding:18px clamp(30px,4vw,58px) 8px!important}
+  .app-footer{padding-left:clamp(30px,4vw,58px)!important;padding-right:clamp(30px,4vw,58px)!important}
+  .app-footer .footer-links{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .app-footer .footer-link{min-height:44px;padding:10px 12px;font-size:12px}
+}
+
+@media(min-width:1200px){
+  .editorial-home-nav{width:min(860px,62vw)!important}
+  .editorial-home-btn img{max-height:86px!important}
+}
 </style></head><body><div id="app"></div><div id="toast" class="toast" role="status" aria-live="polite"></div><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script><script>window.ESG_CONFIG = {
   whatsapp: '17863032835',
   instagram: 'https://www.instagram.com/generandoconeilensg',
@@ -1404,10 +1520,10 @@ function dockHtml(){
   <div class="footer-kicker">ESG Experience™</div>
   <div class="footer-links">
     <button class="footer-link" data-go="/sobre-eilen">Sobre EilenSG · Testimonios</button>
-    <a class="footer-link" href="${APP.instagram}" target="_blank" rel="noopener">Instagram · Generando con EilenSG</a>
-    <a class="footer-link" href="${APP.instagramWorks||'https://www.instagram.com/eilensg'}" target="_blank" rel="noopener">Trabajos reales · @eilensg</a>
+    <a class="footer-link" href="${APP.instagram}" target="_blank" rel="noopener">Instagram</a>
+    <a class="footer-link" href="${APP.instagramWorks||'https://www.instagram.com/eilensg'}" target="_blank" rel="noopener">Trabajos reales</a>
     <button class="footer-link" data-go="/recursos">Canal y recursos gratis</button>
-    <a class="footer-link footer-whatsapp" href="${wa}" target="_blank" rel="noopener">WhatsApp · Contactar</a>
+    <a class="footer-link footer-whatsapp" href="${wa}" target="_blank" rel="noopener">Mensaje directo</a>
   </div>
   <small>${esc(APP.copyright||'© ESG Experience™ · Todos los derechos reservados')}</small>
 </footer>`;
